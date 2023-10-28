@@ -10,6 +10,7 @@ import { GamePageComponent } from './components/pages/game-page/game-page.compon
 import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.component';
 import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
+import { AnswerSlotComponent } from './components/ui/answer-slot/answer-slot.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     GamePageComponent,
     ProgressBarComponent,
     PunchLineButtonComponent,
+    AnswerSlotComponent,
   ],
   imports: [
     BrowserModule,

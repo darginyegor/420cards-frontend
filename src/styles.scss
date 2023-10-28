@@ -271,6 +271,9 @@ input:focus {
   &:disabled {
     color: $border-secondary;
     pointer-events: none;
+    &>img {
+      opacity: .4;
+    }
   }
 }
 

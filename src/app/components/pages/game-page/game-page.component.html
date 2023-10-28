@@ -21,12 +21,18 @@
     >
       {{ card.text[setupCard.case] }}
     </app-punch-line-button>
-    <div class="l-pt-l l-mt-a l-flex-col">
+    <div class="l-pt-l l-mt-a l-stack-m">
       <button class="btn--secondary">
         Обновить карты
         <img src="assets/img/refresh.svg" alt="" />
       </button>
+      <button class="btn--secondary">Все готовы</button>
     </div>
   </div>
-  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isTableVisible"></div>
+  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isTableVisible">
+    <app-answer-slot
+      *ngFor="let answer of answers"
+      [answer]="answer"
+    ></app-answer-slot>
+  </div>
 </div>

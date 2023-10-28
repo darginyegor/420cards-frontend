@@ -297,7 +297,7 @@ export const PLAYERS_MOCK: Player[] = [
     emoji: '✨',
     backgroundColor: '#FFF8DD',
     points: 5,
-    state: 'ready',
+    state: 'default',
   },
   {
     id: 4,
@@ -305,7 +305,7 @@ export const PLAYERS_MOCK: Player[] = [
     emoji: '🪖',
     backgroundColor: '#F2FFDD',
     points: 0,
-    state: 'ready',
+    state: 'default',
   },
 ];
 

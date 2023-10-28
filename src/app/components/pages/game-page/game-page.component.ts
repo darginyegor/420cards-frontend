@@ -16,6 +16,7 @@ export class GamePageComponent {
   public players = PLAYERS_MOCK;
   public readonly punchLineCards = PUNCH_LINE_CARDS;
   public currentIndex = 0;
+  public answers = new Array(this.players.length - 1);
 
   public isActive = true;
   public isHandVisible = true;
@@ -34,17 +35,36 @@ export class GamePageComponent {
   public select(index: number) {
     this.isActive = false;
     this.players[0].state = 'ready';
+    this._triggerInterfaceTestCycle();
+  }
+
+  private _triggerInterfaceTestCycle() {
     setTimeout(() => {
-      this.isActive = true;
-      this.players[0].state = 'default';
-      this.currentIndex++;
-      if (this.currentIndex >= SETUP_CARDS_MOCK.length - 1) {
-        this.currentIndex = 0;
-      }
-      this.punchLineCards.splice(index, 1);
-      console.log('new setup card:', this.currentIndex, this.setupCard);
-      const winnerIndex = Math.round(Math.random() * (PLAYERS_MOCK.length - 1));
-      PLAYERS_MOCK[winnerIndex].points += 1;
-    }, 3000);
+      this.players[3].state = 'ready';
+    }, 2000);
+
+    setTimeout(() => {
+      this.players[4].state = 'ready';
+    }, 4000);
+
+    setTimeout(() => {
+      this.players[2].state = 'ready';
+      this.isTableVisible = true;
+      this.isHandVisible = false;
+      this.answers = [1, 1, 1, 1];
+    }, 6000);
+
+    //   setTimeout(() => {
+    //     this.isActive = true;
+    //     this.players[0].state = 'default';
+    //     this.currentIndex++;
+    //     if (this.currentIndex >= SETUP_CARDS_MOCK.length - 1) {
+    //       this.currentIndex = 0;
+    //     }
+    //     this.punchLineCards.splice(index, 1);
+    //     console.log('new setup card:', this.currentIndex, this.setupCard);
+    //     const winnerIndex = Math.round(Math.random() * (PLAYERS_MOCK.length - 1));
+    //     PLAYERS_MOCK[winnerIndex].points += 1;
+    //   }, 3000);
   }
 }

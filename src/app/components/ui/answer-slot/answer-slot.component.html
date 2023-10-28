@@ -1,0 +1,7 @@
+<button
+  class="btn--secondary l-w-f"
+  [class.app-answer-slot--empty]="!answer"
+  [disabled]="!answer || !canOpen"
+>
+  <img *ngIf="answer" src="assets/img/logo-light.svg" class="l-m-a" alt="" />
+</button>
