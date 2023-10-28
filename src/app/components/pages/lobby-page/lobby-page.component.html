@@ -1,0 +1,16 @@
+<div class="l-p-xxl l-flex-col l-flex-auto">
+  <div class="l-row-m l-mb-xxl">
+    <app-player-avatar
+      *ngFor="let player of players"
+      [player]="player"
+    ></app-player-avatar>
+  </div>
+  <div class="l-flex-auto"></div>
+  <div class="l-stack-m">
+    <button class="btn btn--secondary" (click)="share()">
+      Пригласить
+      <img src="assets/img/share.svg" alt="" />
+    </button>
+    <a routerLink="/play" class="btn btn--primary">Начать игру</a>
+  </div>
+</div>

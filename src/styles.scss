@@ -1,1 +1,281 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Roboto:wght@400;500&display=swap');
+
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9) translateY(2px);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+$bg-01: #060606;
+$bg-01-translucent: rgba(6, 6, 6, 0.5);
+$bg-btn-primary: rgba(255, 255, 255, 0.9);
+$text-01: #F6F6F6;
+$text-01-blend: #D6D6D6;
+$border-secondary: rgba(255, 255, 255, 0.4);
+$border-secondary-inverse: rgba(6, 6, 6, 0.4);
+
+$max-content-width: 480px;
+
+$spacing: (
+'0': 0,
+'a': auto,
+'u': unset,
+'f': 100%,
+'xxs': 0.125rem,
+'xs': 0.25rem,
+'s': 0.5rem,
+'m': 0.75rem,
+'l': 1rem,
+'xl': 1.25rem,
+'xxl': 1.5rem,
+'3xl': 2rem,
+'4xl': 2.5rem
+);
+
+// Layout
+
+@each $name, $value in $spacing {
+  .l-stack-#{$name} {
+    display: flex;
+    flex-direction: column;
+    &>*:not(:last-child) {
+      margin-bottom: $value;
+    }
+  }
+
+  .l-row-#{$name} {
+    display: flex;
+    flex-direction: row;
+    &>*:not(:first-child) {
+      margin-left: $value;
+    }
+  }
+
+  .l-p-#{$name} {
+    padding: $value;
+  }
+
+  .l-ph-#{$name} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  .l-pv-#{$name} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  .l-pt-#{$name} {
+    padding-top: $value;
+  }
+
+  .l-pb-#{$name} {
+    padding-bottom: $value;
+  }
+
+  .l-pl-#{$name} {
+    padding-left: $value;
+  }
+
+  .l-pr-#{$name} {
+    padding-right: $value;
+  }
+
+  .l-m-#{$name} {
+    margin: $value;
+  }
+
+  .l-mh-#{$name} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .l-mv-#{$name} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .l-mt-#{$name} {
+    margin-top: $value;
+  }
+
+  .l-mb-#{$name} {
+    margin-bottom: $value;
+  }
+
+  .l-ml-#{$name} {
+    margin-left: $value;
+  }
+
+  .l-mr-#{$name} {
+    margin-right: $value;
+  }
+
+  .l-w-#{$name} {
+    width: 100%;
+  }
+}
+
+
+.l-flex {
+  display: flex;
+}
+
+.l-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.l-flex-end {
+  justify-content: flex-end;
+}
+
+.l-flex-center {
+  justify-content: center;
+}
+
+.l-flex-auto {
+  flex: auto;
+}
+
+// Style
+
+.s-t-left {
+  text-align: left;
+}
+
+.s-t-center {
+  text-align: center;
+}
+
+.s-t-right {
+  text-align: right;
+}
+
+h2, .t-h2 {
+  font-size: 1.5rem;
+}
+
+// Animation
+
+.a-t-short {
+  transition: .2s;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: $bg-01;
+  color: $text-01;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  transition: background-color .2s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+    &:active {
+      opacity: .8;
+      transform: scale(.95);
+    }
+}
+
+:focus-visible {
+  outline: none;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  max-width: $max-content-width;
+  height: 100%;
+  margin: 0 auto;
+}
+
+button, input, .btn, .input {
+  display: flex;
+  justify-content: space-between;
+  background: none;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 2px solid transparent;
+  transition: .2s;
+  text-decoration: none;
+  text-align: left;
+}
+
+button, .btn {
+  cursor: pointer;
+}
+
+input:focus {
+  border-color: $bg-01;
+}
+
+.btn--icon-only {
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+}
+
+.btn--primary {
+  color: $bg-01;
+  background-color: $bg-btn-primary;
+  &:hover {
+    background-color: white;
+  }
+}
+
+.btn--primary-inverse {
+  color: $text-01;
+  background-color: $bg-01;
+  &:hover {
+    background-color: black;
+  }
+}
+
+.btn--secondary {
+  color: $text-01;
+  border-color: $border-secondary;
+  background-color: none;
+  &:hover {
+    border-color: $text-01;
+  }
+  &:disabled {
+    color: $border-secondary;
+    pointer-events: none;
+  }
+}
+
+.btn--secondary-inverse {
+  color: $bg-01;
+  border-color: $border-secondary-inverse;
+  background-color: none;
+}

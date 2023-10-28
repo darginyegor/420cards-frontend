@@ -1,0 +1,29 @@
+<div
+  class="l-p-xxl l-flex-col l-flex-end l-flex-auto a-t-short"
+  [style.backgroundColor]="currentAvatar.color + colorPostfix"
+>
+  <div class="l-flex l-flex-center l-mb-xxl">
+    <img src="assets/img/logo.svg" alt="" />
+  </div>
+  <div class="app-main-page__profile">
+    <button class="btn--icon-only" (click)="prev()">
+      <img src="assets/img/prev.svg" alt="" />
+    </button>
+    <div class="app-main-oage__avatar-selector">
+      {{ currentAvatar.emoji }}
+    </div>
+    <button class="btn--icon-only" (click)="next()">
+      <img src="assets/img/next.svg" alt="" />
+    </button>
+  </div>
+
+  <div class="l-stack-m">
+    <input
+      class="btn--secondary-inverse"
+      placeholder="Как тебя зовут?"
+      [ngModel]="name"
+      (ngModelChange)="saveName($event)"
+    />
+    <a routerLink="/lobby" class="btn btn--primary-inverse">Играть</a>
+  </div>
+</div>

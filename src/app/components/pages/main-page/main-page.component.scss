@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex: auto;
+}
+
+// TODO: move to class sets
+
+.app-main-page__profile {
+  display: flex;
+  flex: auto;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 0;
+}
+
+.app-main-oage__avatar-selector {
+  font-size: 8rem;
+}

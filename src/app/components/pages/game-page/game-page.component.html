@@ -1,0 +1,32 @@
+<div class="l-pv-xxl l-flex-col l-flex-auto">
+  <div class="l-row-m l-mh-xxl">
+    <app-player-avatar
+      *ngFor="let player of players"
+      [player]="player"
+      [withStatus]="true"
+    ></app-player-avatar>
+  </div>
+  <div
+    class="l-pt-4xl l-pb-3xl l-ph-xxl t-h2 app-game-page__setup-card"
+    [class.app-game-page__setup-card--with-blur]="isBlurApplied"
+  >
+    {{ setupCard.text }}
+  </div>
+  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isHandVisible">
+    <app-punch-line-button
+      *ngFor="let card of punchLineCards; let i = index"
+      [disabled]="!isActive"
+      (select)="select(i)"
+      [style.animationDelay.s]="i * 0.05"
+    >
+      {{ card.text[setupCard.case] }}
+    </app-punch-line-button>
+    <div class="l-pt-l l-mt-a l-flex-col">
+      <button class="btn--secondary">
+        Обновить карты
+        <img src="assets/img/refresh.svg" alt="" />
+      </button>
+    </div>
+  </div>
+  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isTableVisible"></div>
+</div>

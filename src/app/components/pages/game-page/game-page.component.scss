@@ -1,0 +1,14 @@
+@import '../../../../styles.scss';
+
+.app-game-page__setup-card {
+  position: sticky;
+  top: 0;
+  font-weight: 500;
+  background-color: $bg-01;
+  backdrop-filter: blur(1rem);
+}
+
+.app-game-page__setup-card--with-blur {
+  background-color: $bg-01-translucent;
+  backdrop-filter: blur(2rem);
+}

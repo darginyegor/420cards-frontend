@@ -1,0 +1,10 @@
+<button
+  class="l-w-f"
+  [class.btn--secondary]="!selected"
+  [class.btn--primary]="selected"
+  [disabled]="!selected && disabled"
+  (click)="_select()"
+>
+  <ng-content></ng-content>
+  <img *ngIf="selected" src="assets/img/check-selected.svg" alt="" />
+</button>
