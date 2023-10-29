@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Player } from 'src/app/interfaces/player.interface';
 import { PLAYERS_MOCK } from 'src/app/mocks';
 import { EventsService } from 'src/app/services/events.service';
@@ -13,7 +14,8 @@ export class LobbyPageComponent implements OnInit {
   public players: Player[] = [];
   constructor(
     private readonly events: EventsService,
-    private readonly notifications: UiNotificationsService
+    private readonly notifications: UiNotificationsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,7 @@ export class LobbyPageComponent implements OnInit {
         name: 'Некуда подключаться',
         message: 'В сервисе событий нет данных для подключения',
       });
+      this.router.navigate(['/']);
     }
   }
 

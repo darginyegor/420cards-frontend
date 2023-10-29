@@ -42,10 +42,10 @@ export class MainPageComponent {
           this.events.setConnectionInfo(response);
           this.router.navigate(['lobby']);
         },
-        error: (_error) => {
+        error: (error) => {
           this.notifications.error({
-            name: '',
-            message: 'Ошибка подключения к API',
+            name: 'Ошибка подключения к API',
+            message: error.message,
           });
         },
       });
