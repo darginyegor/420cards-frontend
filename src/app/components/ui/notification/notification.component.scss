@@ -11,17 +11,34 @@
   width: 100vw;
   padding: 1rem;
   .temp {
-    background-color: darkred;
+    background-color: black;
     color: white;
-    padding: 1rem 1.5rem;
     animation: from-top .3s;
-    transform-origin: top center;
+    border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
+    transition: .3s;
     border-radius: .75rem;
+    .temp__icon {
+      font-size: 1.5rem;
+    }
     .temp__header {
       opacity: .8;
     }
     .temp__text {
+      font-size: 0.75rem;
       opacity: .6;
     }
+    &.temp--fading {
+      opacity: 0;
+    }
+    &.temp--highLighted {
+      transform: scale(1.025);
+    }
+  }
+}
+
+@media (min-width: 481px) {
+  :host {
+    width: 480px;
+    max-width: 100vw;
   }
 }

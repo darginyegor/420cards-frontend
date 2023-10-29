@@ -1,8 +1,16 @@
-<div class="temp" *ngIf="current">
-  <div class="temp__header l-mb-xs" *ngIf="current.name">
-    {{ current.name }}
-  </div>
-  <div class="temp__text">
-    {{ current.message }}
+<div
+  class="temp l-flex l-pv-l l-ph-xl"
+  *ngIf="current"
+  [class.temp--fading]="isFading"
+  [class.temp--highLighted]="isHighLighted"
+>
+  <div class="temp__icon l-mr-xl">⚠️</div>
+  <div class="temp__content">
+    <div class="temp__header l-mb-xs" *ngIf="current.name">
+      {{ current.name }}
+    </div>
+    <div class="temp__text">
+      {{ current.message }}
+    </div>
   </div>
 </div>
