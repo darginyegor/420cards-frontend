@@ -1,8 +1,10 @@
 import { trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { PLAYERS_MOCK, PROFILE_AVATARS } from 'src/app/mocks';
 import { ApiService } from 'src/app/services/api.service';
+import { BackgroundColorService } from 'src/app/services/background-color.service';
 import { EventsService } from 'src/app/services/events.service';
 import { PlayerProfileService } from 'src/app/services/player-profile.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
@@ -15,11 +17,14 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 export class MainPageComponent {
   public readonly colorPostfix = '';
   public name = this.playerProfileService.name;
-  public avatar$ = this.playerProfileService.avatar$;
+  public avatar$ = this.playerProfileService.avatar$.pipe(
+    tap((avatar) => this.backgroundColor.set(avatar.color, 'light'))
+  );
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly api: ApiService,
+    private readonly backgroundColor: BackgroundColorService,
     private readonly events: EventsService,
     private readonly playerProfileService: PlayerProfileService,
     private readonly router: Router,
@@ -54,6 +59,7 @@ export class MainPageComponent {
         error: (error) => {
           console.log(error);
           this.notifications.notification({
+            icon: '🚧 ',
             name: 'Ошибка подключения к API',
             message: `Код: ${error.status}. Остальное тебе знать не обязательно.`,
           });

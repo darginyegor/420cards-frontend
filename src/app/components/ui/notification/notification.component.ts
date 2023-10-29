@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { delay, map, tap } from 'rxjs';
+import { BackgroundColorService } from 'src/app/services/background-color.service';
 import {
   UiNotification,
   UiNotificationsService,
@@ -17,7 +18,14 @@ export class NotificationComponent implements OnInit {
   public isHighLighted = false;
   private _currentId = 0;
 
-  constructor(private readonly notifications: UiNotificationsService) {}
+  constructor(
+    private readonly backgroundColor: BackgroundColorService,
+    private readonly notifications: UiNotificationsService
+  ) {}
+
+  public get isLight() {
+    return this.backgroundColor.isLight;
+  }
 
   public ngOnInit(): void {
     this.notifications.feed$

@@ -1,17 +1,18 @@
 <div
-  class="temp l-flex l-pv-l l-ph-xl"
+  class="app-notification l-flex l-pv-l l-ph-xl"
   *ngIf="current"
-  [class.temp--fading]="isFading"
-  [class.temp--highLighted]="isHighLighted"
+  [class.app-notification--fading]="isFading"
+  [class.app-notification--highLighted]="isHighLighted"
+  [class.app-notification--with-border]="!isLight"
 >
-  <div class="temp__icon l-mr-xl">
+  <div class="app-notification__icon l-mr-xl">
     {{ current.icon || "⚠️" }}
   </div>
-  <div class="temp__content">
-    <div class="temp__header l-mb-xs" *ngIf="current.name">
+  <div class="app-notification__content">
+    <div class="app-notification__header l-mb-xs" *ngIf="current.name">
       {{ current.name }}
     </div>
-    <div class="temp__text">
+    <div class="app-notification__text">
       {{ current.message }}
     </div>
   </div>

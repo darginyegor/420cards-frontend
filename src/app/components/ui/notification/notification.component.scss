@@ -10,27 +10,29 @@
   left: 0;
   width: 100vw;
   padding: 1rem;
-  .temp {
+  .app-notification {
     background-color: black;
     color: white;
     animation: from-top .3s;
-    border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
     transition: .3s;
     border-radius: .75rem;
-    .temp__icon {
+    .app-notification__icon {
       font-size: 1.5rem;
     }
-    .temp__header {
+    .app-notification__header {
       opacity: .8;
     }
-    .temp__text {
+    .app-notification__text {
       opacity: .6;
     }
-    &.temp--fading {
+    &.app-notification--fading {
       opacity: 0;
     }
-    &.temp--highLighted {
+    &.app-notification--highLighted {
       transform: scale(1.025);
+    }
+    &.app-notification--with-border {
+      border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
     }
   }
 }
