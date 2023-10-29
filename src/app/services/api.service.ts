@@ -1,5 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+export interface ConnectionRequestBody {
+  name: string;
+  emoji: string;
+  backgroundColor: string;
+}
+
+export interface ConnectionResponse {
+  host: string;
+  playerToken: string;
+  lobbyToken: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +21,14 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getConnectionInfo(token: string) {
-    this.httpClient.get(this.API_HOST, {
-      params: {
-        token,
-      },
+  public getConnectionInfo(body: ConnectionRequestBody, token?: string | null) {
+    let params = new HttpParams();
+    if (token) {
+      params = params.set('lobbyToken', token);
+    }
+
+    return this.httpClient.post<ConnectionResponse>(this.API_HOST, body, {
+      params,
     });
   }
 }

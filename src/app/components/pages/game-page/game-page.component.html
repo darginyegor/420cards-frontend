@@ -14,7 +14,7 @@
   </div>
   <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
-      *ngFor="let card of punchLineCards; let i = index"
+      *ngFor="let card of hand; let i = index"
       [disabled]="!isActive"
       (select)="select(i)"
       [style.animationDelay.s]="i * 0.05"
@@ -26,7 +26,6 @@
         Обновить карты
         <img src="assets/img/refresh.svg" alt="" />
       </button>
-      <button class="btn--secondary">Все готовы</button>
     </div>
   </div>
   <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isTableVisible">

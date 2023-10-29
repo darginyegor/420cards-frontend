@@ -1,10 +1,11 @@
 export type PlayerState = 'default' | 'ready' | 'leading';
 
 export interface Player {
-  id: number;
+  uuid: string;
   name: string;
   emoji: string;
   backgroundColor: string;
   points: number;
   state: PlayerState;
+  isConnected: boolean;
 }

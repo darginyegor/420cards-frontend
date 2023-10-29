@@ -1,18 +1,18 @@
 <div
   class="l-p-xxl l-flex-col l-flex-end l-flex-auto a-t-short"
-  [style.backgroundColor]="currentAvatar.color + colorPostfix"
+  [style.backgroundColor]="(avatar$ | async)?.color"
 >
   <div class="l-flex l-flex-center l-mb-xxl">
     <img src="assets/img/logo.svg" alt="" />
   </div>
   <div class="app-main-page__profile">
-    <button class="btn--icon-only" (click)="prev()">
+    <button class="btn--icon-only" (click)="prevAvatar()">
       <img src="assets/img/prev.svg" alt="" />
     </button>
     <div class="app-main-oage__avatar-selector">
-      {{ currentAvatar.emoji }}
+      {{ (avatar$ | async)?.emoji }}
     </div>
-    <button class="btn--icon-only" (click)="next()">
+    <button class="btn--icon-only" (click)="nextAvatar()">
       <img src="assets/img/next.svg" alt="" />
     </button>
   </div>
@@ -24,6 +24,6 @@
       [ngModel]="name"
       (ngModelChange)="saveName($event)"
     />
-    <a routerLink="/lobby" class="btn btn--primary-inverse">Играть</a>
+    <a class="btn btn--primary-inverse" (click)="start()">Играть</a>
   </div>
 </div>

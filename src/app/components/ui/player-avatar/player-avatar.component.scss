@@ -1,7 +1,7 @@
 @import '../../../../styles.scss';
 
 @keyframes from-right {
-  0% {
+  from {
     opacity: 0;
     width: 0;
   }
@@ -13,6 +13,10 @@
   position: relative;
   z-index: 0;
   width: 3rem;
+  &.app-player-avatar--pending {
+    opacity: .6;
+  }
+  transition: .2s;
 }
 
 .app-player-avatar__avatar {

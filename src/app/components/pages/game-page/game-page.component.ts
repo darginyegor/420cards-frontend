@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BACKGROUND_BLUR } from 'src/app/app.consts';
+import { Player } from 'src/app/interfaces/player.interface';
 import { SetupCard } from 'src/app/interfaces/setup-card.interface';
 import {
   PLAYERS_MOCK,
   PUNCH_LINE_CARDS,
   SETUP_CARDS_MOCK,
 } from 'src/app/mocks';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss'],
 })
-export class GamePageComponent {
-  public players = PLAYERS_MOCK;
-  public readonly punchLineCards = PUNCH_LINE_CARDS;
+export class GamePageComponent implements OnInit {
+  public players: Player[] = [];
+  public hand = PUNCH_LINE_CARDS;
+  public table = [];
   public currentIndex = 0;
   public answers = new Array(this.players.length - 1);
 
@@ -22,7 +25,9 @@ export class GamePageComponent {
   public isHandVisible = true;
   public isTableVisible = false;
 
-  constructor() {}
+  constructor(private readonly events: EventsService) {}
+
+  public ngOnInit(): void {}
 
   public get setupCard(): SetupCard {
     return SETUP_CARDS_MOCK[this.currentIndex];

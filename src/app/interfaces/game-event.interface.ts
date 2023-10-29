@@ -1,7 +1,13 @@
-export type GameEventType = 'playerReady';
+export type GameEventType =
+  | 'playerReady'
+  | 'welcome'
+  | 'playerJoined'
+  | 'playerConnected';
 
 export interface GameEvent {
-  id: number;
+  id?: number;
   type: GameEventType;
-  playerId: number;
+  data: {
+    [key: string]: any;
+  };
 }

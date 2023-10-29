@@ -1,59 +1,65 @@
 import { trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PLAYERS_MOCK, PROFILE_AVATARS } from 'src/app/mocks';
+import { ApiService } from 'src/app/services/api.service';
+import { EventsService } from 'src/app/services/events.service';
+import { PlayerProfileService } from 'src/app/services/player-profile.service';
+import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
-  private currentIndex =
-    Number(localStorage.getItem('currentPlayerAvatar')) || 0;
-  public readonly colorPostfix = ''; // '66';
-  public hasToken = false;
-  public name = localStorage.getItem('currentPlayerName') || '';
+export class MainPageComponent {
+  public readonly colorPostfix = '';
+  public name = this.playerProfileService.name;
+  public avatar$ = this.playerProfileService.avatar$;
 
-  constructor(private readonly activatedRoute: ActivatedRoute) {}
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly api: ApiService,
+    private readonly events: EventsService,
+    private readonly playerProfileService: PlayerProfileService,
+    private readonly router: Router,
+    private readonly notifications: UiNotificationsService
+  ) {}
 
-  public get currentAvatar() {
-    return PROFILE_AVATARS[this.currentIndex];
+  public start(): void {
+    const token = this.activatedRoute.snapshot.queryParamMap.get('t');
+    this.api
+      .getConnectionInfo(
+        {
+          name: this.name,
+          emoji: this.playerProfileService.avatar.emoji,
+          backgroundColor: this.playerProfileService.avatar.color,
+        },
+        token
+      )
+      .subscribe({
+        next: (response) => {
+          this.events.setConnectionInfo(response);
+          this.router.navigate(['lobby']);
+        },
+        error: (_error) => {
+          this.notifications.error({
+            name: '',
+            message: 'Ошибка подключения к API',
+          });
+        },
+      });
   }
 
-  ngOnInit(): void {
-    const token = this.activatedRoute.snapshot.queryParams['l'];
-    this.hasToken = !!token;
-    this.save();
-    this.saveName(this.name);
+  public nextAvatar() {
+    this.playerProfileService.selectNext();
   }
 
-  next() {
-    this.currentIndex++;
-    if (this.currentIndex >= PROFILE_AVATARS.length) {
-      this.currentIndex = 0;
-    }
-    localStorage.setItem('currentPlayerAvatar', String(this.currentIndex));
-    this.save();
+  public prevAvatar() {
+    this.playerProfileService.selectPrev();
   }
 
-  prev() {
-    this.currentIndex--;
-    if (this.currentIndex < 0) {
-      this.currentIndex = PROFILE_AVATARS.length - 1;
-    }
-    localStorage.setItem('currentPlayerAvatar', String(this.currentIndex));
-    this.save();
-  }
-
-  save() {
-    const selected = PROFILE_AVATARS[this.currentIndex];
-    PLAYERS_MOCK[0].emoji = selected.emoji;
-    PLAYERS_MOCK[0].backgroundColor = selected.color;
-  }
-
-  saveName(name: string) {
-    localStorage.setItem('currentPlayerName', name);
-    PLAYERS_MOCK[0].name = name;
+  public saveName(name: string) {
+    this.playerProfileService.name = name;
   }
 }

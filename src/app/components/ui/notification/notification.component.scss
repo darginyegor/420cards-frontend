@@ -1,0 +1,27 @@
+@keyframes from-top {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 1rem;
+  .temp {
+    background-color: darkred;
+    color: white;
+    padding: 1rem 1.5rem;
+    animation: from-top .3s;
+    transform-origin: top center;
+    border-radius: .75rem;
+    .temp__header {
+      opacity: .8;
+    }
+    .temp__text {
+      opacity: .6;
+    }
+  }
+}
