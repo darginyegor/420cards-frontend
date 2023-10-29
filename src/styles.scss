@@ -228,9 +228,18 @@ button, input, .btn, .input {
 
 button, .btn {
   cursor: pointer;
+  &::placeholder {
+    color: $border-secondary;
+  }
 }
 
-input:focus {
+input, .input {
+  background-image: url(assets/img/edit.svg);
+  background-repeat: no-repeat;
+  background-position: right 1.25rem top 1rem;
+}
+
+input:focus, .input:focus {
   border-color: $bg-01;
 }
 
@@ -258,6 +267,13 @@ input:focus {
   background-color: $bg-01;
   &:hover {
     background-color: black;
+  }
+  &:disabled {
+    opacity: .4;
+    pointer-events: none;
+    &>img {
+      opacity: .4;
+    }
   }
 }
 

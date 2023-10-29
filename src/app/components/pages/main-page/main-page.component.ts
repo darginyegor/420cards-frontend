@@ -27,6 +27,15 @@ export class MainPageComponent {
   ) {}
 
   public start(): void {
+    if (!this.name) {
+      this.notifications.notification({
+        name: 'Тебя что, никак не зовут?',
+        icon: '🤔',
+        message: 'Напиши своё имя, иначе поиграть не получится.',
+      });
+      return;
+    }
+
     const token = this.activatedRoute.snapshot.queryParamMap.get('t');
     this.api
       .getConnectionInfo(
@@ -43,9 +52,10 @@ export class MainPageComponent {
           this.router.navigate(['lobby']);
         },
         error: (error) => {
-          this.notifications.error({
+          console.log(error);
+          this.notifications.notification({
             name: 'Ошибка подключения к API',
-            message: error.message,
+            message: `Код: ${error.status}. Остальное тебе знать не обязательно.`,
           });
         },
       });

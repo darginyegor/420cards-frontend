@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 
 export interface UiNotification {
   name: string;
-  message: string;
+  message?: string;
+  icon?: string;
 }
 
 @Injectable({
@@ -15,7 +16,7 @@ export class UiNotificationsService {
 
   constructor() {}
 
-  public error(error: UiNotification) {
+  public notification(error: UiNotification) {
     this._feed$.next(error);
   }
 }

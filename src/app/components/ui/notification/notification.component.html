@@ -4,7 +4,9 @@
   [class.temp--fading]="isFading"
   [class.temp--highLighted]="isHighLighted"
 >
-  <div class="temp__icon l-mr-xl">⚠️</div>
+  <div class="temp__icon l-mr-xl">
+    {{ current.icon || "⚠️" }}
+  </div>
   <div class="temp__content">
     <div class="temp__header l-mb-xs" *ngIf="current.name">
       {{ current.name }}

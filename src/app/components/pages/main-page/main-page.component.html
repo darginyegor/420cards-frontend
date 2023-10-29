@@ -21,9 +21,9 @@
     <input
       class="btn--secondary-inverse"
       placeholder="Как тебя зовут?"
-      [ngModel]="name"
+      [(ngModel)]="name"
       (ngModelChange)="saveName($event)"
     />
-    <a class="btn btn--primary-inverse" (click)="start()">Играть</a>
+    <button class="btn--primary-inverse" (click)="start()">Играть</button>
   </div>
 </div>

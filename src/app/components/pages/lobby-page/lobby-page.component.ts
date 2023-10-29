@@ -42,9 +42,10 @@ export class LobbyPageComponent implements OnInit {
         },
       });
     } catch (error) {
-      this.notifications.error({
-        name: 'Некуда подключаться',
-        message: 'В сервисе событий нет данных для подключения',
+      this.notifications.notification({
+        icon: '👀',
+        name: 'Что ковыряем?',
+        message: 'Программисты здесь мы. Твоя задача - наслаждаться игрой.',
       });
       this.router.navigate(['/']);
     }
