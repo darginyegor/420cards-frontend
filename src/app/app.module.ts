@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AnswerSlotComponent } from './components/ui/answer-slot/answer-slot.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/ui/notification/notification.component';
+import { LoaderComponent } from './components/ui/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NotificationComponent } from './components/ui/notification/notification
     PunchLineButtonComponent,
     AnswerSlotComponent,
     NotificationComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

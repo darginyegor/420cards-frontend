@@ -20,6 +20,7 @@ export class MainPageComponent {
   public avatar$ = this.playerProfileService.avatar$.pipe(
     tap((avatar) => this.backgroundColor.set(avatar.color, 'light'))
   );
+  public isLoading = false;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -42,6 +43,7 @@ export class MainPageComponent {
     }
 
     const token = this.activatedRoute.snapshot.queryParamMap.get('t');
+    this.isLoading = true;
     this.api
       .getConnectionInfo(
         {
@@ -57,6 +59,7 @@ export class MainPageComponent {
           this.router.navigate(['lobby']);
         },
         error: (error) => {
+          this.isLoading = false;
           this.notifications.notification({
             icon: '🚧 ',
             name: 'Ошибка подключения к API',

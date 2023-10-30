@@ -1,0 +1,45 @@
+@import '../../../../styles.scss';
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animloader {
+  0% {
+    
+  }
+  50% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+
+  }
+}
+
+.app-loader__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-01-translucent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-loader__content {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  color: $text-01;
+  animation: rotation 0.8s linear infinite;
+  border: 6px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+}

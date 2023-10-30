@@ -8,4 +8,5 @@ export interface Player {
   points: number;
   state: PlayerState;
   isConnected: boolean;
+  isLobbyOwner: boolean;
 }

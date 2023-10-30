@@ -9,6 +9,7 @@
     {{ player?.emoji }}
   </div>
   <div class="app-player-avatar__name l-mt-xs s-t-center">
+    <span *ngIf="player?.isLobbyOwner">✦&nbsp;</span>
     {{ player?.name }}
   </div>
   <div *ngIf="withStatus" class="app-player-avatar__status">

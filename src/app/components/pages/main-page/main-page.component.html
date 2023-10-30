@@ -6,7 +6,7 @@
     <button class="btn--icon-only" (click)="prevAvatar()">
       <img src="assets/img/prev.svg" alt="" />
     </button>
-    <div class="app-main-oage__avatar-selector">
+    <div class="app-main-page__avatar-selector">
       {{ (avatar$ | async)?.emoji }}
     </div>
     <button class="btn--icon-only" (click)="nextAvatar()">
@@ -24,3 +24,5 @@
     <button class="btn--primary-inverse" (click)="start()">Играть</button>
   </div>
 </div>
+
+<app-loader *ngIf="isLoading"></app-loader>

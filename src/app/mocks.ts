@@ -335,6 +335,7 @@ export const PLAYERS_MOCK: Player[] = [
     points: 6,
     state: 'default',
     isConnected: true,
+    isLobbyOwner: true,
   },
   {
     uuid: '2',
@@ -344,6 +345,7 @@ export const PLAYERS_MOCK: Player[] = [
     points: 2,
     state: 'leading',
     isConnected: true,
+    isLobbyOwner: false,
   },
   {
     uuid: '3',
@@ -353,6 +355,7 @@ export const PLAYERS_MOCK: Player[] = [
     points: 3,
     state: 'default',
     isConnected: true,
+    isLobbyOwner: false,
   },
   {
     uuid: '4',
@@ -362,6 +365,7 @@ export const PLAYERS_MOCK: Player[] = [
     points: 5,
     state: 'default',
     isConnected: false,
+    isLobbyOwner: false,
   },
   {
     uuid: '5',
@@ -371,5 +375,6 @@ export const PLAYERS_MOCK: Player[] = [
     points: 0,
     state: 'default',
     isConnected: true,
+    isLobbyOwner: false,
   },
 ];
