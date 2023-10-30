@@ -243,6 +243,7 @@ button, input, .btn, .input {
 
 button, .btn {
   cursor: pointer;
+  touch-action: manipulation;
   &::placeholder {
     color: $border-secondary;
   }
