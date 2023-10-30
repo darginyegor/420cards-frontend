@@ -8,8 +8,6 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class PlayerProfileService {
-  private readonly avatarIdStoreKey = 'PLAYER_AVATAR_ID';
-  private readonly nameStoreKey = 'PLAYER_NAME';
   private _avatar$: BehaviorSubject<ProfileAvatar>;
   public avatar$: Observable<ProfileAvatar>;
   private _currentIndex;

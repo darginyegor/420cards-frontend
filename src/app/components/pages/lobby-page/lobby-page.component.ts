@@ -45,8 +45,8 @@ export class LobbyPageComponent implements OnInit {
     } catch (error) {
       this.notifications.notification({
         icon: '👀',
-        name: 'Что ковыряем?',
-        message: 'Программисты здесь мы. Твоя задача - наслаждаться игрой.',
+        name: 'Тебе точно туда было надо?',
+        message: 'Почти уверен, что нет. Вот еперь ты в нужном месте.',
       });
       this.router.navigate(['/']);
     }
@@ -57,17 +57,15 @@ export class LobbyPageComponent implements OnInit {
     const fullUrl = `${url}?t=${this.events.lobbyToken}`;
     if (navigator?.share) {
       navigator.share({
-        title: 'Подключайся к игре',
-        text: 'Тебя пригласили поиграть в 420cards',
+        title: 'Будешь играть в 420cards?',
         url: fullUrl,
       });
     } else if (navigator?.clipboard) {
       navigator.clipboard.writeText(fullUrl);
       this.notifications.notification({
-        // icon: '💌',
-        icon: '🎉',
+        icon: '💚',
         name: 'Ссылка скопиролвана',
-        message: 'У тебя есть хотя бы 2 друга? Отправь её им.',
+        message: 'Можешь отправлять её друзьями. У тебя есть друзья?',
       });
     }
   }

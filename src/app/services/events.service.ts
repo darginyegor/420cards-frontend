@@ -11,9 +11,9 @@ import { StoreService } from './store.service';
 export class EventsService {
   private socket?: WebSocket;
   private _feed$ = new Subject<GameEvent>();
-  private _host? = localStorage.getItem('LOBBY_HOST_CACHED');
-  private _lobbyToken? = localStorage.getItem('LOBBY_TOKEN_CACHED');
-  private _playerToken? = localStorage.getItem('PLAYER_TOKEN_CACHED');
+  private _host? = this.store.get('LOBBY_HOST_CACHED');
+  private _lobbyToken? = this.store.get('LOBBY_TOKEN_CACHED');
+  private _playerToken? = this.store.get('PLAYER_TOKEN_CACHED');
 
   constructor(private store: StoreService) {}
 
@@ -47,11 +47,11 @@ export class EventsService {
       tap((event) => {
         switch (event.type) {
           case 'playerConnected':
-            this.store.setMany({
-              LOBBY_HOST_CACHED: this._host,
-              LOBBY_TOKEN_CACHED: this._lobbyToken,
-              PLAYER_TOKEN_CACHED: this._playerToken,
-            });
+            this.store.setMany([
+              ['LOBBY_HOST_CACHED', this._host],
+              ['LOBBY_TOKEN_CACHED', this._lobbyToken],
+              ['PLAYER_TOKEN_CACHED', this._playerToken],
+            ]);
         }
       })
     );

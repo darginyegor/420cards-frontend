@@ -9,9 +9,7 @@ export const STORE_KEYS = [
 ] as const;
 
 export type StoreKey = (typeof STORE_KEYS)[number];
-export type StoreItems = {
-  [key in StoreKey]?: any;
-};
+export type StoreItems = [StoreKey, any][];
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +26,6 @@ export class StoreService {
   }
 
   public setMany(items: StoreItems) {
-    Object.entries(items).forEach(([key, value]) =>
-      localStorage.setItem(key, String(value))
-    );
+    items.forEach(([key, value]) => this.set(key, value));
   }
 }

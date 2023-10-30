@@ -119,8 +119,13 @@ $spacing: (
   }
 
   .l-w-#{$name} {
-    width: 100%;
+    width: $value;
   }
+
+  .l-maw-#{$name} {
+    max-width: $value;
+  }
+
 }
 
 
@@ -143,6 +148,15 @@ $spacing: (
 
 .l-flex-auto {
   flex: auto;
+}
+
+.l-scroll-h {
+  overflow-x: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 // Style
@@ -172,6 +186,7 @@ h2, .t-h2 {
 html, body {
   width: 100%;
   height: 100%;
+  max-width: 100vw;
   padding: 0;
   margin: 0;
   background-color: $bg-01;
