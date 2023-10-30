@@ -46,7 +46,7 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
   },
   {
     emoji: '🐠',
-    color: '#adece7',
+    color: '#ebfffd',
   },
   {
     emoji: '🎀',
@@ -148,10 +148,6 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '🃏',
     color: '#faf7f3',
   },
-  // {
-  //   emoji: '🇬🇪',
-  //   color: '#ffefef',
-  // },
   {
     emoji: '🍗',
     color: '#ffeeda',
