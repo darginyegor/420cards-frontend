@@ -29,7 +29,7 @@ export class BackgroundColorService {
   }
 
   public set(color: string, tone?: BackgroundColorTone) {
-    this._bodyElement.style.backgroundColor = color;
+    this._bodyElement.style.background = color;
     if (tone) {
       this._tone = tone;
     }

@@ -7,6 +7,15 @@
   }
 }
 
+@keyframes pending {
+  from {
+    opacity: .4;
+  }
+  to {
+    opacity: .6;
+  }
+}
+
 :host {
   display: flex;
   flex-direction: column;
@@ -14,9 +23,9 @@
   z-index: 0;
   width: 3rem;
   &.app-player-avatar--pending {
-    opacity: .6;
+    // animation: pending 1s alternate infinite linear;
+    opacity: .4;
   }
-  transition: .2s;
 }
 
 .app-player-avatar__avatar {

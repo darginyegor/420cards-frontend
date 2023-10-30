@@ -57,7 +57,6 @@ export class MainPageComponent {
           this.router.navigate(['lobby']);
         },
         error: (error) => {
-          console.log(error);
           this.notifications.notification({
             icon: '🚧 ',
             name: 'Ошибка подключения к API',

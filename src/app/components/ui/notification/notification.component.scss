@@ -6,6 +6,7 @@
 
 :host {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100vw;
@@ -16,6 +17,7 @@
     animation: from-top .3s;
     transition: .3s;
     border-radius: .75rem;
+    font-size: 0.875rem;
     .app-notification__icon {
       font-size: 1.5rem;
     }
@@ -31,8 +33,10 @@
     &.app-notification--highLighted {
       transform: scale(1.025);
     }
-    &.app-notification--with-border {
-      border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
+    &.app-notification--on-light {
+      // border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
+      background-color: #f6f6f6;
+      color: black;
     }
   }
 }

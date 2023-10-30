@@ -25,6 +25,7 @@ export class LobbyPageComponent implements OnInit {
           switch (event.type) {
             case 'welcome':
               this.players = event.data['players'];
+
               break;
             case 'playerJoined':
               // TODO: remove type casting
@@ -62,6 +63,12 @@ export class LobbyPageComponent implements OnInit {
       });
     } else if (navigator?.clipboard) {
       navigator.clipboard.writeText(fullUrl);
+      this.notifications.notification({
+        // icon: '💌',
+        icon: '🎉',
+        name: 'Ссылка скопиролвана',
+        message: 'У тебя есть хотя бы 2 друга? Отправь её им.',
+      });
     }
   }
 }

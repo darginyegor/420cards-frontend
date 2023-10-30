@@ -8,6 +8,7 @@ import {
   SETUP_CARDS_MOCK,
 } from 'src/app/mocks';
 import { EventsService } from 'src/app/services/events.service';
+import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
   selector: 'app-game-page',
@@ -15,7 +16,7 @@ import { EventsService } from 'src/app/services/events.service';
   styleUrls: ['./game-page.component.scss'],
 })
 export class GamePageComponent implements OnInit {
-  public players: Player[] = [];
+  public players: Player[] = PLAYERS_MOCK;
   public hand = PUNCH_LINE_CARDS;
   public table = [];
   public currentIndex = 0;
@@ -25,9 +26,18 @@ export class GamePageComponent implements OnInit {
   public isHandVisible = true;
   public isTableVisible = false;
 
-  constructor(private readonly events: EventsService) {}
+  constructor(
+    private readonly events: EventsService,
+    private readonly notifications: UiNotificationsService
+  ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.notifications.notification({
+      icon: '💩',
+      name: 'Это пока что для теста...',
+      message: 'Это тоже. Пытаюсь понять, как красиво выводить эти штуки...',
+    });
+  }
 
   public get setupCard(): SetupCard {
     return SETUP_CARDS_MOCK[this.currentIndex];

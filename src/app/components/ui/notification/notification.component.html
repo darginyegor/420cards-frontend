@@ -3,7 +3,7 @@
   *ngIf="current"
   [class.app-notification--fading]="isFading"
   [class.app-notification--highLighted]="isHighLighted"
-  [class.app-notification--with-border]="!isLight"
+  [class.app-notification--on-light]="!isLight"
 >
   <div class="app-notification__icon l-mr-xl">
     {{ current.icon || "⚠️" }}

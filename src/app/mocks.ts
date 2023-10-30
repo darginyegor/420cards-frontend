@@ -148,9 +148,41 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '🃏',
     color: '#faf7f3',
   },
+  // {
+  //   emoji: '🇬🇪',
+  //   color: '#ffefef',
+  // },
   {
-    emoji: '🇬🇪',
-    color: '#ffefef',
+    emoji: '🍗',
+    color: '#ffeeda',
+  },
+  {
+    emoji: '🍄',
+    color: '#ffefe1',
+  },
+  {
+    emoji: '🦐',
+    color: '#ffe2cd',
+  },
+  {
+    emoji: '🐞',
+    color: '#fce3e3',
+  },
+  {
+    emoji: '🐌',
+    color: '#fff5e1',
+  },
+  {
+    emoji: '🍌',
+    color: '#fdf6e6',
+  },
+  {
+    emoji: '🍩',
+    color: '#ffe3df',
+  },
+  {
+    emoji: '🏳️‍🌈',
+    color: '#e6e6e6',
   },
 ];
 

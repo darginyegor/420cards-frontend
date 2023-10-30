@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfileAvatar } from '../interfaces/profile-avatar';
 import { PROFILE_AVATARS } from '../mocks';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,8 @@ export class PlayerProfileService {
 
   public readonly avatarsGallery = PROFILE_AVATARS;
 
-  constructor() {
-    const avatarFromStore = localStorage.getItem(this.avatarIdStoreKey);
+  constructor(private store: StoreService) {
+    const avatarFromStore = this.store.get('PLAYER_AVATAR_ID');
     let currentAvatarIndex = this.avatarsGallery.findIndex(
       (avatar) => avatar.emoji === avatarFromStore
     );
@@ -30,7 +31,7 @@ export class PlayerProfileService {
     this.avatar$ = this._avatar$.asObservable();
     this._currentIndex = currentAvatarIndex;
 
-    this._name = localStorage.getItem(this.nameStoreKey) || '';
+    this._name = this.store.get('PLAYER_NAME') || '';
   }
 
   public get name() {
@@ -39,7 +40,7 @@ export class PlayerProfileService {
 
   public set name(name: string) {
     this._name = name;
-    localStorage.setItem(this.nameStoreKey, name);
+    this.store.set('PLAYER_NAME', name);
   }
 
   public get avatar() {
@@ -64,6 +65,6 @@ export class PlayerProfileService {
 
   private select(avatar: ProfileAvatar): void {
     this._avatar$.next(avatar);
-    localStorage.setItem(this.avatarIdStoreKey, avatar.emoji);
+    this.store.set('PLAYER_AVATAR_ID', avatar.emoji);
   }
 }

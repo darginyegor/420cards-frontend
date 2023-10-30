@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GameEvent } from '../interfaces/game-event.interface';
-import { Subject } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 import { GameAction } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,18 +11,18 @@ import { ConnectionResponse } from './api.service';
 export class EventsService {
   private socket?: WebSocket;
   private _feed$ = new Subject<GameEvent>();
-  private _host?: string;
-  private _lobbyToken?: string;
-  private _playerToken?: string;
+  private _host? = localStorage.getItem('LOBBY_HOST_CACHED');
+  private _lobbyToken? = localStorage.getItem('LOBBY_TOKEN_CACHED');
+  private _playerToken? = localStorage.getItem('PLAYER_TOKEN_CACHED');
 
-  constructor() {}
+  constructor(private store: StoreService) {}
 
   public get isConnected() {
     return !!this.socket?.OPEN;
   }
 
   public get lobbyToken() {
-    return this._lobbyToken;
+    return this._lobbyToken || '';
   }
 
   public setConnectionInfo(info: ConnectionResponse): void {
@@ -42,7 +43,18 @@ export class EventsService {
     this.socket.onclose = (_event) => {
       this.socket = undefined;
     };
-    return this._feed$.asObservable();
+    return this._feed$.asObservable().pipe(
+      tap((event) => {
+        switch (event.type) {
+          case 'playerConnected':
+            this.store.setMany({
+              LOBBY_HOST_CACHED: this._host,
+              LOBBY_TOKEN_CACHED: this._lobbyToken,
+              PLAYER_TOKEN_CACHED: this._playerToken,
+            });
+        }
+      })
+    );
   }
 
   public emit(action: GameAction): void {
