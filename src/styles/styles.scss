@@ -1,20 +1,8 @@
 @import 'variables';
+@import 'animations';
 @import 'helpers';
 
 @import url('https://fonts.googleapis.com/css2?family=Borel&family=Roboto:wght@400;500&display=swap');
-
-@keyframes press {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9) translateY(2px);
-    opacity: .8;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
 html, body {
   width: 100%;

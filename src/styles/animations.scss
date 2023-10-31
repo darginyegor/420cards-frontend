@@ -1,0 +1,18 @@
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9) translateY(2px);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+}

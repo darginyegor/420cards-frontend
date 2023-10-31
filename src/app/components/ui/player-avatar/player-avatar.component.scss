@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'animations';
 
 @keyframes from-right {
   from {
@@ -26,6 +27,8 @@
     // animation: pending 1s alternate infinite linear;
     opacity: .4;
   }
+  animation: pop .2s;
+  transition: opacity .2s;
 }
 
 .app-player-avatar__avatar {

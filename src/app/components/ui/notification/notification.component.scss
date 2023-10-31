@@ -1,3 +1,5 @@
+@import 'variables';
+
 @keyframes from-top {
   from {
     transform: translateY(-100%);
@@ -12,8 +14,8 @@
   width: 100vw;
   padding: 1rem;
   .app-notification {
-    background-color: black;
-    color: white;
+    background-color: $bg-01;
+    color: $text-01;
     animation: from-top .3s;
     transition: .3s;
     border-radius: .75rem;
@@ -32,11 +34,6 @@
     }
     &.app-notification--highLighted {
       transform: scale(1.025);
-    }
-    &.app-notification--on-light {
-      // border: 2px solid rgba($color: #ffffff, $alpha: 0.4);
-      // background-color: #f6f6f6;
-      // color: black;
     }
   }
 }
