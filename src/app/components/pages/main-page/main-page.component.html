@@ -21,7 +21,9 @@
       [(ngModel)]="name"
       (ngModelChange)="saveName($event)"
     />
-    <button class="btn--primary-inverse" (click)="start()">Играть</button>
+    <button class="btn--primary-inverse" (click)="start()">
+      {{ lobbyToken ? "Присоединиться" : "Играть" }}
+    </button>
   </div>
 </div>
 

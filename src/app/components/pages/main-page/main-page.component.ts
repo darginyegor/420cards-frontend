@@ -21,6 +21,7 @@ export class MainPageComponent {
     tap((avatar) => this.backgroundColor.set(avatar.color, 'light'))
   );
   public isLoading = false;
+  public lobbyToken = this.activatedRoute.snapshot.queryParamMap.get('t');
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -42,7 +43,6 @@ export class MainPageComponent {
       return;
     }
 
-    const token = this.activatedRoute.snapshot.queryParamMap.get('t');
     this.isLoading = true;
     this.api
       .getConnectionInfo(
@@ -51,7 +51,7 @@ export class MainPageComponent {
           emoji: this.playerProfileService.avatar.emoji,
           backgroundColor: this.playerProfileService.avatar.color,
         },
-        token
+        this.lobbyToken
       )
       .subscribe({
         next: (response) => {
