@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player } from 'src/app/interfaces/player.interface';
-import { PLAYERS_MOCK } from 'src/app/mocks';
-import { EventsService } from 'src/app/services/events.service';
+import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
@@ -11,35 +9,16 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
   styleUrls: ['./lobby-page.component.scss'],
 })
 export class LobbyPageComponent implements OnInit {
-  public players: Player[] = [];
+  public players = this.game.players;
   constructor(
-    private readonly events: EventsService,
+    private readonly game: GameService,
     private readonly notifications: UiNotificationsService,
-    private router: Router
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
     try {
-      this.events.listen().subscribe({
-        next: (event) => {
-          switch (event.type) {
-            case 'welcome':
-              this.players = event.data.players;
-              break;
-            case 'playerJoined':
-              this.players.push(event.data);
-              break;
-            case 'playerConnected':
-              const player = this.players.find(
-                (player) => player.uuid === event.data['uuid']
-              );
-              if (!player) {
-                return;
-              }
-              player.isConnected = true;
-          }
-        },
-      });
+      this.game.init();
     } catch (error) {
       this.notifications.notification({
         icon: '👀',
@@ -52,7 +31,7 @@ export class LobbyPageComponent implements OnInit {
 
   public share() {
     const url = '';
-    const fullUrl = `${url}?t=${this.events.lobbyToken}`;
+    const fullUrl = `${url}/?t=${this.game.lobbyToken}`;
     if (navigator?.share) {
       navigator.share({
         title: 'Будешь играть в 420cards?',

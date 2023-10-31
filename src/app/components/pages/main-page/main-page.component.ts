@@ -16,8 +16,8 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 })
 export class MainPageComponent {
   public readonly colorPostfix = '';
-  public name = this.playerProfileService.name;
-  public avatar$ = this.playerProfileService.avatar$.pipe(
+  public name = this.playerProfile.name;
+  public avatar$ = this.playerProfile.avatar$.pipe(
     tap((avatar) => this.backgroundColor.set(avatar.color, 'light'))
   );
   public isLoading = false;
@@ -28,7 +28,7 @@ export class MainPageComponent {
     private readonly api: ApiService,
     private readonly backgroundColor: BackgroundColorService,
     private readonly events: EventsService,
-    private readonly playerProfileService: PlayerProfileService,
+    private readonly playerProfile: PlayerProfileService,
     private readonly router: Router,
     private readonly notifications: UiNotificationsService
   ) {}
@@ -48,8 +48,8 @@ export class MainPageComponent {
       .getConnectionInfo(
         {
           name: this.name,
-          emoji: this.playerProfileService.avatar.emoji,
-          backgroundColor: this.playerProfileService.avatar.color,
+          emoji: this.playerProfile.avatar.emoji,
+          backgroundColor: this.playerProfile.avatar.color,
         },
         this.lobbyToken
       )
@@ -70,14 +70,14 @@ export class MainPageComponent {
   }
 
   public nextAvatar() {
-    this.playerProfileService.selectNext();
+    this.playerProfile.selectNext();
   }
 
   public prevAvatar() {
-    this.playerProfileService.selectPrev();
+    this.playerProfile.selectPrev();
   }
 
   public saveName(name: string) {
-    this.playerProfileService.name = name;
+    this.playerProfile.name = name;
   }
 }

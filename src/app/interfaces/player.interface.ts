@@ -5,7 +5,7 @@ export interface Player {
   name: string;
   emoji: string;
   backgroundColor: string;
-  points: number;
+  score: number;
   state: PlayerState;
   isConnected: boolean;
   isLobbyOwner: boolean;

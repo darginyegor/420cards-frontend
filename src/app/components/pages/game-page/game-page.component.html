@@ -1,10 +1,12 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto">
-  <div class="l-row-m l-mh-xxl">
-    <app-player-avatar
-      *ngFor="let player of players"
-      [player]="player"
-      [withStatus]="true"
-    ></app-player-avatar>
+  <div class="l-ph-xxl">
+    <div class="l-row-s l-pb-m l-mb-m l-scroll-h">
+      <app-player-avatar
+        *ngFor="let player of players"
+        [player]="player"
+        [withStatus]="true"
+      ></app-player-avatar>
+    </div>
   </div>
   <div
     class="l-pt-4xl l-pb-3xl l-ph-xxl t-h2 app-game-page__setup-card"

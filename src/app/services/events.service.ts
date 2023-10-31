@@ -10,10 +10,23 @@ import { StoreService } from './store.service';
 })
 export class EventsService {
   private socket?: WebSocket;
-  private _feed$ = new Subject<GameEvent>();
   private _host? = this.store.get('LOBBY_HOST_CACHED');
   private _lobbyToken? = this.store.get('LOBBY_TOKEN_CACHED');
   private _playerToken? = this.store.get('PLAYER_TOKEN_CACHED');
+
+  private _feed$ = new Subject<GameEvent>();
+  public feed$ = this._feed$.asObservable().pipe(
+    tap((event) => {
+      switch (event.type) {
+        case 'welcome':
+          this.store.setMany([
+            ['LOBBY_HOST_CACHED', this._host],
+            ['LOBBY_TOKEN_CACHED', this._lobbyToken],
+            ['PLAYER_TOKEN_CACHED', this._playerToken],
+          ]);
+      }
+    })
+  );
 
   constructor(private store: StoreService) {}
 
@@ -50,18 +63,7 @@ export class EventsService {
       this.init();
     }
 
-    return this._feed$.asObservable().pipe(
-      tap((event) => {
-        switch (event.type) {
-          case 'welcome':
-            this.store.setMany([
-              ['LOBBY_HOST_CACHED', this._host],
-              ['LOBBY_TOKEN_CACHED', this._lobbyToken],
-              ['PLAYER_TOKEN_CACHED', this._playerToken],
-            ]);
-        }
-      })
-    );
+    return this.feed$;
   }
 
   public emit(action: GameAction): void {

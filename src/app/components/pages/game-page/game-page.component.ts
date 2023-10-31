@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BACKGROUND_BLUR } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player.interface';
 import { SetupCard } from 'src/app/interfaces/setup-card.interface';
-import {
-  PLAYERS_MOCK,
-  PUNCH_LINE_CARDS,
-  SETUP_CARDS_MOCK,
-} from 'src/app/mocks';
-import { EventsService } from 'src/app/services/events.service';
+import { PUNCH_LINE_CARDS, SETUP_CARDS_MOCK } from 'src/app/mocks';
+import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
@@ -15,28 +11,22 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss'],
 })
-export class GamePageComponent implements OnInit {
-  public players: Player[] = PLAYERS_MOCK;
+export class GamePageComponent {
+  public players: Player[] = this.game.players;
   public hand = PUNCH_LINE_CARDS;
   public table = [];
   public currentIndex = 0;
-  public answers = new Array(this.players.length - 1);
+  public answers = new Array(3);
 
   public isActive = true;
   public isHandVisible = true;
   public isTableVisible = false;
 
   constructor(
-    private readonly events: EventsService,
+    private readonly game: GameService,
     private readonly notifications: UiNotificationsService
-  ) {}
-
-  public ngOnInit(): void {
-    this.notifications.notification({
-      icon: '💩',
-      name: 'Это пока что для теста...',
-      message: 'Это тоже. Пытаюсь понять, как красиво выводить эти штуки...',
-    });
+  ) {
+    this.game.init();
   }
 
   public get setupCard(): SetupCard {
