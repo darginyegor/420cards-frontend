@@ -1,3 +1,5 @@
+import { Player } from './player.interface';
+
 export type GameEventType =
   | 'playerReady'
   | 'welcome'
@@ -7,7 +9,5 @@ export type GameEventType =
 export interface GameEvent {
   id?: number;
   type: GameEventType;
-  data: {
-    [key: string]: any;
-  };
+  data: any;
 }

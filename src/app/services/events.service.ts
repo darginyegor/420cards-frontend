@@ -31,7 +31,7 @@ export class EventsService {
     this._playerToken = info.playerToken;
   }
 
-  public listen() {
+  public init() {
     this.socket = new WebSocket(
       `${this._host}?lobbyToken=${this._lobbyToken}&playerToken=${this._playerToken}`
     );
@@ -43,10 +43,17 @@ export class EventsService {
     this.socket.onclose = (_event) => {
       this.socket = undefined;
     };
+  }
+
+  public listen() {
+    if (!this.socket) {
+      this.init();
+    }
+
     return this._feed$.asObservable().pipe(
       tap((event) => {
         switch (event.type) {
-          case 'playerConnected':
+          case 'welcome':
             this.store.setMany([
               ['LOBBY_HOST_CACHED', this._host],
               ['LOBBY_TOKEN_CACHED', this._lobbyToken],

@@ -1,0 +1,159 @@
+$spacing: (
+'0': 0,
+'a': auto,
+'u': unset,
+'f': 100%,
+'xxs': 0.125rem,
+'xs': 0.25rem,
+'s': 0.5rem,
+'m': 0.75rem,
+'l': 1rem,
+'xl': 1.25rem,
+'xxl': 1.5rem,
+'3xl': 2rem,
+'4xl': 2.5rem
+);
+
+// Layout
+
+@each $name, $value in $spacing {
+  .l-stack-#{$name} {
+    display: flex;
+    flex-direction: column;
+    &>*:not(:last-child) {
+      margin-bottom: $value;
+    }
+  }
+
+  .l-row-#{$name} {
+    display: flex;
+    flex-direction: row;
+    &>*:not(:first-child) {
+      margin-left: $value;
+    }
+  }
+
+  .l-p-#{$name} {
+    padding: $value;
+  }
+
+  .l-ph-#{$name} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  .l-pv-#{$name} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  .l-pt-#{$name} {
+    padding-top: $value;
+  }
+
+  .l-pb-#{$name} {
+    padding-bottom: $value;
+  }
+
+  .l-pl-#{$name} {
+    padding-left: $value;
+  }
+
+  .l-pr-#{$name} {
+    padding-right: $value;
+  }
+
+  .l-m-#{$name} {
+    margin: $value;
+  }
+
+  .l-mh-#{$name} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .l-mv-#{$name} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .l-mt-#{$name} {
+    margin-top: $value;
+  }
+
+  .l-mb-#{$name} {
+    margin-bottom: $value;
+  }
+
+  .l-ml-#{$name} {
+    margin-left: $value;
+  }
+
+  .l-mr-#{$name} {
+    margin-right: $value;
+  }
+
+  .l-w-#{$name} {
+    width: $value;
+  }
+
+  .l-maw-#{$name} {
+    max-width: $value;
+  }
+
+}
+
+
+.l-flex {
+  display: flex;
+}
+
+.l-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.l-flex-end {
+  justify-content: flex-end;
+}
+
+.l-flex-center {
+  justify-content: center;
+}
+
+.l-flex-auto {
+  flex: auto;
+}
+
+.l-scroll-h {
+  overflow-x: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// Style
+
+.s-t-left {
+  text-align: left;
+}
+
+.s-t-center {
+  text-align: center;
+}
+
+.s-t-right {
+  text-align: right;
+}
+
+h2, .t-h2 {
+  font-size: 1.5rem;
+}
+
+// Animation
+
+.a-t-short {
+  transition: .2s;
+}

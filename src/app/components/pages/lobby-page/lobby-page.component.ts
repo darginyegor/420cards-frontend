@@ -24,12 +24,10 @@ export class LobbyPageComponent implements OnInit {
         next: (event) => {
           switch (event.type) {
             case 'welcome':
-              this.players = event.data['players'];
-
+              this.players = event.data.players;
               break;
             case 'playerJoined':
-              // TODO: remove type casting
-              this.players.push(event.data as Player);
+              this.players.push(event.data);
               break;
             case 'playerConnected':
               const player = this.players.find(
