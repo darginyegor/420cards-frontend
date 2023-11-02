@@ -25,7 +25,19 @@ export class StoreService {
     localStorage.setItem(key, String(value));
   }
 
+  public clear(key: StoreKey) {
+    localStorage.removeItem(key);
+  }
+
   public setMany(items: StoreItems) {
     items.forEach(([key, value]) => this.set(key, value));
+  }
+
+  public clearMany(keys: StoreKey[]) {
+    keys.forEach((key) => this.clear(key));
+  }
+
+  public clearAll() {
+    localStorage.clear();
   }
 }

@@ -1,20 +1,18 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto">
-  <div class="l-ph-xxl">
-    <div class="l-row-s l-pb-m l-mb-m l-scroll-h">
-      <app-player-avatar
-        *ngFor="let player of players"
-        [player]="player"
-        [withStatus]="true"
-      ></app-player-avatar>
-    </div>
+  <div class="l-ph-xxl l-row-l l-pb-m l-mb-m l-scroll-h">
+    <app-player-avatar
+      *ngFor="let player of players"
+      [player]="player"
+      [withStatus]="true"
+    ></app-player-avatar>
   </div>
   <div
-    class="l-pt-4xl l-pb-3xl l-ph-xxl t-h2 app-game-page__setup-card"
+    class="l-pt-l l-ph-xxl l-pb-3xl t-h2 app-game-page__setup-card"
     [class.app-game-page__setup-card--with-blur]="isBlurApplied"
   >
     {{ setupCard.text }}
   </div>
-  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isHandVisible">
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
       *ngFor="let card of hand; let i = index"
       [disabled]="!isActive"
@@ -30,7 +28,7 @@
       </button>
     </div>
   </div>
-  <div class="l-stack-m l-mh-xxl l-mt-s" *ngIf="isTableVisible">
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
     <app-answer-slot
       *ngFor="let answer of answers"
       [answer]="answer"

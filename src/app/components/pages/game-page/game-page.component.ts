@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { BACKGROUND_BLUR } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player.interface';
 import { SetupCard } from 'src/app/interfaces/setup-card.interface';
-import { PUNCH_LINE_CARDS, SETUP_CARDS_MOCK } from 'src/app/mocks';
+import {
+  PLAYERS_MOCK,
+  PUNCH_LINE_CARDS,
+  SETUP_CARDS_MOCK,
+} from 'src/app/mocks';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -12,7 +16,7 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
   styleUrls: ['./game-page.component.scss'],
 })
 export class GamePageComponent {
-  public players: Player[] = this.game.players;
+  public players: Player[] = PLAYERS_MOCK; // this.game.players;
   public hand = PUNCH_LINE_CARDS;
   public table = [];
   public currentIndex = 0;
@@ -26,7 +30,9 @@ export class GamePageComponent {
     private readonly game: GameService,
     private readonly notifications: UiNotificationsService
   ) {
-    this.game.init();
+    try {
+      this.game.init();
+    } catch {}
   }
 
   public get setupCard(): SetupCard {

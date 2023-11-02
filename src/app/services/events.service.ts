@@ -22,13 +22,12 @@ export class EventsService {
           this.store.setMany([
             ['LOBBY_HOST_CACHED', this._host],
             ['LOBBY_TOKEN_CACHED', this._lobbyToken],
-            ['PLAYER_TOKEN_CACHED', this._playerToken],
           ]);
       }
     })
   );
 
-  constructor(private store: StoreService) {}
+  constructor(private readonly store: StoreService) {}
 
   public get isConnected() {
     return !!this.socket?.OPEN;
@@ -42,6 +41,7 @@ export class EventsService {
     this._host = info.host;
     this._lobbyToken = info.lobbyToken;
     this._playerToken = info.playerToken;
+    this.store.set('PLAYER_TOKEN_CACHED', info.playerToken);
   }
 
   public init() {
@@ -51,6 +51,14 @@ export class EventsService {
 
     this.socket.onmessage = (event) => {
       this._feed$.next(JSON.parse(event.data));
+    };
+
+    this.socket.onerror = (_error) => {
+      console.log('error');
+      this._feed$.next({
+        type: 'connectionError',
+        data: null,
+      });
     };
 
     this.socket.onclose = (_event) => {
@@ -76,7 +84,15 @@ export class EventsService {
     this.socket.send(JSON.stringify(action));
   }
 
-  public receiveDummy(event: GameEvent): void {
+  public fabricate(event: GameEvent): void {
     this._feed$.next(event);
+  }
+
+  public clearCache() {
+    this.store.clearMany([
+      'LOBBY_HOST_CACHED',
+      'LOBBY_TOKEN_CACHED',
+      'PLAYER_TOKEN_CACHED',
+    ]);
   }
 }

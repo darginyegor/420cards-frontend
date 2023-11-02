@@ -31,7 +31,9 @@ export class MainPageComponent {
     private readonly playerProfile: PlayerProfileService,
     private readonly router: Router,
     private readonly notifications: UiNotificationsService
-  ) {}
+  ) {
+    this.events.clearCache();
+  }
 
   public start(): void {
     if (!this.name) {

@@ -12,8 +12,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  padding: 1rem;
   .app-notification {
+    margin: 1rem;
     background-color: $bg-01;
     color: $text-01;
     animation: from-top .3s;
@@ -23,9 +23,7 @@
     .app-notification__icon {
       font-size: 1.5rem;
     }
-    .app-notification__header {
-      opacity: .8;
-    }
+    
     .app-notification__text {
       opacity: .6;
     }
@@ -33,7 +31,7 @@
       opacity: 0;
     }
     &.app-notification--highLighted {
-      transform: scale(1.025);
+      transform: scale(1.05);
     }
   }
 }

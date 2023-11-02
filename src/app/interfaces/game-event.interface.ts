@@ -4,7 +4,11 @@ export type GameEventType =
   | 'playerReady'
   | 'welcome'
   | 'playerJoined'
-  | 'playerConnected';
+  | 'playerConnected'
+  | 'playerDisconnected'
+  | 'playerLeft'
+  | 'connectionError'
+  | 'connectionLost';
 
 export interface GameEvent {
   id?: number;
