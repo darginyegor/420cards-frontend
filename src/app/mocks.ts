@@ -1,7 +1,7 @@
-import { Player } from './interfaces/player.interface';
+import { Player } from './interfaces/player';
 import { ProfileAvatar } from './interfaces/profile-avatar';
-import { PunchLineCard } from './interfaces/punch-line-card.interface';
-import { SetupCard } from './interfaces/setup-card.interface';
+import { PunchLineCard } from './interfaces/punch-line-card';
+import { SetupCard } from './interfaces/setup-card';
 
 export const PROFILE_AVATARS: ProfileAvatar[] = [
   {

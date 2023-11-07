@@ -1,5 +1,3 @@
-import { Player } from './player.interface';
-
 export type GameEventType =
   | 'playerReady'
   | 'welcome'
@@ -8,7 +6,9 @@ export type GameEventType =
   | 'playerDisconnected'
   | 'playerLeft'
   | 'connectionError'
-  | 'connectionLost';
+  | 'connectionLost'
+  | 'ownerChanged'
+  | 'gameStarted';
 
 export interface GameEvent {
   id?: number;

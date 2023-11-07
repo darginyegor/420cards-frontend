@@ -18,6 +18,11 @@ const routes: Routes = [
     path: 'play',
     component: GamePageComponent,
   },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '',
+  },
 ];
 
 @NgModule({

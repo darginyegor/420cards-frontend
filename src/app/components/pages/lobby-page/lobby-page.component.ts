@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SETUP_CARDS_MOCK } from 'src/app/mocks';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -10,6 +11,22 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 })
 export class LobbyPageComponent implements OnInit {
   public players = this.game.players;
+  public hand = this.game.hand;
+  public setup = SETUP_CARDS_MOCK[0];
+
+  public get isSetupVisible() {
+    return this.game.isSetupVisible;
+  }
+  public get isHandVisible() {
+    return this.game.isHandVisible;
+  }
+  public get isHandActive() {
+    return this.game.isHandActive;
+  }
+  public get isLobbyControlsVisible() {
+    return this.game.isLobbyControlsVisible;
+  }
+
   constructor(
     private readonly game: GameService,
     private readonly notifications: UiNotificationsService,
@@ -45,5 +62,9 @@ export class LobbyPageComponent implements OnInit {
         message: 'Можешь отправлять её друзьями. У тебя есть друзья?',
       });
     }
+  }
+
+  public start() {
+    this.game.start();
   }
 }

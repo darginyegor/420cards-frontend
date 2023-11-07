@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameEvent } from '../interfaces/game-event.interface';
+import { GameEvent } from '../interfaces/game-event';
 import { Subject, tap } from 'rxjs';
 import { GameAction } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
@@ -15,17 +15,7 @@ export class EventsService {
   private _playerToken? = this.store.get('PLAYER_TOKEN_CACHED');
 
   private _feed$ = new Subject<GameEvent>();
-  public feed$ = this._feed$.asObservable().pipe(
-    tap((event) => {
-      switch (event.type) {
-        case 'welcome':
-          this.store.setMany([
-            ['LOBBY_HOST_CACHED', this._host],
-            ['LOBBY_TOKEN_CACHED', this._lobbyToken],
-          ]);
-      }
-    })
-  );
+  public feed$ = this._feed$.asObservable().pipe(tap((event) => {}));
 
   constructor(private readonly store: StoreService) {}
 
@@ -41,7 +31,11 @@ export class EventsService {
     this._host = info.host;
     this._lobbyToken = info.lobbyToken;
     this._playerToken = info.playerToken;
-    this.store.set('PLAYER_TOKEN_CACHED', info.playerToken);
+    this.store.setMany([
+      ['PLAYER_TOKEN_CACHED', info.playerToken],
+      ['LOBBY_HOST_CACHED', this._host],
+      ['LOBBY_TOKEN_CACHED', this._lobbyToken],
+    ]);
   }
 
   public init() {

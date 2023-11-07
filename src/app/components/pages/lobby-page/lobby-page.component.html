@@ -6,11 +6,28 @@
     ></app-player-avatar>
   </div>
   <div class="l-flex-auto"></div>
+  <div
+    *ngIf="isSetupVisible"
+    class="l-pt-l l-ph-xxl l-pb-3xl t-h2 app-game-page__setup-card"
+  >
+    {{ setup.text }}
+  </div>
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
+    <app-punch-line-button *ngFor="let card of hand; let i = index">
+      {{ card.text[setup.case] }}
+    </app-punch-line-button>
+  </div>
+  <div class="l-pt-l l-mt-a l-stack-m" *ngIf="isHandVisible">
+    <button class="btn--secondary">
+      Обновить карты
+      <img src="assets/img/refresh.svg" alt="" />
+    </button>
+  </div>
   <div class="l-mh-xxl l-stack-m">
     <button class="btn btn--secondary" (click)="share()">
       Пригласить
       <img src="assets/img/share.svg" alt="" />
     </button>
-    <a routerLink="/play" class="btn btn--primary">Начать игру</a>
+    <button class="btn--primary" (click)="start()">Начать игру</button>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BACKGROUND_BLUR } from 'src/app/app.consts';
-import { Player } from 'src/app/interfaces/player.interface';
-import { SetupCard } from 'src/app/interfaces/setup-card.interface';
+import { Player } from 'src/app/interfaces/player';
+import { SetupCard } from 'src/app/interfaces/setup-card';
 import {
   PLAYERS_MOCK,
   PUNCH_LINE_CARDS,

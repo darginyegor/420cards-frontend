@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../interfaces/player.interface';
+import { Player } from '../interfaces/player';
 import { EventsService } from './events.service';
 import { UiNotificationsService } from './ui-notifications.service';
 import { Router } from '@angular/router';
+import { GameActionType } from '../interfaces/game-action';
+import { PunchLineCard } from '../interfaces/punch-line-card';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   public readonly players: Player[] = [];
+  public readonly hand: PunchLineCard[] = [];
+
+  public isSetupVisible = false;
+  public isHandVisible = false;
+  public isHandActive = false;
+  public isLobbyControlsVisible = false;
 
   private _isInitialized = false;
   public get isInitialized() {
@@ -71,6 +79,19 @@ export class GameService {
             });
             this.router.navigate(['/']);
             break;
+          case 'ownerChanged':
+            this.players.forEach((player) => {
+              player.isLobbyOwner = player.uuid === event.data.uui;
+            });
+            break;
+          case 'gameStarted':
+            this.notifications.notification({
+              icon: '💖',
+              name: 'Игра началась',
+              message: 'По крайней мере, так сказали реюбята...',
+            });
+            this.isHandVisible = true;
+            break;
         }
       },
     });
@@ -80,5 +101,16 @@ export class GameService {
     if (!this.isInitialized) {
       this.events.init();
     }
+  }
+
+  public start() {
+    // TODO check game state (actually add states)
+    this.events.emit({
+      id: 0,
+      type: GameActionType.StartGame,
+      data: {
+        timeout: null,
+      },
+    });
   }
 }

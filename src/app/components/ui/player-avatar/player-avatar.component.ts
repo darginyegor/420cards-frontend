@@ -5,7 +5,7 @@ import {
   Input,
 } from '@angular/core';
 import { AVATAR_BACKDROPS } from 'src/app/app.consts';
-import { Player } from 'src/app/interfaces/player.interface';
+import { Player } from 'src/app/interfaces/player';
 
 @Component({
   selector: 'app-player-avatar',

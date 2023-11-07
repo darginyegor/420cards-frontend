@@ -1,7 +1,9 @@
 export enum GameActionType {
-  PunchChosen = 'punch_chosen',
+  StartGame = 'startGame',
 }
 
 export interface GameAction {
+  id: number;
   type: GameActionType;
+  data: any;
 }

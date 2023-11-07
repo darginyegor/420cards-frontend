@@ -1,4 +1,4 @@
-import { CardTextCase } from './punch-line-card.interface';
+import { CardTextCase } from './punch-line-card';
 
 export interface SetupCard {
   id: number;
