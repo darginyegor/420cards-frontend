@@ -4,6 +4,7 @@ import { Subject, tap } from 'rxjs';
 import { GameAction } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
+import { LogsService } from './logs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,12 @@ export class EventsService {
   private _playerToken? = this.store.get('PLAYER_TOKEN_CACHED');
 
   private _feed$ = new Subject<GameEvent>();
-  public feed$ = this._feed$.asObservable().pipe(tap((event) => {}));
+  public feed$ = this._feed$.asObservable();
 
-  constructor(private readonly store: StoreService) {}
+  constructor(
+    private readonly store: StoreService,
+    private logs: LogsService
+  ) {}
 
   public get isConnected() {
     return !!this.socket?.OPEN;
@@ -44,19 +48,21 @@ export class EventsService {
     );
 
     this.socket.onmessage = (event) => {
-      this._feed$.next(JSON.parse(event.data));
+      const eventParsed = JSON.parse(event.data);
+      this._feed$.next(eventParsed);
+      this.logs.log(eventParsed, 'ws message received');
     };
 
     this.socket.onerror = (_error) => {
-      console.log('error');
       this._feed$.next({
         type: 'connectionError',
         data: null,
       });
     };
 
-    this.socket.onclose = (_event) => {
+    this.socket.onclose = (event) => {
       this.socket = undefined;
+      this.logs.log(event, 'ws connection closed');
     };
   }
 

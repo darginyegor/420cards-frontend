@@ -11,9 +11,10 @@ import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.
 import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
 import { AnswerSlotComponent } from './components/ui/answer-slot/answer-slot.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/ui/notification/notification.component';
 import { LoaderComponent } from './components/ui/loader/loader.component';
+import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,13 @@ import { LoaderComponent } from './components/ui/loader/loader.component';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorsLogInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

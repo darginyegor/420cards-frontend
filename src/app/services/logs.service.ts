@@ -10,12 +10,14 @@ export class LogsService {
   private _session: LogRecord[] = [];
 
   constructor(private readonly store: StoreService) {
-    this.archive = JSON.parse(this.store.get('LOGS') || '');
+    const archiveString = this.store.get('LOGS');
+    this.archive = archiveString ? JSON.parse(archiveString) : [];
   }
 
-  public log(data: any) {
+  public log(data: any, title?: string) {
     this._session.push({
       timestamp: new Date().toISOString(),
+      title,
       data,
     });
     this.store.set(
