@@ -1,4 +1,13 @@
+@import 'variables';
+
 :host {
   display: flex;
   flex: auto;
+}
+
+.setup-card {
+  position: sticky;
+  top: 0;
+  font-weight: 500;
+  background-color: $bg-01;
 }

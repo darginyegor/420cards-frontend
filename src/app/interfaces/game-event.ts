@@ -8,7 +8,8 @@ export type GameEventType =
   | 'connectionError'
   | 'connectionLost'
   | 'ownerChanged'
-  | 'gameStarted';
+  | 'gameStarted'
+  | 'turnStarted';
 
 export interface GameEvent {
   id?: number;

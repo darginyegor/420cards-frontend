@@ -13,10 +13,25 @@ export class GameService {
   public readonly players: Player[] = [];
   public readonly hand: PunchLineCard[] = [];
 
-  public isSetupVisible = false;
-  public isHandVisible = false;
-  public isHandActive = false;
-  public isLobbyControlsVisible = false;
+  private _isSetupVisible = false;
+  public get isSetupVisible() {
+    return this._isSetupVisible;
+  }
+
+  private _isHandVisible = false;
+  public get isHandVisible() {
+    return this._isHandVisible;
+  }
+
+  private _isHandActive = false;
+  public get isHandActive() {
+    return this._isHandActive;
+  }
+
+  private _isLobbyControlsVisible = true;
+  public get isLobbyControlsVisible() {
+    return this._isLobbyControlsVisible;
+  }
 
   private _isInitialized = false;
   public get isInitialized() {
@@ -88,10 +103,17 @@ export class GameService {
             this.notifications.notification({
               icon: '💖',
               name: 'Игра началась',
-              message: 'По крайней мере, так сказали реюбята...',
+              message: 'По крайней мере, так сказали ребята...',
             });
-            this.isHandVisible = true;
+            this.hand.push(...event.data.hand);
+            this._isHandVisible = true;
+            this._isSetupVisible = true;
+            this._isLobbyControlsVisible = false;
             break;
+          case 'turnStarted':
+            this._isHandVisible = true;
+            this._isSetupVisible = true;
+            this._isHandActive = true;
         }
       },
     });
@@ -112,5 +134,16 @@ export class GameService {
         timeout: null,
       },
     });
+  }
+
+  public makeTurn(uuid: string) {
+    this.events.emit({
+      id: 0,
+      type: GameActionType.MakeTurn,
+      data: {
+        uuid,
+      },
+    });
+    this._isHandActive = false;
   }
 }

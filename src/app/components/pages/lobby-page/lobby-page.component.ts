@@ -17,12 +17,15 @@ export class LobbyPageComponent implements OnInit {
   public get isSetupVisible() {
     return this.game.isSetupVisible;
   }
+
   public get isHandVisible() {
     return this.game.isHandVisible;
   }
+
   public get isHandActive() {
     return this.game.isHandActive;
   }
+
   public get isLobbyControlsVisible() {
     return this.game.isLobbyControlsVisible;
   }
@@ -42,7 +45,7 @@ export class LobbyPageComponent implements OnInit {
         name: 'Тебе точно туда было надо?',
         message: 'Почти уверен, что нет. Вот еперь ты в нужном месте.',
       });
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     }
   }
 
@@ -66,5 +69,9 @@ export class LobbyPageComponent implements OnInit {
 
   public start() {
     this.game.start();
+  }
+
+  public makeTurn(uuid: string) {
+    this.game.makeTurn(uuid);
   }
 }

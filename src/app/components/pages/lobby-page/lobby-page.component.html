@@ -6,24 +6,27 @@
     ></app-player-avatar>
   </div>
   <div class="l-flex-auto"></div>
-  <div
-    *ngIf="isSetupVisible"
-    class="l-pt-l l-ph-xxl l-pb-3xl t-h2 app-game-page__setup-card"
-  >
+  <div *ngIf="isSetupVisible" class="l-pt-l l-ph-xxl l-pb-3xl t-h2 setup-card">
     {{ setup.text }}
   </div>
-  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
-    <app-punch-line-button *ngFor="let card of hand; let i = index">
-      {{ card.text[setup.case] }}
-    </app-punch-line-button>
-  </div>
-  <div class="l-pt-l l-mt-a l-stack-m" *ngIf="isHandVisible">
-    <button class="btn--secondary">
+
+  <ng-container *ngIf="isHandVisible">
+    <div class="l-mh-xxl l-stack-m l-mt-s">
+      <app-punch-line-button
+        *ngFor="let card of hand; let i = index"
+        (select)="makeTurn(card.id.toString())"
+        [disabled]="!isHandActive"
+      >
+        {{ card.text[setup.case] }}
+      </app-punch-line-button>
+    </div>
+    <button class="btn--secondary l-mh-xxl l-mt-xl">
       Обновить карты
       <img src="assets/img/refresh.svg" alt="" />
     </button>
-  </div>
-  <div class="l-mh-xxl l-stack-m">
+  </ng-container>
+
+  <div class="l-mh-xxl l-stack-m" *ngIf="isLobbyControlsVisible">
     <button class="btn btn--secondary" (click)="share()">
       Пригласить
       <img src="assets/img/share.svg" alt="" />
