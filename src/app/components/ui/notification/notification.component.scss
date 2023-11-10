@@ -19,6 +19,7 @@
     animation: from-top .3s;
     transition: .3s;
     border-radius: .75rem;
+    border: 2px solid $border-secondary;
     font-size: 0.875rem;
     .app-notification__icon {
       font-size: 1.5rem;
@@ -32,6 +33,9 @@
     }
     &.app-notification--highLighted {
       transform: scale(1.05);
+    }
+    &.app-notification--on-light {
+      border: none;
     }
   }
 }

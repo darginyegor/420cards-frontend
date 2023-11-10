@@ -10,21 +10,26 @@
     {{ setup.text }}
   </div>
 
-  <ng-container *ngIf="isHandVisible">
-    <div class="l-mh-xxl l-stack-m l-mt-s">
-      <app-punch-line-button
-        *ngFor="let card of hand; let i = index"
-        (select)="makeTurn(card.id.toString())"
-        [disabled]="!isHandActive"
-      >
-        {{ card.text[setup.case] }}
-      </app-punch-line-button>
-    </div>
-    <button class="btn--secondary l-mh-xxl l-mt-xl">
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
+    <app-punch-line-button
+      *ngFor="let card of hand; let i = index"
+      (select)="makeTurn(card.id.toString())"
+      [disabled]="!isHandActive"
+    >
+      {{ card.text[setup.case] }}
+    </app-punch-line-button>
+    <button class="btn--secondary l-mt-s" (click)="refreshHand()">
       Обновить карты
       <img src="assets/img/refresh.svg" alt="" />
     </button>
-  </ng-container>
+  </div>
+
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
+    <app-answer-slot
+      *ngFor="let item of table"
+      [answer]="item"
+    ></app-answer-slot>
+  </div>
 
   <div class="l-mh-xxl l-stack-m" *ngIf="isLobbyControlsVisible">
     <button class="btn btn--secondary" (click)="share()">

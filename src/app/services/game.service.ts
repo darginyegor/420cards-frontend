@@ -5,6 +5,8 @@ import { UiNotificationsService } from './ui-notifications.service';
 import { Router } from '@angular/router';
 import { GameActionType } from '../interfaces/game-action';
 import { PunchLineCard } from '../interfaces/punch-line-card';
+import { PUNCH_LINE_CARDS } from '../mocks';
+import { SetupCard } from '../interfaces/setup-card';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,8 @@ import { PunchLineCard } from '../interfaces/punch-line-card';
 export class GameService {
   public readonly players: Player[] = [];
   public readonly hand: PunchLineCard[] = [];
+  public readonly table: PunchLineCard[] = [];
+  public readonly setup: SetupCard | null = null;
 
   private _isSetupVisible = false;
   public get isSetupVisible() {
@@ -31,6 +35,10 @@ export class GameService {
   private _isLobbyControlsVisible = true;
   public get isLobbyControlsVisible() {
     return this._isLobbyControlsVisible;
+  }
+  private _isTableVisible = false;
+  public get isTableVisible() {
+    return this._isTableVisible;
   }
 
   private _isInitialized = false;
@@ -111,9 +119,10 @@ export class GameService {
             this._isLobbyControlsVisible = false;
             break;
           case 'turnStarted':
-            this._isHandVisible = true;
-            this._isSetupVisible = true;
-            this._isHandActive = true;
+            this._isHandVisible = !event.data.isLeading;
+            this._isSetupVisible = !event.data.isLeading;
+            this._isHandActive = !event.data.isLeading;
+            this._isTableVisible = event.data.isLeading;
         }
       },
     });
@@ -127,11 +136,25 @@ export class GameService {
 
   public start() {
     // TODO check game state (actually add states)
-    this.events.emit({
+    // this.events.emit({
+    //   id: 0,
+    //   type: GameActionType.StartGame,
+    //   data: {
+    //     timeout: null,
+    //   },
+    // });
+    this.events.fabricate({
       id: 0,
-      type: GameActionType.StartGame,
+      type: 'gameStarted',
       data: {
-        timeout: null,
+        hand: PUNCH_LINE_CARDS,
+      },
+    });
+    this.events.fabricate({
+      id: 0,
+      type: 'turnStarted',
+      data: {
+        isLeading: false,
       },
     });
   }

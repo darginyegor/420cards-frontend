@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 
 @Component({
   selector: 'app-answer-slot',
@@ -6,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./answer-slot.component.scss'],
 })
 export class AnswerSlotComponent {
-  @Input() public answer = null;
+  @Input() public answer: PunchLineCard | null = null;
   @Input() public canOpen = false;
 }

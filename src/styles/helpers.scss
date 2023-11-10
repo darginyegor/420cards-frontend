@@ -20,7 +20,7 @@ $spacing: (
   .l-stack-#{$name} {
     display: flex;
     flex-direction: column;
-    &>*:not(:last-child) {
+    &>*:not(:last-child):not(.__exclude) {
       margin-bottom: $value;
     }
   }
@@ -28,7 +28,7 @@ $spacing: (
   .l-row-#{$name} {
     display: flex;
     flex-direction: row;
-    &>*:not(:first-child) {
+    &>*:not(:first-child):not(.__exclude) {
       margin-left: $value;
     }
   }

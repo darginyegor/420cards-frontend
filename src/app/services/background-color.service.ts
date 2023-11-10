@@ -8,7 +8,12 @@ export type BackgroundColorTone = 'light' | 'dark';
 })
 export class BackgroundColorService {
   private _bodyElement = document.getElementsByTagName('body')[0];
+  private _metaThemeColorElement = document.getElementsByName('theme-color')[0];
   private _tone: BackgroundColorTone = 'dark';
+  private _defaultThemeColor =
+    this._metaThemeColorElement.getAttribute('content');
+
+  public changeThemeColor = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe({
@@ -30,6 +35,9 @@ export class BackgroundColorService {
 
   public set(color: string, tone?: BackgroundColorTone) {
     this._bodyElement.style.background = color;
+    if (this.changeThemeColor) {
+      this._metaThemeColorElement.setAttribute('content', color);
+    }
     if (tone) {
       this._tone = tone;
     }
@@ -37,6 +45,10 @@ export class BackgroundColorService {
 
   public unset() {
     this._bodyElement.style.backgroundColor = '';
+    this._metaThemeColorElement.setAttribute(
+      'content',
+      this._defaultThemeColor || ''
+    );
     this._tone = 'dark';
   }
 }

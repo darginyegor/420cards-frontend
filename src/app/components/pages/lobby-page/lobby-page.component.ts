@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SETUP_CARDS_MOCK } from 'src/app/mocks';
@@ -12,6 +13,7 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 export class LobbyPageComponent implements OnInit {
   public players = this.game.players;
   public hand = this.game.hand;
+  public table = this.game.table;
   public setup = SETUP_CARDS_MOCK[0];
 
   public get isSetupVisible() {
@@ -30,10 +32,13 @@ export class LobbyPageComponent implements OnInit {
     return this.game.isLobbyControlsVisible;
   }
 
+  public get isTableVisible() {
+    return this.game.isTableVisible;
+  }
+
   constructor(
     private readonly game: GameService,
-    private readonly notifications: UiNotificationsService,
-    private readonly router: Router
+    private readonly notifications: UiNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -73,5 +78,13 @@ export class LobbyPageComponent implements OnInit {
 
   public makeTurn(uuid: string) {
     this.game.makeTurn(uuid);
+  }
+
+  public refreshHand() {
+    this.notifications.notification({
+      icon: '💨',
+      name: 'Пук-среньк',
+      message: 'Это не работает',
+    });
   }
 }
