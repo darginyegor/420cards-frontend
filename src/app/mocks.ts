@@ -180,6 +180,26 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '🏳️‍🌈',
     color: '#e6e6e6',
   },
+  {
+    emoji: '🪐',
+    color: '#e3e8d2',
+  },
+  {
+    emoji: '🌵',
+    color: '#e3ffce',
+  },
+  {
+    emoji: '☄️',
+    color: '#ffefde',
+  },
+  {
+    emoji: '🫧',
+    color: '#f0f5ff',
+  },
+  {
+    emoji: '🐚',
+    color: '#e9e1f6',
+  },
 ];
 
 export const SETUP_CARDS_MOCK: SetupCard[] = [
