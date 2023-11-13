@@ -61,29 +61,16 @@ export class GameService {
         let player: Player | undefined;
         switch (event.type) {
           case 'welcome':
-            this._isInitialized = true;
-            this.players.push(...event.data.players);
+            this.onWelcome(event.data.players);
             break;
           case 'playerJoined':
-            this.players.push(event.data);
+            this.onPlayerJoined(event.data);
             break;
           case 'playerConnected':
-            player = this.players.find(
-              (player) => player.uuid === event.data.uuid
-            );
-            if (!player) {
-              return;
-            }
-            player.isConnected = true;
+            this.onPlayerConnected(event.data.uuid);
             break;
           case 'playerDisconnected':
-            player = this.players.find(
-              (player) => player.uuid === event.data.uuid
-            );
-            if (!player) {
-              return;
-            }
-            player.isConnected = false;
+            this.onPlayerDisconnected(event.data.uuid);
             break;
           case 'playerLeft':
             const index = this.players.findIndex(
@@ -123,9 +110,45 @@ export class GameService {
             this._isSetupVisible = !event.data.isLeading;
             this._isHandActive = !event.data.isLeading;
             this._isTableVisible = event.data.isLeading;
+            break;
+          case 'playerReady':
+            this.onPlayerReady(event.data.uuid);
         }
       },
     });
+  }
+
+  private onWelcome(players: Player[]) {
+    this._isInitialized = true;
+    this.players.push(...players);
+  }
+
+  private onPlayerJoined(player: Player) {
+    this.players.push(player);
+  }
+
+  private onPlayerConnected(uuid: string) {
+    const player = this.players.find((player) => player.uuid === uuid);
+    if (!player) {
+      return;
+    }
+    player.isConnected = true;
+  }
+
+  private onPlayerDisconnected(uuid: string) {
+    const player = this.players.find((player) => player.uuid === uuid);
+    if (!player) {
+      return;
+    }
+    player.isConnected = false;
+  }
+
+  private onPlayerReady(uuid: string) {
+    const player = this.players.find((player) => player.uuid === uuid);
+    if (!player) {
+      return;
+    }
+    player.state = 'ready';
   }
 
   public init() {
@@ -136,25 +159,11 @@ export class GameService {
 
   public start() {
     // TODO check game state (actually add states)
-    // this.events.emit({
-    //   id: 0,
-    //   type: GameActionType.StartGame,
-    //   data: {
-    //     timeout: null,
-    //   },
-    // });
-    this.events.fabricate({
+    this.events.emit({
       id: 0,
-      type: 'gameStarted',
+      type: GameActionType.StartGame,
       data: {
-        hand: PUNCH_LINE_CARDS,
-      },
-    });
-    this.events.fabricate({
-      id: 0,
-      type: 'turnStarted',
-      data: {
-        isLeading: false,
+        timeout: null,
       },
     });
   }

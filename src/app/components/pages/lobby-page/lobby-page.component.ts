@@ -47,8 +47,8 @@ export class LobbyPageComponent implements OnInit {
     } catch (error) {
       this.notifications.notification({
         icon: '👀',
-        name: 'Тебе точно туда было надо?',
-        message: 'Почти уверен, что нет. Вот еперь ты в нужном месте.',
+        name: 'Это всё понарошку',
+        message: 'Никаких подключений',
       });
       // this.router.navigate(['/']);
     }

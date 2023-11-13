@@ -3,6 +3,7 @@
     <app-player-avatar
       *ngFor="let player of players"
       [player]="player"
+      [withStatus]="!isLobbyControlsVisible"
     ></app-player-avatar>
   </div>
   <div class="l-flex-auto"></div>
@@ -13,7 +14,7 @@
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
       *ngFor="let card of hand; let i = index"
-      (select)="makeTurn(card.id.toString())"
+      (select)="makeTurn(card.uuid.toString())"
       [disabled]="!isHandActive"
     >
       {{ card.text[setup.case] }}

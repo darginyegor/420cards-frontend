@@ -2,6 +2,7 @@
   class="l-w-f"
   [class.btn--secondary]="!selected"
   [class.btn--primary]="selected"
+  [class.--selected]="selected"
   [disabled]="!selected && disabled"
   (click)="_select()"
 >

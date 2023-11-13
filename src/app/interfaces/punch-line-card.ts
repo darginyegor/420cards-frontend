@@ -9,7 +9,7 @@ export const CARD_TEXT_CASES = [
 export type CardTextCase = (typeof CARD_TEXT_CASES)[number];
 
 export interface PunchLineCard {
-  id: number;
+  uuid: string;
   text: {
     [key in CardTextCase]: string;
   };

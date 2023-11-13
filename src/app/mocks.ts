@@ -200,29 +200,33 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '🐚',
     color: '#e9e1f6',
   },
+  {
+    emoji: '🍓',
+    color: '#FFDDDD',
+  },
 ];
 
 export const SETUP_CARDS_MOCK: SetupCard[] = [
   {
-    id: 2,
+    uuid: '2',
     text: 'Это я почему злой был? А потому что у меня _______ не было!',
     startsFromPunchLine: false,
     case: 'gen',
   },
   {
-    id: 3,
+    uuid: '3',
     text: '50% всех браков заканчиваются _______.',
     startsFromPunchLine: false,
     case: 'inst',
   },
   {
-    id: 1,
+    uuid: '1',
     text: '_______ — лучшее лекарство от запора!',
     startsFromPunchLine: true,
     case: 'nom',
   },
   {
-    id: 3,
+    uuid: '3',
     text: 'Кажется, я разобрался в политике! Мое решениве всех проблем — _______.',
     startsFromPunchLine: false,
     case: 'nom',
@@ -231,7 +235,7 @@ export const SETUP_CARDS_MOCK: SetupCard[] = [
 
 export const PUNCH_LINE_CARDS: PunchLineCard[] = [
   {
-    id: 1,
+    uuid: '1',
     text: {
       nom: 'говно',
       gen: 'говна',
@@ -242,7 +246,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 2,
+    uuid: '2',
     text: {
       nom: 'Гитлер',
       gen: 'Гитлера',
@@ -253,7 +257,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 3,
+    uuid: '3',
     text: {
       nom: 'президент Татарстана',
       gen: 'президента Татарстана',
@@ -264,7 +268,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 4,
+    uuid: '4',
     text: {
       nom: 'мои яйца на твоем лице',
       gen: 'моих яиц на твоем лице',
@@ -275,7 +279,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 5,
+    uuid: '5',
     text: {
       nom: 'евреи',
       gen: 'евреев',
@@ -286,7 +290,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 6,
+    uuid: '6',
     text: {
       nom: 'секс с животными',
       gen: 'секса с животными',
@@ -297,7 +301,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 7,
+    uuid: '7',
     text: {
       nom: 'распад Югославии',
       gen: 'распада Югославии',
@@ -308,7 +312,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 8,
+    uuid: '8',
     text: {
       nom: 'настаящая работа с ДМС и соц. пакетом',
       gen: 'настоящей работы с ДМС и соц. пакетом',
@@ -319,7 +323,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 9,
+    uuid: '9',
     text: {
       nom: 'Илон Маск',
       gen: 'Илона Маска',
@@ -330,7 +334,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     },
   },
   {
-    id: 10,
+    uuid: '10',
     text: {
       nom: 'плохая музыка для тупых людей',
       gen: 'плохой музыки для тупых людей',
