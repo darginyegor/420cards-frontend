@@ -127,7 +127,7 @@ $spacing: (
 
 .l-scroll-h {
   overflow-x: auto;
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;

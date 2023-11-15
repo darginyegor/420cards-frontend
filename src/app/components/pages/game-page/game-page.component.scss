@@ -5,7 +5,8 @@
   top: 0;
   font-weight: 500;
   background-color: $bg-01;
-  backdrop-filter: blur(1rem);
+  line-height: 2rem;
+  white-space: pre-line;
 }
 
 .app-game-page__setup-card--with-blur {

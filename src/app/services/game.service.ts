@@ -5,7 +5,6 @@ import { UiNotificationsService } from './ui-notifications.service';
 import { Router } from '@angular/router';
 import { GameActionType } from '../interfaces/game-action';
 import { PunchLineCard } from '../interfaces/punch-line-card';
-import { PUNCH_LINE_CARDS } from '../mocks';
 import { SetupCard } from '../interfaces/setup-card';
 
 @Injectable({

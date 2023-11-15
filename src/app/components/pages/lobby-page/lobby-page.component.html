@@ -1,5 +1,5 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
-  <div class="l-ph-xxl l-row-l l-pb-m l-mb-m l-scroll-h">
+  <div class="l-ph-xxl l-row-l l-scroll-h">
     <app-player-avatar
       *ngFor="let player of players"
       [player]="player"
@@ -7,7 +7,7 @@
     ></app-player-avatar>
   </div>
   <div class="l-flex-auto"></div>
-  <div *ngIf="isSetupVisible" class="l-pt-l l-ph-xxl l-pb-3xl t-h2 setup-card">
+  <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
     {{ setup.text }}
   </div>
 

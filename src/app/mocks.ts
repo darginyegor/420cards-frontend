@@ -209,7 +209,7 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
 export const SETUP_CARDS_MOCK: SetupCard[] = [
   {
     uuid: '2',
-    text: 'Это я почему злой был? А потому что у меня _______ не было!',
+    text: 'Это я почему злой был? \nА потому что у меня ________ не было!',
     startsFromPunchLine: false,
     case: 'gen',
   },
@@ -355,7 +355,7 @@ export const PLAYERS_MOCK: Player[] = [
     score: 6,
     state: 'default',
     isConnected: true,
-    isLobbyOwner: true,
+    isLobbyOwner: false,
   },
   {
     uuid: '2',
@@ -365,7 +365,7 @@ export const PLAYERS_MOCK: Player[] = [
     score: 2,
     state: 'leading',
     isConnected: true,
-    isLobbyOwner: false,
+    isLobbyOwner: true,
   },
   {
     uuid: '3',
