@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/ui/notification/notification.component';
 import { LoaderComponent } from './components/ui/loader/loader.component';
 import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interceptor';
+import { CountdownComponent } from './components/ui/countdown/countdown.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interce
     AnswerSlotComponent,
     NotificationComponent,
     LoaderComponent,
+    CountdownComponent,
   ],
   imports: [
     BrowserModule,
