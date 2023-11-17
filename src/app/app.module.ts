@@ -10,7 +10,7 @@ import { GamePageComponent } from './components/pages/game-page/game-page.compon
 import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.component';
 import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
-import { AnswerSlotComponent } from './components/ui/answer-slot/answer-slot.component';
+import { TableSlotComponent } from './components/ui/table-slot/table-slot.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/ui/notification/notification.component';
 import { LoaderComponent } from './components/ui/loader/loader.component';
@@ -26,7 +26,7 @@ import { CountdownComponent } from './components/ui/countdown/countdown.componen
     GamePageComponent,
     ProgressBarComponent,
     PunchLineButtonComponent,
-    AnswerSlotComponent,
+    TableSlotComponent,
     NotificationComponent,
     LoaderComponent,
     CountdownComponent,

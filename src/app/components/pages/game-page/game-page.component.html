@@ -29,9 +29,6 @@
     </div>
   </div>
   <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isTableVisible">
-    <app-answer-slot
-      *ngFor="let answer of answers"
-      [answer]="answer"
-    ></app-answer-slot>
+    <app-table-slot *ngFor="let slot of answers" [slot]="slot"></app-table-slot>
   </div>
 </div>

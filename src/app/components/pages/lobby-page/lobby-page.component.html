@@ -28,13 +28,13 @@
   </div>
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
-    <app-answer-slot
+    <app-table-slot
       *ngFor="let item of table; let i = index"
-      [answer]="item"
+      [slot]="item"
       [case]="setup?.case"
       (open)="openSlot(i)"
       (pick)="pickWinner(item.card)"
-    ></app-answer-slot>
+    ></app-table-slot>
   </div>
 
   <div class="l-mh-xxl l-stack-m" *ngIf="isLobbyControlsVisible">

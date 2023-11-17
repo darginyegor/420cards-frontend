@@ -22,7 +22,7 @@ export class LobbyPageComponent implements OnInit {
   }
 
   public get isHandActive() {
-    return this.game.chosenUuid && this.game.state === GameState.Turns;
+    return this.game.hasChosenCard && this.game.state === GameState.Turns;
   }
 
   public get isLobbyControlsVisible() {

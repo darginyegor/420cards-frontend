@@ -1,17 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  CardTextCase,
-  PunchLineCard,
-} from 'src/app/interfaces/punch-line-card';
+import { CardTextCase } from 'src/app/interfaces/punch-line-card';
 import { TableSlot } from 'src/app/interfaces/table-slot';
 
 @Component({
-  selector: 'app-answer-slot',
-  templateUrl: './answer-slot.component.html',
-  styleUrls: ['./answer-slot.component.scss'],
+  selector: 'app-table-slot',
+  templateUrl: './table-slot.component.html',
+  styleUrls: ['./table-slot.component.scss'],
 })
-export class AnswerSlotComponent {
-  @Input() public answer: TableSlot | null = null;
+export class TableSlotComponent {
+  @Input() public slot: TableSlot | null = null;
   @Input() public canOpen = false;
   @Input() public case?: CardTextCase;
 
@@ -22,11 +19,11 @@ export class AnswerSlotComponent {
     if (!this.case) {
       return;
     }
-    return this.answer?.card?.text[this.case];
+    return this.slot?.card?.text[this.case];
   }
 
   public action() {
-    if (!this.answer?.card) {
+    if (!this.slot?.card) {
       this.open.emit();
     } else {
       this.pick.emit();
