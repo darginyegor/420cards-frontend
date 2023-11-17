@@ -1,7 +1,18 @@
 <button
-  class="btn--secondary l-w-f"
-  [class.app-answer-slot--empty]="!answer"
-  [disabled]="!answer || !canOpen"
+  class="l-w-f app-answer-slot"
+  [class.btn--secondary]="!answer?.isWinner"
+  [class.btn--primary]="answer?.isWinner"
+  [class.app-answer-slot--empty]="answer?.isEmpty"
+  [disabled]="answer?.isEmpty"
+  (click)="action()"
 >
-  <img *ngIf="answer" src="assets/img/logo-light.svg" class="l-m-a" alt="" />
+  <img
+    *ngIf="!answer?.isEmpty && !answer?.card"
+    src="assets/img/logo-light.svg"
+    class="l-m-a"
+    alt=""
+  />
+  <ng-container *ngIf="answer?.card && case">
+    {{ casedText }}
+  </ng-container>
 </button>

@@ -2,7 +2,10 @@
   display: block;
 }
 
+.app-answer-slot {
+  min-height: 4.75rem;
+}
+
 .app-answer-slot--empty {
   border-style: dashed;
-  min-height: 4.75rem;
 }

@@ -21,7 +21,20 @@ export class GamePageComponent {
   public hand = PUNCH_LINE_CARDS;
   public table = [];
   public currentIndex = 0;
-  public answers = new Array(3);
+  public answers = [
+    {
+      isEmpty: false,
+    },
+    {
+      isEmpty: false,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+  ];
 
   public isActive = true;
   public isHandVisible = true;
@@ -70,7 +83,6 @@ export class GamePageComponent {
       this.players[2].state = 'ready';
       this.isTableVisible = true;
       this.isHandVisible = false;
-      this.answers = [1, 1, 1, 1];
     }, 6000);
 
     //   setTimeout(() => {

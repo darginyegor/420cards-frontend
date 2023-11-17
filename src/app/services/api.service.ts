@@ -17,7 +17,7 @@ export interface ConnectionResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly API_HOST = 'https://c9gws36c-9999.euw.devtunnels.ms/connect';
+  private readonly API_HOST = 'http://192.168.0.12:9999/connect';
 
   constructor(private httpClient: HttpClient) {}
 

@@ -1,5 +1,6 @@
 export type GameEventType =
   | 'playerReady'
+  | 'allPlayersReady'
   | 'welcome'
   | 'playerJoined'
   | 'playerConnected'
@@ -9,7 +10,9 @@ export type GameEventType =
   | 'connectionLost'
   | 'ownerChanged'
   | 'gameStarted'
-  | 'turnStarted';
+  | 'turnStarted'
+  | 'tableCardOpened'
+  | 'turnEnded';
 
 export interface GameEvent {
   id?: number;

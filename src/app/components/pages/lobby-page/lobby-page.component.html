@@ -6,9 +6,11 @@
       [withStatus]="!isLobbyControlsVisible"
     ></app-player-avatar>
   </div>
+
   <div class="l-flex-auto"></div>
+
   <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
-    {{ setup.text }}
+    {{ setup?.text }}
   </div>
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
@@ -17,7 +19,7 @@
       (select)="makeTurn(card.uuid.toString())"
       [disabled]="!isHandActive"
     >
-      {{ card.text[setup.case] }}
+      {{ card.text[setup?.case || "nom"] }}
     </app-punch-line-button>
     <button class="btn--secondary l-mt-s" (click)="refreshHand()">
       Обновить карты
@@ -27,8 +29,11 @@
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
     <app-answer-slot
-      *ngFor="let item of table"
+      *ngFor="let item of table; let i = index"
       [answer]="item"
+      [case]="setup?.case"
+      (open)="openSlot(i)"
+      (pick)="pickWinner(item.card)"
     ></app-answer-slot>
   </div>
 

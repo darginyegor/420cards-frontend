@@ -12,6 +12,7 @@ html, body {
   margin: 0;
   color: $text-01;
   font-size: 16px;
+  overscroll-behavior: none;
 }
 
 body {

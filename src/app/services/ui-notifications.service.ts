@@ -16,7 +16,7 @@ export class UiNotificationsService {
 
   constructor() {}
 
-  public notification(error: UiNotification) {
-    this._feed$.next(error);
+  public notification(notification: UiNotification) {
+    this._feed$.next(notification);
   }
 }

@@ -1,7 +1,5 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SETUP_CARDS_MOCK } from 'src/app/mocks';
+import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -14,7 +12,6 @@ export class LobbyPageComponent implements OnInit {
   public players = this.game.players;
   public hand = this.game.hand;
   public table = this.game.table;
-  public setup = SETUP_CARDS_MOCK[0];
 
   public get isSetupVisible() {
     return this.game.isSetupVisible;
@@ -34,6 +31,10 @@ export class LobbyPageComponent implements OnInit {
 
   public get isTableVisible() {
     return this.game.isTableVisible;
+  }
+
+  public get setup() {
+    return this.game.setup;
   }
 
   constructor(
@@ -78,6 +79,16 @@ export class LobbyPageComponent implements OnInit {
 
   public makeTurn(uuid: string) {
     this.game.makeTurn(uuid);
+  }
+
+  public openSlot(index: number) {
+    this.game.openTableCard(index);
+  }
+
+  public pickWinner(card: PunchLineCard | undefined) {
+    if (card) {
+      this.game.pickWinner(card.uuid);
+    }
   }
 
   public refreshHand() {
