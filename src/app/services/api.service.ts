@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_HOST } from '../app.consts';
 
 export interface ConnectionRequestBody {
   name: string;
@@ -17,7 +18,7 @@ export interface ConnectionResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly API_HOST = 'http://192.168.0.12:9999/connect';
+  private readonly API_HOST = API_HOST;
 
   constructor(private httpClient: HttpClient) {}
 

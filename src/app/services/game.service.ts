@@ -37,8 +37,10 @@ export class GameService {
     return this.events.lobbyToken;
   }
 
-  // TODO: refactor'
-  public chosenUuid = '';
+  private _chosenUuid = '';
+  public get hasChosenCard() {
+    return Boolean(this._chosenUuid);
+  }
 
   private _turnIndex = -1;
 
@@ -186,13 +188,13 @@ export class GameService {
       },
     });
 
-    if (this.chosenUuid) {
+    if (this._chosenUuid) {
       const index = this.hand.findIndex(
-        (card) => card.uuid === this.chosenUuid
+        (card) => card.uuid === this._chosenUuid
       );
       this.hand.splice(index, 1);
     }
-    this.chosenUuid = '';
+    this._chosenUuid = '';
 
     if (card) {
       this.hand.push(card);
@@ -252,7 +254,7 @@ export class GameService {
         uuid,
       },
     });
-    this.chosenUuid = uuid;
+    this._chosenUuid = uuid;
   }
 
   public openTableCard(index: number) {
