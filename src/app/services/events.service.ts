@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameEvent } from '../interfaces/game-event';
 import { Subject, tap } from 'rxjs';
-import { GameAction } from '../interfaces/game-action';
+import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
 import { LogsService } from './logs.service';
@@ -17,6 +17,8 @@ export class EventsService {
 
   private _feed$ = new Subject<GameEvent>();
   public feed$ = this._feed$.asObservable();
+
+  private _eventId = 0;
 
   constructor(
     private readonly store: StoreService,
@@ -74,14 +76,20 @@ export class EventsService {
     return this.feed$;
   }
 
-  public emit(action: GameAction): void {
+  public emit(action: GameActionWithoutId): void {
     if (!this.socket) {
       throw new Error(
         'No connection established. First, establish a connecton via calling listen().'
       );
     }
 
-    this.socket.send(JSON.stringify(action));
+    const actionWithId: GameAction = {
+      id: this._eventId,
+      ...action,
+    };
+
+    this.socket.send(JSON.stringify(actionWithId));
+    this._eventId++;
   }
 
   public fabricate(event: GameEvent): void {

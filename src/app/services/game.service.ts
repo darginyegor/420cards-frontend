@@ -9,6 +9,15 @@ import { SetupCard } from '../interfaces/setup-card';
 import { CountdownService } from './countdown.service';
 import { TableSlot } from '../interfaces/table-slot';
 
+export enum GameState {
+  Void = 'void',
+  Gathering = 'gathering',
+  Turns = 'turns',
+  Judgement = 'judgement',
+  Congrats = 'congrats',
+  Finished = 'finished',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,42 +26,19 @@ export class GameService {
   public readonly hand: PunchLineCard[] = [];
   public readonly table: TableSlot[] = [];
   public setup: SetupCard | null = null;
+  public isLeading = false;
 
-  // TODO: refactor'
-  public chosenUuid = '';
-
-  private _isSetupVisible = false;
-  public get isSetupVisible() {
-    return this._isSetupVisible;
-  }
-
-  private _isHandVisible = false;
-  public get isHandVisible() {
-    return this._isHandVisible;
-  }
-
-  private _isHandActive = false;
-  public get isHandActive() {
-    return this._isHandActive;
-  }
-
-  private _isLobbyControlsVisible = true;
-  public get isLobbyControlsVisible() {
-    return this._isLobbyControlsVisible;
-  }
-  private _isTableVisible = false;
-  public get isTableVisible() {
-    return this._isTableVisible;
-  }
-
-  private _isInitialized = false;
-  public get isInitialized() {
-    return this._isInitialized;
+  private _state: GameState = GameState.Void;
+  public get state() {
+    return this._state;
   }
 
   public get lobbyToken() {
     return this.events.lobbyToken;
   }
+
+  // TODO: refactor'
+  public chosenUuid = '';
 
   private _turnIndex = -1;
 
@@ -66,7 +52,7 @@ export class GameService {
       next: (event) => {
         switch (event.type) {
           case 'welcome':
-            this.onWelcome(event.data.players);
+            this.onWelcome(event.data.players, event.data.state);
             break;
           case 'playerJoined':
             this.onPlayerJoined(event.data);
@@ -94,8 +80,7 @@ export class GameService {
             });
             break;
           case 'gameStarted':
-            this.hand.push(...event.data.hand);
-            this._isLobbyControlsVisible = false;
+            this.onGameStarted(event.data.hand);
             break;
           case 'turnStarted':
             this.onTurnStarted(
@@ -109,8 +94,7 @@ export class GameService {
             this.onPlayerReady(event.data.uuid);
             break;
           case 'allPlayersReady':
-            this._isHandVisible = false;
-            this._isTableVisible = true;
+            this.onAllPlayersReady();
             break;
           case 'tableCardOpened':
             this.table[event.data.index].card = event.data.card;
@@ -122,8 +106,8 @@ export class GameService {
     });
   }
 
-  private onWelcome(players: Player[]) {
-    this._isInitialized = true;
+  private onWelcome(players: Player[], state: GameState) {
+    this._state = state;
     this.players.push(...players);
   }
 
@@ -172,6 +156,14 @@ export class GameService {
     });
   }
 
+  private onAllPlayersReady() {
+    this._state = GameState.Judgement;
+  }
+
+  public onGameStarted(hand: PunchLineCard[]) {
+    this.hand.push(...hand);
+  }
+
   public onTurnStarted(
     uuid: string,
     isLeading: boolean,
@@ -189,11 +181,8 @@ export class GameService {
       (player) => (player.state = player.uuid === uuid ? 'leading' : 'default')
     );
     this.countdown.start(3).subscribe({
-      next: (i) => {
-        this._isHandVisible = !isLeading;
-        this._isSetupVisible = true;
-        this._isHandActive = !isLeading;
-        this._isTableVisible = isLeading;
+      next: () => {
+        this._state = GameState.Turns;
       },
     });
 
@@ -209,13 +198,13 @@ export class GameService {
       this.hand.push(card);
     }
 
+    this.isLeading = isLeading;
     this._turnIndex++;
     this.setup = setup;
   }
 
   public onTurnEnded(event: any) {
     const player = this.players.find((player) => {
-      console.log(player.uuid, event.winnerUuid);
       return player.uuid === event.winnerUuid;
     });
     if (!player) {
@@ -238,15 +227,17 @@ export class GameService {
   }
 
   public init() {
-    if (!this.isInitialized) {
+    if (this.state === GameState.Void) {
       this.events.init();
     }
   }
 
   public start() {
-    // TODO check game state (actually add states)
+    if (this.state !== GameState.Gathering) {
+      throw new Error('Game already started or not yet initialized.');
+    }
+
     this.events.emit({
-      id: 0,
       type: GameActionType.StartGame,
       data: {
         timeout: null,
@@ -256,19 +247,16 @@ export class GameService {
 
   public makeTurn(uuid: string) {
     this.events.emit({
-      id: 0,
       type: GameActionType.MakeTurn,
       data: {
         uuid,
       },
     });
-    this._isHandActive = false;
     this.chosenUuid = uuid;
   }
 
   public openTableCard(index: number) {
     this.events.emit({
-      id: 0,
       type: GameActionType.OpenTableCard,
       data: {
         index,
@@ -278,7 +266,6 @@ export class GameService {
 
   public pickWinner(uuid: string) {
     this.events.emit({
-      id: 0,
       type: GameActionType.PickWinner,
       data: {
         uuid,

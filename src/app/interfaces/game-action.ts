@@ -10,3 +10,5 @@ export interface GameAction {
   type: GameActionType;
   data: any;
 }
+
+export type GameActionWithoutId = Omit<GameAction, 'id'>;

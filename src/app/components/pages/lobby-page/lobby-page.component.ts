@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
-import { GameService } from 'src/app/services/game.service';
+import { GameService, GameState } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
@@ -14,23 +14,26 @@ export class LobbyPageComponent implements OnInit {
   public table = this.game.table;
 
   public get isSetupVisible() {
-    return this.game.isSetupVisible;
+    return ![GameState.Void, GameState.Finished].includes(this.game.state);
   }
 
   public get isHandVisible() {
-    return this.game.isHandVisible;
+    return !(this.game.isLeading || this.game.state !== GameState.Turns);
   }
 
   public get isHandActive() {
-    return this.game.isHandActive;
+    return this.game.chosenUuid && this.game.state === GameState.Turns;
   }
 
   public get isLobbyControlsVisible() {
-    return this.game.isLobbyControlsVisible;
+    return this.game.state === GameState.Gathering;
   }
 
   public get isTableVisible() {
-    return this.game.isTableVisible;
+    return (
+      this.game.isLeading ||
+      [GameState.Judgement, GameState.Congrats].includes(this.game.state)
+    );
   }
 
   public get setup() {
