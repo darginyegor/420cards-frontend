@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { GameActionType } from '../interfaces/game-action';
 import { PunchLineCard } from '../interfaces/punch-line-card';
 import { SetupCard } from '../interfaces/setup-card';
+import { CountdownService } from './countdown.service';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,7 @@ export class GameService {
   }
 
   constructor(
+    private readonly countdown: CountdownService,
     private readonly events: EventsService,
     private readonly notifications: UiNotificationsService,
     private readonly router: Router
@@ -57,7 +59,6 @@ export class GameService {
     this.events.feed$.subscribe({
       next: (event) => {
         // TODO: make player a class
-        let player: Player | undefined;
         switch (event.type) {
           case 'welcome':
             this.onWelcome(event.data.players);
@@ -72,13 +73,7 @@ export class GameService {
             this.onPlayerDisconnected(event.data.uuid);
             break;
           case 'playerLeft':
-            const index = this.players.findIndex(
-              (player) => player.uuid === event.data.uuid
-            );
-            if (index < 0) {
-              return;
-            }
-            this.players.splice(index, 1);
+            this.onPlayerLeft(event.data.uuid);
             break;
           case 'connectionError':
             this.notifications.notification({
@@ -94,21 +89,18 @@ export class GameService {
             });
             break;
           case 'gameStarted':
-            this.notifications.notification({
-              icon: '💖',
-              name: 'Игра началась',
-              message: 'По крайней мере, так сказали ребята...',
-            });
             this.hand.push(...event.data.hand);
-            this._isHandVisible = true;
-            this._isSetupVisible = true;
             this._isLobbyControlsVisible = false;
             break;
           case 'turnStarted':
-            this._isHandVisible = !event.data.isLeading;
-            this._isSetupVisible = !event.data.isLeading;
-            this._isHandActive = !event.data.isLeading;
-            this._isTableVisible = event.data.isLeading;
+            this.countdown.start(3).subscribe({
+              next: (i) => {
+                this._isHandVisible = !event.data.isLeading;
+                this._isSetupVisible = !event.data.isLeading;
+                this._isHandActive = !event.data.isLeading;
+                this._isTableVisible = event.data.isLeading;
+              },
+            });
             break;
           case 'playerReady':
             this.onPlayerReady(event.data.uuid);
@@ -140,6 +132,14 @@ export class GameService {
       return;
     }
     player.isConnected = false;
+  }
+
+  private onPlayerLeft(uuid: string) {
+    const index = this.players.findIndex((player) => player.uuid === uuid);
+    if (index < 0) {
+      return;
+    }
+    this.players.splice(index, 1);
   }
 
   private onPlayerReady(uuid: string) {

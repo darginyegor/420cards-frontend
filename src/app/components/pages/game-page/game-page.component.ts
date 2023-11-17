@@ -7,6 +7,7 @@ import {
   PUNCH_LINE_CARDS,
   SETUP_CARDS_MOCK,
 } from 'src/app/mocks';
+import { CountdownService } from 'src/app/services/countdown.service';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -27,6 +28,7 @@ export class GamePageComponent {
   public isTableVisible = false;
 
   constructor(
+    private readonly countdown: CountdownService,
     private readonly game: GameService,
     private readonly notifications: UiNotificationsService
   ) {
@@ -47,6 +49,12 @@ export class GamePageComponent {
     this.isActive = false;
     this.players[0].state = 'ready';
     this._triggerInterfaceTestCycle();
+  }
+
+  public testCountdown() {
+    this.countdown.start(3).subscribe({
+      next: (i) => console.log(i),
+    });
   }
 
   private _triggerInterfaceTestCycle() {
