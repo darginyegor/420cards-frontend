@@ -1,3 +1,4 @@
+import { PlayerAvatarComponent } from '../components/ui/player-avatar/player-avatar.component';
 import { GameState } from '../services/game.service';
 import { Player } from './player';
 import { PunchLineCard } from './punch-line-card';
@@ -33,9 +34,7 @@ export interface WelcomeEventData {
   state: GameState;
 }
 
-export interface PlayerJoinedEventData {
-  player: Player;
-}
+export interface PlayerJoinedEventData extends Player {}
 
 export interface PlayerConnectedEventData {
   uuid: string;
@@ -58,7 +57,7 @@ export interface GameStartedEventData {
 }
 
 export interface TurnStartedEventData {
-  uuid: string;
+  leadUuid: string;
   isLeading: boolean;
   card?: PunchLineCard;
   setup: SetupCard;

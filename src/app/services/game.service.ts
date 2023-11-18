@@ -96,7 +96,7 @@ export class GameService {
   }
 
   private onPlayerJoined(data: PlayerJoinedEventData) {
-    this.players.push(data.player);
+    this.players.push(data);
   }
 
   private onPlayerConnected(data: PlayerConnectedEventData) {
@@ -159,7 +159,7 @@ export class GameService {
     this.table.length = this.players.length - 1;
     this.players.forEach(
       (player) =>
-        (player.state = player.uuid === data.uuid ? 'leading' : 'default')
+        (player.state = player.uuid === data.leadUuid ? 'leading' : 'default')
     );
     this.countdown.start(3).subscribe({
       next: () => {

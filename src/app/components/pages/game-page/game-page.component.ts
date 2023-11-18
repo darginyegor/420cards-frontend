@@ -38,6 +38,10 @@ export class GamePageComponent implements OnInit {
     );
   }
 
+  public get isLeading() {
+    return this.game.isLeading;
+  }
+
   public get isTableActive() {
     return this.game.state === GameState.Judgement && this.game.isLeading;
   }
