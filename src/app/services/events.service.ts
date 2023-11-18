@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameEvent } from '../interfaces/game-event';
+import { GameEvent, GameEventType } from '../interfaces/game-event';
 import { Subject, tap } from 'rxjs';
 import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
@@ -22,7 +22,7 @@ export class EventsService {
 
   constructor(
     private readonly store: StoreService,
-    private logs: LogsService
+    private readonly logs: LogsService
   ) {}
 
   public get isConnected() {
@@ -55,12 +55,7 @@ export class EventsService {
       this.logs.log(eventParsed, 'ws message received');
     };
 
-    this.socket.onerror = (_error) => {
-      this._feed$.next({
-        type: 'connectionError',
-        data: null,
-      });
-    };
+    this.socket.onerror = (_error) => {};
 
     this.socket.onclose = (event) => {
       this.socket = undefined;

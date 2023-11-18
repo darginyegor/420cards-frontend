@@ -24,8 +24,8 @@ export class GamePageComponent {
   public currentIndex = 0;
 
   public isActive = true;
-  public isHandVisible = false;
-  public isTableVisible = true;
+  public isHandVisible = true;
+  public isTableVisible = false;
   public isTableActive = false;
 
   constructor(
@@ -36,9 +36,6 @@ export class GamePageComponent {
     try {
       this.game.init();
     } catch {}
-    setTimeout(() => {
-      this.isTableActive = true;
-    }, 5000);
   }
 
   public get setupCard(): SetupCard {

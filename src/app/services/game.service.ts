@@ -8,6 +8,20 @@ import { PunchLineCard } from '../interfaces/punch-line-card';
 import { SetupCard } from '../interfaces/setup-card';
 import { CountdownService } from './countdown.service';
 import { TableSlot } from '../interfaces/table-slot';
+import {
+  GameEventType,
+  GameStartedEventData,
+  OwnerChangedEventData,
+  PlayerConnectedEventData,
+  PlayerDisonnectedEventData,
+  PlayerJoinedEventData,
+  PlayerLeftEventData,
+  PlayerReadyEventData,
+  TableCardOpenedEventData,
+  TurnEndedEventData,
+  TurnStartedEventData,
+  WelcomeEventData,
+} from '../interfaces/game-event';
 
 export enum GameState {
   Void = 'void',
@@ -25,7 +39,7 @@ export class GameService {
   public readonly players: Player[] = [];
   public readonly hand: PunchLineCard[] = [];
   public readonly table: TableSlot[] = [];
-  public setup: SetupCard | null = null;
+  public setup?: SetupCard;
   public isLeading = false;
 
   private _state: GameState = GameState.Void;
@@ -42,115 +56,89 @@ export class GameService {
     return Boolean(this._chosenUuid);
   }
 
-  private _turnIndex = -1;
+  private _turnIndex = 0;
+  public get turnIndex() {
+    return this._turnIndex;
+  }
+
+  private readonly eventHandlersMap: {
+    [key in GameEventType]: (data: any) => void;
+  } = {
+    welcome: (data) => this.onWelcome(data),
+    playerJoined: (data) => this.onPlayerJoined(data),
+    playerConnected: (data) => this.onPlayerConnected(data),
+    playerDisconnected: (data) => this.onPlayerDisconnected(data),
+    playerLeft: (data) => this.onPlayerLeft(data),
+    ownerChanged: (data) => this.onOwnerChanged(data),
+    gameStarted: (data) => this.onGameStarted(data),
+    turnStarted: (data) => this.onTurnStarted(data),
+    playerReady: (data) => this.onPlayerReady(data),
+    allPlayersReady: () => this.onAllPlayersReady(),
+    tableCardOpened: (data) => this.onTableCardOpened(data),
+    turnEnded: (data) => this.onTurnEnded(data),
+  };
 
   constructor(
     private readonly countdown: CountdownService,
     private readonly events: EventsService,
-    private readonly notifications: UiNotificationsService,
-    private readonly router: Router
+    private readonly notifications: UiNotificationsService
   ) {
     this.events.feed$.subscribe({
       next: (event) => {
-        switch (event.type) {
-          case 'welcome':
-            this.onWelcome(event.data.players, event.data.state);
-            break;
-          case 'playerJoined':
-            this.onPlayerJoined(event.data);
-            break;
-          case 'playerConnected':
-            this.onPlayerConnected(event.data.uuid);
-            break;
-          case 'playerDisconnected':
-            this.onPlayerDisconnected(event.data.uuid);
-            break;
-          case 'playerLeft':
-            this.onPlayerLeft(event.data.uuid);
-            break;
-          case 'connectionError':
-            this.notifications.notification({
-              icon: '🤡',
-              name: 'Нас не пускают',
-              message: 'Возможно, мы стучимся не туда...',
-            });
-            this.router.navigate(['/']);
-            break;
-          case 'ownerChanged':
-            this.players.forEach((player) => {
-              player.isLobbyOwner = player.uuid === event.data.uui;
-            });
-            break;
-          case 'gameStarted':
-            this.onGameStarted(event.data.hand);
-            break;
-          case 'turnStarted':
-            this.onTurnStarted(
-              event.data.leadUuid,
-              event.data.isLeading,
-              event.data.card,
-              event.data.setup
-            );
-            break;
-          case 'playerReady':
-            this.onPlayerReady(event.data.uuid);
-            break;
-          case 'allPlayersReady':
-            this.onAllPlayersReady();
-            break;
-          case 'tableCardOpened':
-            this.table[event.data.index].card = event.data.card;
-            break;
-          case 'turnEnded':
-            this.onTurnEnded(event.data);
-        }
+        this.eventHandlersMap[event.type].bind(this);
       },
     });
   }
 
-  private onWelcome(players: Player[], state: GameState) {
-    this._state = state;
-    this.players.push(...players);
+  private onWelcome(data: WelcomeEventData) {
+    this._state = data.state;
+    this.players.push(...data.players);
   }
 
-  private onPlayerJoined(player: Player) {
-    this.players.push(player);
+  private onPlayerJoined(data: PlayerJoinedEventData) {
+    this.players.push(data.player);
   }
 
-  private onPlayerConnected(uuid: string) {
-    const player = this.players.find((player) => player.uuid === uuid);
+  private onPlayerConnected(data: PlayerConnectedEventData) {
+    const player = this.players.find((player) => player.uuid === data.uuid);
     if (!player) {
       return;
     }
     player.isConnected = true;
   }
 
-  private onPlayerDisconnected(uuid: string) {
-    const player = this.players.find((player) => player.uuid === uuid);
+  private onPlayerDisconnected(data: PlayerDisonnectedEventData) {
+    const player = this.players.find((player) => player.uuid === data.uuid);
     if (!player) {
       return;
     }
     player.isConnected = false;
   }
 
-  private onPlayerLeft(uuid: string) {
-    const index = this.players.findIndex((player) => player.uuid === uuid);
+  private onPlayerLeft(data: PlayerLeftEventData) {
+    const index = this.players.findIndex((player) => player.uuid === data.uuid);
     if (index < 0) {
       return;
     }
     this.players.splice(index, 1);
   }
 
-  private onPlayerReady(uuid: string) {
-    const player = this.players.find((player) => player.uuid === uuid);
+  private onOwnerChanged(data: OwnerChangedEventData) {
+    this.players.forEach((player) => {
+      player.isLobbyOwner = player.uuid === data.uuid;
+    });
+  }
+
+  private onPlayerReady(data: PlayerReadyEventData) {
+    const player = this.players.find((player) => player.uuid === data.uuid);
     if (!player) {
       return;
     }
     player.state = 'ready';
 
-    this.table.find((item) => {
+    this.table.find((item, index) => {
       if (!item) {
-        item = {};
+        this.table[index] = {};
         return true;
       } else {
         return false;
@@ -162,24 +150,27 @@ export class GameService {
     this._state = GameState.Judgement;
   }
 
-  public onGameStarted(hand: PunchLineCard[]) {
-    this.hand.push(...hand);
+  public onGameStarted(data: GameStartedEventData) {
+    this.hand.push(...data.hand);
   }
 
-  public onTurnStarted(
-    uuid: string,
-    isLeading: boolean,
-    card: PunchLineCard,
-    setup: SetupCard
-  ) {
+  public onTurnStarted(data: TurnStartedEventData) {
     this.table.splice(0, this.table.length);
     this.table.length = this.players.length - 1;
     this.players.forEach(
-      (player) => (player.state = player.uuid === uuid ? 'leading' : 'default')
+      (player) =>
+        (player.state = player.uuid === data.uuid ? 'leading' : 'default')
     );
     this.countdown.start(3).subscribe({
       next: () => {
         this._state = GameState.Turns;
+        if (data.isLeading) {
+          this.notifications.notification({
+            icon: '🫵',
+            name: 'Ты - ведущий!',
+            message: 'Какой-нибудь текст здесь ещё написан лаконичный',
+          });
+        }
       },
     });
 
@@ -191,33 +182,29 @@ export class GameService {
     }
     this._chosenUuid = '';
 
-    if (card) {
-      this.hand.push(card);
+    if (data.card) {
+      this.hand.push(data.card);
     }
 
-    this.isLeading = isLeading;
+    this.isLeading = data.isLeading;
     this._turnIndex++;
-    this.setup = setup;
-
-    if (isLeading) {
-      this.notifications.notification({
-        icon: '🫵',
-        name: 'Ты - ведущий!',
-        message: 'Какой-нибудь текст здесь ещё написан лаконичный',
-      });
-    }
+    this.setup = data.setup;
   }
 
-  public onTurnEnded(event: any) {
+  public onTableCardOpened(data: TableCardOpenedEventData) {
+    this.table[data.index].card = data.card;
+  }
+
+  public onTurnEnded(data: TurnEndedEventData) {
     const player = this.players.find((player) => {
-      return player.uuid === event.winnerUuid;
+      return player.uuid === data.winnerUuid;
     });
     if (!player) {
       return;
     }
-    player.score = event.score;
+    player.score = data.score;
     this.table.find((answer) => {
-      if (answer.card?.uuid === event.cardUuid) {
+      if (answer.card?.uuid === data.cardUuid) {
         answer.isPicked = true;
         return true;
       } else {

@@ -8,9 +8,13 @@
   </div>
 
   <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
-    {{ setup?.text }}
+    <div class="l-mb-s setup-card__subtext">Раунд {{ turnIndex }}:</div>
+    <div class="t-h2">
+      {{ setup?.text }}
+    </div>
   </div>
-  <div class="l-flex-auto"></div>
+
+  <div class="l-flex-auto" *ngIf="isLobbyControlsVisible"></div>
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
@@ -31,6 +35,7 @@
       *ngFor="let item of table; let i = index"
       [slot]="item"
       [case]="setup?.case"
+      [isActive]="isTableActive"
       (open)="openSlot(i)"
       (pick)="pickWinner(item.card)"
     ></app-table-slot>

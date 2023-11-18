@@ -14,7 +14,9 @@ export class LobbyPageComponent implements OnInit {
   public table = this.game.table;
 
   public get isSetupVisible() {
-    return ![GameState.Void, GameState.Finished].includes(this.game.state);
+    return ![GameState.Void, GameState.Gathering, GameState.Finished].includes(
+      this.game.state
+    );
   }
 
   public get isHandVisible() {
@@ -22,7 +24,7 @@ export class LobbyPageComponent implements OnInit {
   }
 
   public get isHandActive() {
-    return this.game.hasChosenCard && this.game.state === GameState.Turns;
+    return !this.game.hasChosenCard && this.game.state === GameState.Turns;
   }
 
   public get isLobbyControlsVisible() {
@@ -36,8 +38,16 @@ export class LobbyPageComponent implements OnInit {
     );
   }
 
+  public get isTableActive() {
+    return this.game.state === GameState.Judgement && this.game.isLeading;
+  }
+
   public get setup() {
     return this.game.setup;
+  }
+
+  public get turnIndex() {
+    return this.game.turnIndex;
   }
 
   constructor(
