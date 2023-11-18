@@ -85,7 +85,7 @@ export class GameService {
   ) {
     this.events.feed$.subscribe({
       next: (event) => {
-        this.eventHandlersMap[event.type].bind(this);
+        this.eventHandlersMap[event.type](event.data);
       },
     });
   }
