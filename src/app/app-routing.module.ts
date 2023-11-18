@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './components/pages/main-page/main-page.component';
-import { LobbyPageComponent } from './components/pages/lobby-page/lobby-page.component';
 import { GamePageComponent } from './components/pages/game-page/game-page.component';
+import { SandboxPageComponent } from './components/pages/sandbox-page/sandbox-page.component';
 
 const routes: Routes = [
   {
@@ -11,12 +11,12 @@ const routes: Routes = [
     component: MainPageComponent,
   },
   {
-    path: 'lobby',
-    component: LobbyPageComponent,
-  },
-  {
     path: 'play',
     component: GamePageComponent,
+  },
+  {
+    path: 'sandbox',
+    component: SandboxPageComponent,
   },
   {
     path: '**',

@@ -1,15 +1,6 @@
-import { Component } from '@angular/core';
-import { BACKGROUND_BLUR } from 'src/app/app.consts';
-import { Player } from 'src/app/interfaces/player';
-import { SetupCard } from 'src/app/interfaces/setup-card';
-import { TableSlot } from 'src/app/interfaces/table-slot';
-import {
-  PLAYERS_MOCK,
-  PUNCH_LINE_CARDS,
-  SETUP_CARDS_MOCK,
-} from 'src/app/mocks';
-import { CountdownService } from 'src/app/services/countdown.service';
-import { GameService } from 'src/app/services/game.service';
+import { Component, OnInit } from '@angular/core';
+import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
+import { GameService, GameState } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
@@ -17,84 +8,107 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss'],
 })
-export class GamePageComponent {
-  public players: Player[] = PLAYERS_MOCK; // this.game.players;
-  public hand = PUNCH_LINE_CARDS;
-  public table: TableSlot[] = [{}, {}, {}, {}];
-  public currentIndex = 0;
+export class GamePageComponent implements OnInit {
+  public players = this.game.players;
+  public hand = this.game.hand;
+  public table = this.game.table;
 
-  public isActive = true;
-  public isHandVisible = true;
-  public isTableVisible = false;
-  public isTableActive = false;
+  public get isSetupVisible() {
+    return ![GameState.Void, GameState.Gathering, GameState.Finished].includes(
+      this.game.state
+    );
+  }
+
+  public get isHandVisible() {
+    return !(this.game.isLeading || this.game.state !== GameState.Turns);
+  }
+
+  public get isHandActive() {
+    return !this.game.hasChosenCard && this.game.state === GameState.Turns;
+  }
+
+  public get isLobbyControlsVisible() {
+    return this.game.state === GameState.Gathering;
+  }
+
+  public get isTableVisible() {
+    return (
+      this.game.isLeading ||
+      [GameState.Judgement, GameState.Congrats].includes(this.game.state)
+    );
+  }
+
+  public get isTableActive() {
+    return this.game.state === GameState.Judgement && this.game.isLeading;
+  }
+
+  public get setup() {
+    return this.game.setup;
+  }
+
+  public get turnIndex() {
+    return this.game.turnIndex;
+  }
 
   constructor(
-    private readonly countdown: CountdownService,
     private readonly game: GameService,
     private readonly notifications: UiNotificationsService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     try {
       this.game.init();
-    } catch {}
+    } catch (error) {
+      this.notifications.notification({
+        icon: '👀',
+        name: 'Это всё понарошку',
+        message: 'Никаких подключений',
+      });
+      // this.router.navigate(['/']);
+    }
   }
 
-  public get setupCard(): SetupCard {
-    return SETUP_CARDS_MOCK[this.currentIndex];
+  public share() {
+    const url = '';
+    const fullUrl = `${url}/?t=${this.game.lobbyToken}`;
+    if (navigator?.share) {
+      navigator.share({
+        title: 'Будешь играть в 420cards?',
+        url: fullUrl,
+      });
+    } else if (navigator?.clipboard) {
+      navigator.clipboard.writeText(fullUrl);
+      this.notifications.notification({
+        icon: '💚',
+        name: 'Ссылка скопиролвана',
+        message: 'Можешь отправлять её друзьями. У тебя есть друзья?',
+      });
+    }
   }
 
-  public get isBlurApplied() {
-    return BACKGROUND_BLUR;
+  public start() {
+    this.game.start();
   }
 
-  public select(index: number) {
-    this.isActive = false;
-    this.players[0].state = 'ready';
-    this._triggerInterfaceTestCycle();
+  public makeTurn(uuid: string) {
+    this.game.makeTurn(uuid);
   }
 
-  public testCountdown() {
-    this.countdown.start(3).subscribe({
-      next: (i) => console.log(i),
+  public openSlot(index: number) {
+    this.game.openTableCard(index);
+  }
+
+  public pickWinner(card: PunchLineCard | undefined) {
+    if (card) {
+      this.game.pickWinner(card.uuid);
+    }
+  }
+
+  public refreshHand() {
+    this.notifications.notification({
+      icon: '💨',
+      name: 'Пук-среньк',
+      message: 'Это не работает',
     });
-  }
-
-  public testTableFlip(i: number) {
-    this.table[i] = {
-      card: PUNCH_LINE_CARDS[i],
-    };
-    console.log(this.table);
-  }
-
-  public testPick(i: number) {
-    this.table[i].isPicked = true;
-  }
-
-  private _triggerInterfaceTestCycle() {
-    setTimeout(() => {
-      this.players[3].state = 'ready';
-    }, 2000);
-
-    setTimeout(() => {
-      this.players[4].state = 'ready';
-    }, 4000);
-
-    setTimeout(() => {
-      this.players[2].state = 'ready';
-      this.isTableVisible = true;
-      this.isHandVisible = false;
-    }, 6000);
-
-    //   setTimeout(() => {
-    //     this.isActive = true;
-    //     this.players[0].state = 'default';
-    //     this.currentIndex++;
-    //     if (this.currentIndex >= SETUP_CARDS_MOCK.length - 1) {
-    //       this.currentIndex = 0;
-    //     }
-    //     this.punchLineCards.splice(index, 1);
-    //     console.log('new setup card:', this.currentIndex, this.setupCard);
-    //     const winnerIndex = Math.round(Math.random() * (PLAYERS_MOCK.length - 1));
-    //     PLAYERS_MOCK[winnerIndex].points += 1;
-    //   }, 3000);
   }
 }

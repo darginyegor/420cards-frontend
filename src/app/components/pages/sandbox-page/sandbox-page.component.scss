@@ -5,17 +5,16 @@
   flex: auto;
 }
 
-.setup-card {
+.app-game-page__setup-card {
   position: sticky;
   top: 0;
   font-weight: 500;
   background-color: $bg-01;
   line-height: 2rem;
+  white-space: pre-line;
 }
 
-.setup-card__subtext {
-  font-weight: 400;
-  line-height: 1;
-  font-size: 1rem;
-  color: $text-02;
+.app-game-page__setup-card--with-blur {
+  background-color: $bg-01-translucent;
+  backdrop-filter: blur(2rem);
 }

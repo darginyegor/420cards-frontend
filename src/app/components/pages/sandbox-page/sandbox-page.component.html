@@ -1,0 +1,42 @@
+<div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
+  <div class="l-ph-xl l-row-l l-scroll-h">
+    <app-player-avatar
+      *ngFor="let player of players"
+      [player]="player"
+      [withStatus]="true"
+    ></app-player-avatar>
+  </div>
+  <div
+    class="l-pt-l l-ph-xl l-pv-4xl t-h2 app-game-page__setup-card"
+    [class.app-game-page__setup-card--with-blur]="isBlurApplied"
+  >
+    {{ setupCard.text }}
+  </div>
+  <div class="l-flex l-flex-auto"></div>
+  <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isHandVisible">
+    <app-punch-line-button
+      *ngFor="let card of hand; let i = index"
+      [disabled]="!isActive"
+      (select)="select(i)"
+      [style.animationDelay.s]="i * 0.05"
+    >
+      {{ card.text[setupCard.case] }}
+    </app-punch-line-button>
+    <div class="l-pt-l l-mt-a l-stack-m">
+      <button class="btn--secondary" (click)="testCountdown()">
+        Обновить карты
+        <img src="assets/img/refresh.svg" alt="" />
+      </button>
+    </div>
+  </div>
+  <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isTableVisible">
+    <app-table-slot
+      *ngFor="let slot of table; let i = index"
+      [slot]="slot"
+      [case]="setupCard.case"
+      [isActive]="isTableActive"
+      (open)="testTableFlip(i)"
+      (pick)="testPick(i)"
+    ></app-table-slot>
+  </div>
+</div>

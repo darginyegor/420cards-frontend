@@ -1,42 +1,51 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
-  <div class="l-ph-xl l-row-l l-scroll-h">
+  <div class="l-ph-xxl l-row-l l-scroll-h">
     <app-player-avatar
       *ngFor="let player of players"
       [player]="player"
-      [withStatus]="true"
+      [withStatus]="!isLobbyControlsVisible"
     ></app-player-avatar>
   </div>
-  <div
-    class="l-pt-l l-ph-xl l-pv-4xl t-h2 app-game-page__setup-card"
-    [class.app-game-page__setup-card--with-blur]="isBlurApplied"
-  >
-    {{ setupCard.text }}
-  </div>
-  <div class="l-flex l-flex-auto"></div>
-  <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isHandVisible">
-    <app-punch-line-button
-      *ngFor="let card of hand; let i = index"
-      [disabled]="!isActive"
-      (select)="select(i)"
-      [style.animationDelay.s]="i * 0.05"
-    >
-      {{ card.text[setupCard.case] }}
-    </app-punch-line-button>
-    <div class="l-pt-l l-mt-a l-stack-m">
-      <button class="btn--secondary" (click)="testCountdown()">
-        Обновить карты
-        <img src="assets/img/refresh.svg" alt="" />
-      </button>
+
+  <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
+    <div class="l-mb-s setup-card__subtext">Раунд {{ turnIndex }}:</div>
+    <div class="t-h2">
+      {{ setup?.text }}
     </div>
   </div>
-  <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isTableVisible">
+
+  <div class="l-flex-auto" *ngIf="isLobbyControlsVisible"></div>
+
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
+    <app-punch-line-button
+      *ngFor="let card of hand; let i = index"
+      (select)="makeTurn(card.uuid.toString())"
+      [disabled]="!isHandActive"
+    >
+      {{ card.text[setup?.case || "nom"] }}
+    </app-punch-line-button>
+    <button class="btn--secondary l-mt-s" (click)="refreshHand()">
+      Обновить карты
+      <img src="assets/img/refresh.svg" alt="" />
+    </button>
+  </div>
+
+  <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
     <app-table-slot
-      *ngFor="let slot of table; let i = index"
-      [slot]="slot"
-      [case]="setupCard.case"
+      *ngFor="let item of table; let i = index"
+      [slot]="item"
+      [case]="setup?.case"
       [isActive]="isTableActive"
-      (open)="testTableFlip(i)"
-      (pick)="testPick(i)"
+      (open)="openSlot(i)"
+      (pick)="pickWinner(item.card)"
     ></app-table-slot>
+  </div>
+
+  <div class="l-mh-xxl l-stack-m" *ngIf="isLobbyControlsVisible">
+    <button class="btn btn--secondary" (click)="share()">
+      Пригласить
+      <img src="assets/img/share.svg" alt="" />
+    </button>
+    <button class="btn--primary" (click)="start()">Начать игру</button>
   </div>
 </div>

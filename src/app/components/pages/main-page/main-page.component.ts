@@ -58,7 +58,7 @@ export class MainPageComponent {
       .subscribe({
         next: (response) => {
           this.events.setConnectionInfo(response);
-          this.router.navigate(['lobby']);
+          this.router.navigate(['play']);
         },
         error: (error) => {
           this.isLoading = false;
