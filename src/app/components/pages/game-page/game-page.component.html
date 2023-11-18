@@ -8,7 +8,15 @@
   </div>
 
   <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
-    <div class="l-mb-s setup-card__subtext">Раунд {{ turnIndex }}:</div>
+    <div class="l-mb-s l-flex l-flex-middle setup-card__subtext">
+      <img
+        *ngIf="isLeading"
+        src="assets/img/lead-turn-mark.svg"
+        class="l-mr-xs"
+        alt="(Ведущий)"
+      />
+      Раунд {{ turnIndex }}:
+    </div>
     <div class="t-h2">
       {{ setup?.text }}
     </div>
