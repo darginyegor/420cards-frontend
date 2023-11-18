@@ -1,11 +1,32 @@
+@import 'variables';
+
 :host {
-  display: block;
-}
-
-.app-answer-slot {
-  min-height: 4.75rem;
-}
-
-.app-answer-slot--empty {
-  border-style: dashed;
+  display: flex;
+  flex-direction: column;
+  min-height: 4.5rem;
+  border: 2px dashed $text-01;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  pointer-events: none;
+  &.--empty {
+    opacity: .2;
+  }
+  &.--face-down {
+    border-style: solid;
+    opacity: .4;
+  }
+  &.--face-up {
+    border-style: solid;
+    opacity: 1;
+  }
+  &.--active {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  &.--picked {
+    background-color: $text-01;
+    color: $bg-01;
+    pointer-events: none;
+  }
 }

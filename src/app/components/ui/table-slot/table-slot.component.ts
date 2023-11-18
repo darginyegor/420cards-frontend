@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { CardTextCase } from 'src/app/interfaces/punch-line-card';
 import { TableSlot } from 'src/app/interfaces/table-slot';
 
@@ -8,9 +15,32 @@ import { TableSlot } from 'src/app/interfaces/table-slot';
   styleUrls: ['./table-slot.component.scss'],
 })
 export class TableSlotComponent {
-  @Input() public slot: TableSlot | null = null;
-  @Input() public canOpen = false;
+  @Input() public slot?: TableSlot;
   @Input() public case?: CardTextCase;
+
+  @HostBinding('class.--active')
+  @Input()
+  public isActive = false;
+
+  @HostBinding('class.--empty')
+  public get isEmpty() {
+    return !this.slot;
+  }
+
+  @HostBinding('class.--face-down')
+  public get isFaceDown() {
+    return !!this.slot && !this.slot.card;
+  }
+
+  @HostBinding('class.--face-up')
+  public get isFaceUp() {
+    return !!this.slot?.card;
+  }
+
+  @HostBinding('class.--picked')
+  public get isPicked() {
+    return this.slot?.isPicked;
+  }
 
   @Output() public open = new EventEmitter();
   @Output() public pick = new EventEmitter();
@@ -22,8 +52,12 @@ export class TableSlotComponent {
     return this.slot?.card?.text[this.case];
   }
 
-  public action() {
-    if (!this.slot?.card) {
+  @HostListener('click') public action() {
+    if (this.isEmpty || !this.isActive) {
+      return;
+    }
+
+    if (this.isFaceDown) {
       this.open.emit();
     } else {
       this.pick.emit();

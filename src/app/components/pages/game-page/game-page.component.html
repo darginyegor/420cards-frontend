@@ -1,4 +1,4 @@
-<div class="l-pv-xxl l-flex-col l-flex-auto">
+<div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
   <div class="l-ph-xl l-row-l l-scroll-h">
     <app-player-avatar
       *ngFor="let player of players"
@@ -12,6 +12,7 @@
   >
     {{ setupCard.text }}
   </div>
+  <div class="l-flex l-flex-auto"></div>
   <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
       *ngFor="let card of hand; let i = index"
@@ -29,6 +30,13 @@
     </div>
   </div>
   <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isTableVisible">
-    <app-table-slot *ngFor="let slot of answers" [slot]="slot"></app-table-slot>
+    <app-table-slot
+      *ngFor="let slot of table; let i = index"
+      [slot]="slot"
+      [case]="setupCard.case"
+      [isActive]="isTableActive"
+      (open)="testTableFlip(i)"
+      (pick)="testPick(i)"
+    ></app-table-slot>
   </div>
 </div>

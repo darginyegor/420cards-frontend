@@ -149,8 +149,8 @@ export class GameService {
     player.state = 'ready';
 
     this.table.find((item) => {
-      if (item.isEmpty) {
-        item.isEmpty = false;
+      if (!item) {
+        item = {};
         return true;
       } else {
         return false;
@@ -173,12 +173,7 @@ export class GameService {
     setup: SetupCard
   ) {
     this.table.splice(0, this.table.length);
-    this.table.length = 0;
-    for (let i = 0; i < this.players.length - 1; i++) {
-      this.table.push({
-        isEmpty: true,
-      });
-    }
+    this.table.length = this.players.length - 1;
     this.players.forEach(
       (player) => (player.state = player.uuid === uuid ? 'leading' : 'default')
     );
@@ -203,6 +198,14 @@ export class GameService {
     this.isLeading = isLeading;
     this._turnIndex++;
     this.setup = setup;
+
+    if (isLeading) {
+      this.notifications.notification({
+        icon: '🫵',
+        name: 'Ты - ведущий!',
+        message: 'Какой-нибудь текст здесь ещё написан лаконичный',
+      });
+    }
   }
 
   public onTurnEnded(event: any) {
@@ -215,7 +218,7 @@ export class GameService {
     player.score = event.score;
     this.table.find((answer) => {
       if (answer.card?.uuid === event.cardUuid) {
-        answer.isWinner = true;
+        answer.isPicked = true;
         return true;
       } else {
         return false;

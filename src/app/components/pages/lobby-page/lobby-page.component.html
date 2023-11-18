@@ -7,11 +7,10 @@
     ></app-player-avatar>
   </div>
 
-  <div class="l-flex-auto"></div>
-
   <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
     {{ setup?.text }}
   </div>
+  <div class="l-flex-auto"></div>
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button

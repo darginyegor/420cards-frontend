@@ -1,5 +1,10 @@
 @import 'variables';
 
+:host {
+  display: flex;
+  flex: auto;
+}
+
 .app-game-page__setup-card {
   position: sticky;
   top: 0;

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BACKGROUND_BLUR } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player';
 import { SetupCard } from 'src/app/interfaces/setup-card';
+import { TableSlot } from 'src/app/interfaces/table-slot';
 import {
   PLAYERS_MOCK,
   PUNCH_LINE_CARDS,
@@ -19,26 +20,13 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 export class GamePageComponent {
   public players: Player[] = PLAYERS_MOCK; // this.game.players;
   public hand = PUNCH_LINE_CARDS;
-  public table = [];
+  public table: TableSlot[] = [{}, {}, {}, {}];
   public currentIndex = 0;
-  public answers = [
-    {
-      isEmpty: false,
-    },
-    {
-      isEmpty: false,
-    },
-    {
-      isEmpty: true,
-    },
-    {
-      isEmpty: true,
-    },
-  ];
 
   public isActive = true;
-  public isHandVisible = true;
-  public isTableVisible = false;
+  public isHandVisible = false;
+  public isTableVisible = true;
+  public isTableActive = false;
 
   constructor(
     private readonly countdown: CountdownService,
@@ -48,6 +36,9 @@ export class GamePageComponent {
     try {
       this.game.init();
     } catch {}
+    setTimeout(() => {
+      this.isTableActive = true;
+    }, 5000);
   }
 
   public get setupCard(): SetupCard {
@@ -68,6 +59,17 @@ export class GamePageComponent {
     this.countdown.start(3).subscribe({
       next: (i) => console.log(i),
     });
+  }
+
+  public testTableFlip(i: number) {
+    this.table[i] = {
+      card: PUNCH_LINE_CARDS[i],
+    };
+    console.log(this.table);
+  }
+
+  public testPick(i: number) {
+    this.table[i].isPicked = true;
   }
 
   private _triggerInterfaceTestCycle() {

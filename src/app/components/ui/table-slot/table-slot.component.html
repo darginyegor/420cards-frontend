@@ -1,19 +1,9 @@
-<button
-  *ngIf="slot"
-  class="l-w-f app-table-slot"
-  [class.btn--secondary]="!slot.isWinner"
-  [class.btn--primary]="slot.isWinner"
-  [class.app-slot-slot--empty]="slot.isEmpty"
-  [disabled]="slot.isEmpty"
-  (click)="action()"
->
-  <img
-    *ngIf="!slot?.isEmpty && !slot?.card"
-    src="assets/img/logo-light.svg"
-    class="l-m-a"
-    alt=""
-  />
-  <ng-container *ngIf="slot?.card && case">
-    {{ casedText }}
-  </ng-container>
-</button>
+<img
+  *ngIf="!isEmpty && !isFaceUp"
+  src="assets/img/logo-light.svg"
+  class="l-m-a"
+  alt="Закрытая карта"
+/>
+<ng-container *ngIf="slot?.card && case">
+  {{ casedText }}
+</ng-container>
