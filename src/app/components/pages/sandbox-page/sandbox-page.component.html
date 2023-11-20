@@ -10,6 +10,15 @@
     class="l-pt-l l-ph-xl l-pv-4xl t-h2 app-game-page__setup-card"
     [class.app-game-page__setup-card--with-blur]="isBlurApplied"
   >
+    <div class="l-mb-s l-flex l-flex-middle setup-card__subtext">
+      <img
+        *ngIf="isLeading"
+        src="assets/img/lead-turn-mark.svg"
+        class="l-mr-xs"
+        alt="(Ведущий)"
+      />
+      Раунд {{ currentIndex }}:
+    </div>
     {{ setupCard.text }}
   </div>
   <div class="l-flex l-flex-auto"></div>

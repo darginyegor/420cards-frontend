@@ -22,6 +22,7 @@ export class SandboxPageComponent {
   public hand = PUNCH_LINE_CARDS;
   public table: TableSlot[] = [{}, {}, {}, {}];
   public currentIndex = 0;
+  public isLeading = true;
 
   public isActive = true;
   public isHandVisible = true;

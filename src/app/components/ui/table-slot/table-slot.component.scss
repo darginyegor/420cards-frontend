@@ -8,6 +8,7 @@
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
   pointer-events: none;
+  justify-content: space-between;
   &.--empty {
     opacity: .2;
   }
@@ -29,4 +30,23 @@
     color: $bg-01;
     pointer-events: none;
   }
+}
+
+@keyframes author {
+  from {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.5) rotate(10deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.table-slot__author {
+  font-size: 0.75rem;
+  text-align: right;
+  opacity: .6;
+  animation: author .2s;
 }

@@ -5,6 +5,7 @@ import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
 import { LogsService } from './logs.service';
+import { UiNotificationsService } from './ui-notifications.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,8 @@ export class EventsService {
 
   constructor(
     private readonly store: StoreService,
-    private readonly logs: LogsService
+    private readonly logs: LogsService,
+    private readonly notifications: UiNotificationsService
   ) {}
 
   public get isConnected() {
@@ -60,6 +62,11 @@ export class EventsService {
     this.socket.onclose = (event) => {
       this.socket = undefined;
       this.logs.log(event, 'ws connection closed');
+      this.notifications.notification({
+        icon: '📡',
+        name: 'Нет соединения',
+        message: 'Соединение с сервером потеряно',
+      });
     };
   }
 

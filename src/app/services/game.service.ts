@@ -165,11 +165,12 @@ export class GameService {
       next: () => {
         this._state = GameState.Turns;
         if (data.isLeading) {
-          this.notifications.notification({
-            icon: '🫵',
-            name: 'Ты - ведущий!',
-            message: 'Какой-нибудь текст здесь ещё написан лаконичный',
-          });
+          // MAYBE do something, maybe not
+          // this.notifications.notification({
+          //   icon: '🫵',
+          //   name: 'Ты - ведущий!',
+          //   message: 'Какой-нибудь текст здесь ещё написан лаконичный',
+          // });
         }
       },
     });
@@ -206,6 +207,7 @@ export class GameService {
     this.table.find((answer) => {
       if (answer.card?.uuid === data.cardUuid) {
         answer.isPicked = true;
+        answer.author = player.name;
         return true;
       } else {
         return false;

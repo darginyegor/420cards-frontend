@@ -4,6 +4,9 @@
   class="l-m-a"
   alt="Закрытая карта"
 />
-<ng-container *ngIf="slot?.card && case">
+<div class="table-slot__text" *ngIf="slot?.card && case">
   {{ casedText }}
-</ng-container>
+</div>
+<div class="table-slot__author l-mt-xs" *ngIf="slot?.author">
+  {{ slot?.author }}
+</div>

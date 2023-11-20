@@ -15,6 +15,14 @@
 }
 
 .app-game-page__setup-card--with-blur {
-  background-color: $bg-01-translucent;
-  backdrop-filter: blur(2rem);
+  // background-color: $bg-01-translucent;
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+  backdrop-filter: blur(1rem);
+}
+
+.setup-card__subtext {
+  font-weight: 400;
+  line-height: 1;
+  font-size: 1rem;
+  color: $text-02;
 }
