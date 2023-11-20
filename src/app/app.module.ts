@@ -16,6 +16,7 @@ import { NotificationComponent } from './components/ui/notification/notification
 import { LoaderComponent } from './components/ui/loader/loader.component';
 import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interceptor';
 import { CountdownComponent } from './components/ui/countdown/countdown.component';
+import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CountdownComponent } from './components/ui/countdown/countdown.componen
     NotificationComponent,
     LoaderComponent,
     CountdownComponent,
+    BottomSheetComponent,
   ],
   imports: [
     BrowserModule,

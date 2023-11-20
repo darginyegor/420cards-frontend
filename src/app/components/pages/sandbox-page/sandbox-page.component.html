@@ -32,7 +32,7 @@
       {{ card.text[setupCard.case] }}
     </app-punch-line-button>
     <div class="l-pt-l l-mt-a l-stack-m">
-      <button class="btn--secondary" (click)="testCountdown()">
+      <button class="btn--secondary" (click)="settingsSheet.open()">
         Обновить карты
         <img src="assets/img/refresh.svg" alt="" />
       </button>
@@ -49,3 +49,12 @@
     ></app-table-slot>
   </div>
 </div>
+
+<app-bottom-sheet #settingsSheet>
+  <div class="t-h2 l-mb-3xl">Настройки</div>
+  <div class="l-stack-xl">
+    <span>Колода</span>
+    <span>Очков до победы</span>
+    <span>Таймер хода</span>
+  </div>
+</app-bottom-sheet>
