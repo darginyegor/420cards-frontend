@@ -53,8 +53,21 @@
 <app-bottom-sheet #settingsSheet>
   <div class="t-h2 l-mb-3xl">Настройки</div>
   <div class="l-stack-xl">
-    <span>Колода</span>
-    <span>Очков до победы</span>
-    <span>Таймер хода</span>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Очков для победы</span>
+      <app-radio-group
+        [(ngModel)]="scoreToWin"
+        (ngModelChange)="testRadio($event)"
+        [options]="scoreOptions"
+      ></app-radio-group>
+    </div>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Таймер хода</span>
+      <app-radio-group
+        [(ngModel)]="turnTimer"
+        (ngModelChange)="testRadio($event)"
+        [options]="turnTimerOptions"
+      ></app-radio-group>
+    </div>
   </div>
 </app-bottom-sheet>

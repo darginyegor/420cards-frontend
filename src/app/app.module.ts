@@ -17,6 +17,7 @@ import { LoaderComponent } from './components/ui/loader/loader.component';
 import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interceptor';
 import { CountdownComponent } from './components/ui/countdown/countdown.component';
 import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.component';
+import { RadioGroupComponent } from './components/ui/radio-group/radio-group.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.
     LoaderComponent,
     CountdownComponent,
     BottomSheetComponent,
+    RadioGroupComponent,
   ],
   imports: [
     BrowserModule,

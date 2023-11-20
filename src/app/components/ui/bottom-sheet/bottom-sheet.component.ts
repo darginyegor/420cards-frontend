@@ -21,7 +21,7 @@ import { OverlayService } from 'src/app/services/overlay.service';
     trigger('state', [
       state('void, closed', style({ transform: 'translateY(100%)' })),
       state('open', style({ transform: 'translateY(0)' })),
-      transition('* => *', [animate('.25s ease-out')]),
+      transition('* => *', [animate('.4s cubic-bezier(.25,.1,.25,1)')]),
     ]),
   ],
 })

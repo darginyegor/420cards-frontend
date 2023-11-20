@@ -11,6 +11,7 @@ import {
 import { CountdownService } from 'src/app/services/countdown.service';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
+import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
 
 @Component({
   selector: 'app-sandbox-page',
@@ -28,6 +29,46 @@ export class SandboxPageComponent {
   public isHandVisible = true;
   public isTableVisible = false;
   public isTableActive = false;
+
+  public scoreToWin = 10;
+  public scoreOptions: RadioGroupOption[] = [
+    {
+      content: '5',
+      value: 5,
+    },
+    {
+      content: '10',
+      value: 10,
+    },
+    {
+      content: '15',
+      value: 15,
+    },
+    {
+      content: '20',
+      value: 20,
+    },
+  ];
+
+  public turnTimer: number | null = null;
+  public turnTimerOptions: RadioGroupOption[] = [
+    {
+      content: 'Нет',
+      value: null,
+    },
+    {
+      content: '30c',
+      value: 33,
+    },
+    {
+      content: '1м',
+      value: 63,
+    },
+    {
+      content: '2м',
+      value: 123,
+    },
+  ];
 
   constructor(
     private readonly countdown: CountdownService,
@@ -68,6 +109,10 @@ export class SandboxPageComponent {
 
   public testPick(i: number) {
     this.table[i].isPicked = true;
+  }
+
+  public testRadio(value: any) {
+    console.log(value);
   }
 
   private _triggerInterfaceTestCycle() {
