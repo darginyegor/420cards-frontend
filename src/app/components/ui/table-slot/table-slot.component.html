@@ -5,7 +5,7 @@
   alt="Закрытая карта"
 />
 <div class="table-slot__text" *ngIf="slot?.card && case">
-  {{ casedText }}
+  {{ slot?.card?.toCase(case) }}
 </div>
 <div class="table-slot__author l-mt-xs" *ngIf="slot?.author">
   {{ slot?.author }}

@@ -151,7 +151,7 @@ export class GameService {
   }
 
   public onGameStarted(data: GameStartedEventData) {
-    this.hand.push(...data.hand);
+    this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
   }
 
   public onTurnStarted(data: TurnStartedEventData) {
@@ -184,7 +184,7 @@ export class GameService {
     this._chosenUuid = '';
 
     if (data.card) {
-      this.hand.push(data.card);
+      this.hand.push(new PunchLineCard(data.card));
     }
 
     this.isLeading = data.isLeading;

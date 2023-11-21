@@ -30,7 +30,7 @@
       (select)="makeTurn(card.uuid.toString())"
       [disabled]="!isHandActive"
     >
-      {{ card.text[setup?.case || "nom"] }}
+      {{ card.toCase(setup?.case || "nom") }}
     </app-punch-line-button>
     <button class="btn--secondary l-mt-s" (click)="refreshHand()">
       Обновить карты

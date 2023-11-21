@@ -254,7 +254,7 @@ export const SETUP_CARDS_MOCK: SetupCard[] = [
 ];
 
 export const PUNCH_LINE_CARDS: PunchLineCard[] = [
-  {
+  new PunchLineCard({
     uuid: '1',
     text: {
       nom: 'говно',
@@ -264,8 +264,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'говном',
       prep: 'говне',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '2',
     text: {
       nom: 'Гитлер',
@@ -275,8 +275,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'Гитлером',
       prep: 'Гитлере',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '3',
     text: {
       nom: 'президент Татарстана',
@@ -286,8 +286,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'президентом Татарстана',
       prep: 'президенте Татарстана',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '4',
     text: {
       nom: 'мои яйца на твоем лице',
@@ -297,8 +297,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'моими яйцами на твоем лице',
       prep: 'моих яйцах на твоем лице',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '5',
     text: {
       nom: 'евреи',
@@ -308,8 +308,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'евреями',
       prep: 'евреях',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '6',
     text: {
       nom: 'секс с животными',
@@ -319,8 +319,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'сексом с животными',
       prep: 'сексе с животными',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '7',
     text: {
       nom: 'распад Югославии',
@@ -330,8 +330,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'распадом Югославии',
       prep: 'распаде Югославии',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '8',
     text: {
       nom: 'настаящая работа с ДМС и соц. пакетом',
@@ -341,8 +341,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'настоящей работой с ДМС и соц. пакетом',
       prep: 'настоящей работе с ДМС и соц. пакетом',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '9',
     text: {
       nom: 'Илон Маск',
@@ -352,8 +352,8 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'Илоном Маском',
       prep: 'Илоне Маске',
     },
-  },
-  {
+  }),
+  new PunchLineCard({
     uuid: '10',
     text: {
       nom: 'плохая музыка для тупых людей',
@@ -363,7 +363,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
       inst: 'плохой музыкой для тупых людей',
       prep: 'плохой музыке для тупых людей',
     },
-  },
+  }),
 ];
 
 export const PLAYERS_MOCK: Player[] = [

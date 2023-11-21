@@ -1,7 +1,7 @@
 import { PlayerAvatarComponent } from '../components/ui/player-avatar/player-avatar.component';
 import { GameState } from '../services/game.service';
 import { Player } from './player';
-import { PunchLineCard } from './punch-line-card';
+import { PunchLineCard, PunchLineCardSchema } from './punch-line-card';
 import { SetupCard } from './setup-card';
 
 export enum GameEventType {
@@ -27,7 +27,7 @@ export interface GameEvent<T = any> {
 
 export interface WelcomeEventData {
   players: Player[];
-  hand: PunchLineCard[];
+  hand: PunchLineCardSchema[];
   setup: SetupCard[];
   // TODO: narrow table type
   table: any[];
@@ -53,13 +53,13 @@ export interface OwnerChangedEventData {
 }
 
 export interface GameStartedEventData {
-  hand: PunchLineCard[];
+  hand: PunchLineCardSchema[];
 }
 
 export interface TurnStartedEventData {
   leadUuid: string;
   isLeading: boolean;
-  card?: PunchLineCard;
+  card?: PunchLineCardSchema;
   setup: SetupCard;
 }
 

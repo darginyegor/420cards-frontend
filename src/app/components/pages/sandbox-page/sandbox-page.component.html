@@ -17,7 +17,7 @@
         class="l-mr-xs"
         alt="(Ведущий)"
       />
-      Раунд {{ currentIndex }}:
+      Раунд {{ currentIndex + 1 }}:
     </div>
     {{ setupCard.text }}
   </div>
@@ -29,7 +29,7 @@
       (select)="select(i)"
       [style.animationDelay.s]="i * 0.05"
     >
-      {{ card.text[setupCard.case] }}
+      {{ card.toCase(setupCard.case) }}
     </app-punch-line-button>
     <div class="l-pt-l l-mt-a l-stack-m">
       <button class="btn--secondary" (click)="settingsSheet.open()">

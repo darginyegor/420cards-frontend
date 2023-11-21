@@ -45,13 +45,6 @@ export class TableSlotComponent {
   @Output() public open = new EventEmitter();
   @Output() public pick = new EventEmitter();
 
-  public get casedText() {
-    if (!this.case) {
-      return;
-    }
-    return this.slot?.card?.text[this.case];
-  }
-
   @HostListener('click') public action() {
     if (this.isEmpty || !this.isActive) {
       return;
