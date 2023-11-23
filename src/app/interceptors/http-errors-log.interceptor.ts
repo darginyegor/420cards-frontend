@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { LogsService } from '../services/logs.service';
+import { LogRecordType } from '../interfaces/log-record';
 
 @Injectable()
 export class HttpErrorsLogInterceptor implements HttpInterceptor {
@@ -19,19 +20,16 @@ export class HttpErrorsLogInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error) => {
         const { url, urlWithParams, method, body } = request;
-        this.logs.log(
-          {
-            request: {
-              url,
-              urlWithParams,
-              method,
-              body,
-            },
-            error: error,
+        this.logs.log(LogRecordType.HttpError, {
+          request: {
+            url,
+            urlWithParams,
+            method,
+            body,
           },
-          'http error'
-        );
-        return throwError(error);
+          error: error,
+        });
+        return throwError(() => error);
       })
     );
   }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './components/pages/main-page/main-page.component';
 import { GamePageComponent } from './components/pages/game-page/game-page.component';
 import { SandboxPageComponent } from './components/pages/sandbox-page/sandbox-page.component';
+import { DebugPageComponent } from './components/pages/debug-page/debug-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'sandbox',
     component: SandboxPageComponent,
+  },
+  {
+    path: 'debug',
+    component: DebugPageComponent,
   },
   {
     path: '**',

@@ -193,7 +193,7 @@ export class GameService {
   }
 
   public onTableCardOpened(data: TableCardOpenedEventData) {
-    this.table[data.index].card = data.card;
+    this.table[data.index].card = new PunchLineCard(data.card);
   }
 
   public onTurnEnded(data: TurnEndedEventData) {

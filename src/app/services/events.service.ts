@@ -6,6 +6,7 @@ import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
 import { LogsService } from './logs.service';
 import { UiNotificationsService } from './ui-notifications.service';
+import { LogRecordType } from '../interfaces/log-record';
 
 @Injectable({
   providedIn: 'root',
@@ -51,17 +52,21 @@ export class EventsService {
       `${this._host}?lobbyToken=${this._lobbyToken}&playerToken=${this._playerToken}`
     );
 
+    this.socket.onopen = (event) => {
+      this.logs.log(LogRecordType.Connected, event);
+    };
+
     this.socket.onmessage = (event) => {
       const eventParsed = JSON.parse(event.data);
       this._feed$.next(eventParsed);
-      this.logs.log(eventParsed, 'ws message received');
+      this.logs.log(LogRecordType.MessageReceived, eventParsed);
     };
 
     this.socket.onerror = (_error) => {};
 
     this.socket.onclose = (event) => {
       this.socket = undefined;
-      this.logs.log(event, 'ws connection closed');
+      this.logs.log(LogRecordType.Disconnected, event);
       this.notifications.notification({
         icon: '📡',
         name: 'Нет соединения',
@@ -91,6 +96,7 @@ export class EventsService {
     };
 
     this.socket.send(JSON.stringify(actionWithId));
+    this.logs.log(LogRecordType.MessageSent, actionWithId);
     this._eventId++;
   }
 

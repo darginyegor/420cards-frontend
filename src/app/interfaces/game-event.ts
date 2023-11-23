@@ -69,7 +69,7 @@ export interface PlayerReadyEventData {
 
 export interface TableCardOpenedEventData {
   index: number;
-  card: PunchLineCard;
+  card: PunchLineCardSchema;
 }
 
 export interface TurnEndedEventData {

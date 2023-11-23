@@ -18,6 +18,7 @@ import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interce
 import { CountdownComponent } from './components/ui/countdown/countdown.component';
 import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.component';
 import { RadioGroupComponent } from './components/ui/radio-group/radio-group.component';
+import { DebugPageComponent } from './components/pages/debug-page/debug-page.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RadioGroupComponent } from './components/ui/radio-group/radio-group.com
     CountdownComponent,
     BottomSheetComponent,
     RadioGroupComponent,
+    DebugPageComponent,
   ],
   imports: [
     BrowserModule,
