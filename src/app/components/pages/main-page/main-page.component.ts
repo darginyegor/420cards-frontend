@@ -1,8 +1,6 @@
-import { trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { PLAYERS_MOCK, PROFILE_AVATARS } from 'src/app/mocks';
 import { ApiService } from 'src/app/services/api.service';
 import { BackgroundColorService } from 'src/app/services/background-color.service';
 import { EventsService } from 'src/app/services/events.service';

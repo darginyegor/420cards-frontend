@@ -1,17 +1,12 @@
 interface CardText {
-  nom: string;
-  gen?: string;
-  dat?: string;
-  acc?: string;
-  inst?: string;
-  prep?: string;
+  [key: string]: string;
 }
 
 export type CardTextCase = keyof CardText;
 
 export interface PunchLineCardSchema {
   uuid: string;
-  text: CardText;
+  text: [string, string[]][];
 }
 
 export class PunchLineCard {
@@ -20,11 +15,14 @@ export class PunchLineCard {
 
   constructor(schema: PunchLineCardSchema) {
     this.uuid = schema.uuid;
-    this._text = schema.text;
+    this._text = schema.text.reduce<CardText>((accumulator, variant) => {
+      variant[1].forEach((key) => (accumulator[key] = variant[0]));
+      return accumulator;
+    }, {});
   }
 
   public toCase(textCase: CardTextCase, capitalize?: boolean): string {
-    const text = this._text[textCase] || this._text.nom;
+    const text = this._text[textCase];
     return capitalize ? this.capitalize(text) : text;
   }
 
