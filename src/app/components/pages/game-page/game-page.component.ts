@@ -32,6 +32,10 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isTableVisible() {
+    if (this.game.state === GameState.Gathering) {
+      return false;
+    }
+
     return (
       this.game.isLeading ||
       [GameState.Judgement, GameState.Congrats].includes(this.game.state)
@@ -50,8 +54,12 @@ export class GamePageComponent implements OnInit {
     return this.game.setup;
   }
 
-  public get turnIndex() {
-    return this.game.turnIndex;
+  public get turnCount() {
+    return this.game.turnCount;
+  }
+
+  public get chosenUuid() {
+    return this.game.chosenUuid;
   }
 
   constructor(

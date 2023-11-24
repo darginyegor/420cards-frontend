@@ -54,6 +54,12 @@
   <div class="t-h2 l-mb-3xl">Настройки</div>
   <div class="l-stack-xl">
     <div class="l-stack-m">
+      <span class="s-t-secondary">Колода</span>
+      <select class="btn btn--secondary">
+        <option value="default" selected>Стандартная (18+)</option>
+      </select>
+    </div>
+    <div class="l-stack-m">
       <span class="s-t-secondary">Очков для победы</span>
       <app-radio-group
         [(ngModel)]="scoreToWin"
