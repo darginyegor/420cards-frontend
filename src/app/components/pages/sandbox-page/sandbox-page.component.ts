@@ -12,6 +12,7 @@ import { CountdownService } from 'src/app/services/countdown.service';
 import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-sandbox-page',
@@ -73,7 +74,8 @@ export class SandboxPageComponent {
   constructor(
     private readonly countdown: CountdownService,
     private readonly game: GameService,
-    private readonly notifications: UiNotificationsService
+    private readonly notifications: UiNotificationsService,
+    private readonly api: ApiService
   ) {
     try {
       this.game.init();
@@ -94,12 +96,6 @@ export class SandboxPageComponent {
     this._triggerInterfaceTestCycle();
   }
 
-  public testCountdown() {
-    this.countdown.start(3).subscribe({
-      next: (i) => console.log(i),
-    });
-  }
-
   public testTableFlip(i: number) {
     this.table[i] = {
       card: PUNCH_LINE_CARDS[i],
@@ -113,6 +109,10 @@ export class SandboxPageComponent {
 
   public testRadio(value: any) {
     console.log(value);
+  }
+
+  public testCountdown() {
+    this.countdown.start(3);
   }
 
   private _triggerInterfaceTestCycle() {

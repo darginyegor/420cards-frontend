@@ -66,15 +66,15 @@ button, input, .btn, .input {
 button, .btn {
   cursor: pointer;
   touch-action: manipulation;
-  &::placeholder {
-    color: $border-secondary;
-  }
 }
 
 input, .input {
   background-image: url(../assets/img/edit.svg);
   background-repeat: no-repeat;
   background-position: right 1.25rem top 1rem;
+  &::placeholder {
+    color: $border-secondary-inverse;
+  }
 }
 
 input:focus, .input:focus {
