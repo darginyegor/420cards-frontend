@@ -31,7 +31,7 @@ import { CountdownService } from 'src/app/services/countdown.service';
             }),
             style({
               opacity: 0,
-              transform: 'scale(5)',
+              transform: 'scale(2)',
               offset: 1,
             }),
           ])
