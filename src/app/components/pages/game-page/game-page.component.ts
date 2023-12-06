@@ -12,6 +12,12 @@ export class GamePageComponent implements OnInit {
   public players = this.game.players;
   public hand = this.game.hand;
   public table = this.game.table;
+  public turnCount$ = this.game.turnCount$;
+
+  constructor(
+    private readonly game: GameService,
+    private readonly notifications: UiNotificationsService
+  ) {}
 
   public get isSetupVisible() {
     return ![GameState.Void, GameState.Gathering, GameState.Finished].includes(
@@ -42,6 +48,10 @@ export class GamePageComponent implements OnInit {
     );
   }
 
+  public get isFinishScreenVisible() {
+    return this.game.state === GameState.Finished;
+  }
+
   public get isLeading() {
     return this.game.isLeading;
   }
@@ -54,20 +64,15 @@ export class GamePageComponent implements OnInit {
     return this.game.setup;
   }
 
-  public get turnCount() {
-    return this.game.turnCount;
-  }
-
   public get chosenUuid() {
     return this.game.chosenUuid;
   }
 
-  constructor(
-    private readonly game: GameService,
-    private readonly notifications: UiNotificationsService
-  ) {}
+  public get winner() {
+    return this.game.winner;
+  }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     try {
       this.game.init();
     } catch (error) {

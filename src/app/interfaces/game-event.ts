@@ -17,6 +17,7 @@ export enum GameEventType {
   TurnStarted = 'turnStarted',
   TableCardOpened = 'tableCardOpened',
   TurnEnded = 'turnEnded',
+  GameFinished = 'gameFinished',
 }
 
 export interface GameEvent<T = any> {
@@ -80,4 +81,8 @@ export interface TurnEndedEventData {
   winnerUuid: string;
   cardUuid: string;
   score: number;
+}
+
+export interface GameFinishedEventData {
+  winnerUuid: string;
 }

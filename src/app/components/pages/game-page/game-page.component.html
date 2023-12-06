@@ -7,7 +7,7 @@
     ></app-player-avatar>
   </div>
 
-  <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl t-h2 setup-card">
+  <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl setup-card">
     <div class="l-mb-s l-flex l-flex-middle setup-card__subtext">
       <img
         *ngIf="isLeading"
@@ -15,7 +15,7 @@
         class="l-mr-xs"
         alt="(Ведущий)"
       />
-      Раунд #{{ turnCount }}:
+      Раунд #{{ turnCount$ | async }}:
     </div>
     <div class="t-h2">
       {{ setup?.text }}
@@ -27,7 +27,7 @@
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
       *ngFor="let card of hand; let i = index"
-      (select)="makeTurn(card.uuid.toString())"
+      (select)="makeTurn(card.uuid)"
       [disabled]="!isHandActive"
       [selected]="card.uuid === chosenUuid"
     >
@@ -56,5 +56,17 @@
       <img src="assets/img/share.svg" alt="" />
     </button>
     <button class="btn--primary" (click)="start()">Начать игру</button>
+  </div>
+
+  <div class="l-flex-auto l-mh-xxl finish-screen" *ngIf="isFinishScreenVisible">
+    <div class="l-stack-m">
+      <div class="t-h2">А всё, конец!</div>
+      <div>Наш победитель:</div>
+    </div>
+    <app-player-avatar
+      [player]="winner"
+      [withStatus]="true"
+    ></app-player-avatar>
+    <button class="btn--primary">Похуй, пока не заебет!</button>
   </div>
 </div>
