@@ -15,7 +15,7 @@
         class="l-mr-xs"
         alt="(Ведущий)"
       />
-      Раунд {{ turnIndex }}:
+      Раунд #{{ turnCount }}:
     </div>
     <div class="t-h2">
       {{ setup?.text }}
@@ -29,6 +29,7 @@
       *ngFor="let card of hand; let i = index"
       (select)="makeTurn(card.uuid.toString())"
       [disabled]="!isHandActive"
+      [selected]="card.uuid === chosenUuid"
     >
       {{ card.toCase(setup?.case || "nom") }}
     </app-punch-line-button>

@@ -1,3 +1,5 @@
-<div [@state]="state" class="bottom-sheet" *ngIf="isOpen">
-  <ng-content></ng-content>
+<div [@state]="state" class="bottom-sheet__wrapper" *ngIf="isOpen">
+  <div class="bottom-sheet">
+    <ng-content></ng-content>
+  </div>
 </div>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Player } from '../interfaces/player';
 import { EventsService } from './events.service';
 import { UiNotificationsService } from './ui-notifications.service';
-import { Router } from '@angular/router';
 import { GameActionType } from '../interfaces/game-action';
 import { PunchLineCard } from '../interfaces/punch-line-card';
 import { SetupCard } from '../interfaces/setup-card';
@@ -55,10 +54,13 @@ export class GameService {
   public get hasChosenCard() {
     return Boolean(this._chosenUuid);
   }
+  public get chosenUuid() {
+    return this._chosenUuid;
+  }
 
-  private _turnIndex = 0;
-  public get turnIndex() {
-    return this._turnIndex;
+  private _turnCount = 0;
+  public get turnCount() {
+    return this._turnCount;
   }
 
   private readonly eventHandlersMap: {
@@ -90,9 +92,45 @@ export class GameService {
     });
   }
 
+  private _resetTable() {
+    this.table.splice(0, this.table.length);
+    this.table.length = this.players.length - 1;
+  }
+
+  private _setLead(uuid: string) {
+    this.players.forEach(
+      (player) => (player.state = player.uuid === uuid ? 'leading' : 'default')
+    );
+  }
+
   private onWelcome(data: WelcomeEventData) {
     this._state = data.state;
+    this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
     this.players.push(...data.players);
+    this.setup = data.setup;
+    this._turnCount = data.turnCount;
+    this.isLeading = data.isLeading;
+
+    if (data.leadUuid) {
+      this._setLead(data.leadUuid);
+    }
+
+    if (data.selectedCard) {
+      this._chosenUuid = data.selectedCard.uuid;
+      this.hand.unshift(new PunchLineCard(data.selectedCard));
+    }
+
+    this._resetTable();
+    if (data.table?.length) {
+      this.table.splice(
+        0,
+        data.table.length,
+        ...data.table.map((slot) => ({
+          ...slot,
+          card: slot.card ? new PunchLineCard(slot.card) : undefined,
+        }))
+      );
+    }
   }
 
   private onPlayerJoined(data: PlayerJoinedEventData) {
@@ -155,12 +193,8 @@ export class GameService {
   }
 
   public onTurnStarted(data: TurnStartedEventData) {
-    this.table.splice(0, this.table.length);
-    this.table.length = this.players.length - 1;
-    this.players.forEach(
-      (player) =>
-        (player.state = player.uuid === data.leadUuid ? 'leading' : 'default')
-    );
+    this._resetTable();
+    this._setLead(data.leadUuid);
     this.countdown.start(3).subscribe({
       next: () => {
         this._state = GameState.Turns;
@@ -188,7 +222,7 @@ export class GameService {
     }
 
     this.isLeading = data.isLeading;
-    this._turnIndex++;
+    this._turnCount = data.turnCount;
     this.setup = data.setup;
   }
 

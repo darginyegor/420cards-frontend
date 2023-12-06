@@ -1,3 +1,7 @@
-<div class="app-countdown__content" *ngIf="countdown$ | async as countdown">
+<div
+  [@state]="countdown"
+  class="app-countdown__content"
+  *ngIf="countdown$ | async as countdown"
+>
   {{ countdown }}
 </div>
