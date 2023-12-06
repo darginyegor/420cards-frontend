@@ -9,6 +9,7 @@ import { CountdownService } from './countdown.service';
 import { TableSlot } from '../interfaces/table-slot';
 import {
   GameEventType,
+  GameFinishedEventData,
   GameStartedEventData,
   OwnerChangedEventData,
   PlayerConnectedEventData,
@@ -21,6 +22,8 @@ import {
   TurnStartedEventData,
   WelcomeEventData,
 } from '../interfaces/game-event';
+import { PLAYERS_MOCK } from '../mocks';
+import { BehaviorSubject } from 'rxjs';
 
 export enum GameState {
   Void = 'void',
@@ -38,6 +41,7 @@ export class GameService {
   public readonly players: Player[] = [];
   public readonly hand: PunchLineCard[] = [];
   public readonly table: TableSlot[] = [];
+  public winner?: Player = PLAYERS_MOCK[0];
   public setup?: SetupCard;
   public isLeading = false;
 
@@ -58,10 +62,8 @@ export class GameService {
     return this._chosenUuid;
   }
 
-  private _turnCount = 0;
-  public get turnCount() {
-    return this._turnCount;
-  }
+  private _turnCount$ = new BehaviorSubject(0);
+  public turnCount$ = this._turnCount$.asObservable();
 
   private readonly eventHandlersMap: {
     [key in GameEventType]: (data: any) => void;
@@ -78,6 +80,7 @@ export class GameService {
     allPlayersReady: () => this.onAllPlayersReady(),
     tableCardOpened: (data) => this.onTableCardOpened(data),
     turnEnded: (data) => this.onTurnEnded(data),
+    gameFinished: (data) => this.onGameFinished(data),
   };
 
   constructor(
@@ -103,12 +106,18 @@ export class GameService {
     );
   }
 
+  private _getPlayer(uuid: string) {
+    return this.players.find((player) => {
+      return player.uuid === uuid;
+    });
+  }
+
   private onWelcome(data: WelcomeEventData) {
     this._state = data.state;
     this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
     this.players.push(...data.players);
     this.setup = data.setup;
-    this._turnCount = data.turnCount;
+    this._turnCount$.next(data.turnCount);
     this.isLeading = data.isLeading;
 
     if (data.leadUuid) {
@@ -138,7 +147,7 @@ export class GameService {
   }
 
   private onPlayerConnected(data: PlayerConnectedEventData) {
-    const player = this.players.find((player) => player.uuid === data.uuid);
+    const player = this._getPlayer(data.uuid);
     if (!player) {
       return;
     }
@@ -146,7 +155,7 @@ export class GameService {
   }
 
   private onPlayerDisconnected(data: PlayerDisonnectedEventData) {
-    const player = this.players.find((player) => player.uuid === data.uuid);
+    const player = this._getPlayer(data.uuid);
     if (!player) {
       return;
     }
@@ -168,7 +177,7 @@ export class GameService {
   }
 
   private onPlayerReady(data: PlayerReadyEventData) {
-    const player = this.players.find((player) => player.uuid === data.uuid);
+    const player = this._getPlayer(data.uuid);
     if (!player) {
       return;
     }
@@ -198,14 +207,6 @@ export class GameService {
     this.countdown.start(3).subscribe({
       next: () => {
         this._state = GameState.Turns;
-        if (data.isLeading) {
-          // MAYBE do something, maybe not
-          // this.notifications.notification({
-          //   icon: '🫵',
-          //   name: 'Ты - ведущий!',
-          //   message: 'Какой-нибудь текст здесь ещё написан лаконичный',
-          // });
-        }
       },
     });
 
@@ -218,11 +219,11 @@ export class GameService {
     this._chosenUuid = '';
 
     if (data.card) {
-      this.hand.push(new PunchLineCard(data.card));
+      this.hand.unshift(new PunchLineCard(data.card));
     }
 
     this.isLeading = data.isLeading;
-    this._turnCount = data.turnCount;
+    this._turnCount$.next(data.turnCount);
     this.setup = data.setup;
   }
 
@@ -231,9 +232,7 @@ export class GameService {
   }
 
   public onTurnEnded(data: TurnEndedEventData) {
-    const player = this.players.find((player) => {
-      return player.uuid === data.winnerUuid;
-    });
+    const player = this._getPlayer(data.winnerUuid);
     if (!player) {
       return;
     }
@@ -252,6 +251,12 @@ export class GameService {
       name: `Победил ${player.name}`,
       message: 'Красиво рисовать я это пока не умею, но скоро научусь.',
     });
+  }
+
+  public onGameFinished(data: GameFinishedEventData) {
+    const player = this._getPlayer(data.winnerUuid);
+    this._state = GameState.Finished;
+    this.winner = player;
   }
 
   public init() {

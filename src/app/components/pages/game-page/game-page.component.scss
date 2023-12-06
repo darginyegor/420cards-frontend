@@ -12,7 +12,7 @@
   background-color: $bg-01;
   line-height: 2rem;
   white-space: pre-line;
-  box-shadow: 0px 4px 8px black;
+  box-shadow: 0px 4px 8px $bg-01;
 }
 
 .setup-card__subtext {
@@ -20,4 +20,28 @@
   line-height: 1;
   font-size: 1rem;
   color: $text-02;
+}
+
+// TODO remove
+@keyframes winner {
+  from {
+    transform: scale(2);
+  }
+  to {
+    transform: scale(2.05);
+  }
+}
+
+.finish-screen {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  app-player-avatar {
+    animation: winner 1s infinite alternate;
+  }
+  .btn--primary {
+    align-self: stretch;
+  }
 }
