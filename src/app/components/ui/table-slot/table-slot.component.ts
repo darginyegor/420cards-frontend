@@ -1,8 +1,15 @@
 import {
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
   Component,
   EventEmitter,
   HostBinding,
-  HostListener,
   Input,
   Output,
 } from '@angular/core';
@@ -13,6 +20,34 @@ import { TableSlot } from 'src/app/interfaces/table-slot';
   selector: 'app-table-slot',
   templateUrl: './table-slot.component.html',
   styleUrls: ['./table-slot.component.scss'],
+  animations: [
+    trigger('state', [
+      transition(':enter', animate('0s')),
+      transition('* => *', [
+        animate(
+          '.6s cubic-bezier(0,.5,.5,1)',
+          keyframes([
+            style({
+              transform: 'scale(1)',
+              offset: 0,
+            }),
+            style({
+              transform: 'scale(1.05)',
+              offset: 0.5,
+            }),
+            style({
+              transform: 'scale(0.99',
+              offset: 0.8,
+            }),
+            style({
+              transform: 'scale(1)',
+              offset: 1,
+            }),
+          ])
+        ),
+      ]),
+    ]),
+  ],
 })
 export class TableSlotComponent {
   @Input() public slot?: TableSlot;
@@ -21,6 +56,19 @@ export class TableSlotComponent {
   @HostBinding('class.--active')
   @Input()
   public isActive = false;
+
+  @Output() public open = new EventEmitter();
+  @Output() public pick = new EventEmitter();
+
+  public get state() {
+    if (!this.slot) {
+      return 'empty';
+    }
+    if (!this.slot.card) {
+      return 'face-down';
+    }
+    return this.isPicked ? 'picked' : 'face-up';
+  }
 
   @HostBinding('class.--empty')
   public get isEmpty() {
@@ -42,10 +90,7 @@ export class TableSlotComponent {
     return this.slot?.isPicked;
   }
 
-  @Output() public open = new EventEmitter();
-  @Output() public pick = new EventEmitter();
-
-  @HostListener('click') public action() {
+  public interact() {
     if (this.isEmpty || !this.isActive) {
       return;
     }

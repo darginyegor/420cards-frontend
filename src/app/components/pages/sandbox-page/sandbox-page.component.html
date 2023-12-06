@@ -41,8 +41,8 @@
   </div>
   <div class="l-mh-xl l-stack-m l-mt-s" *ngIf="isTableVisible">
     <app-table-slot
-      *ngFor="let slot of table; let i = index"
-      [slot]="slot"
+      *ngFor="let n of [].constructor(table.length); let i = index"
+      [slot]="table[i]"
       [case]="setupCard.case"
       [isActive]="isTableActive"
       (open)="testTableFlip(i)"

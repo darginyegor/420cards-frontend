@@ -41,12 +41,12 @@
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isTableVisible">
     <app-table-slot
-      *ngFor="let item of table; let i = index"
-      [slot]="item"
+      *ngFor="let f of [].constructor(table.length); let i = index"
+      [slot]="table[i]"
       [case]="setup?.case"
       [isActive]="isTableActive"
       (open)="openSlot(i)"
-      (pick)="pickWinner(item.card)"
+      (pick)="pickWinner(table[i].card)"
     ></app-table-slot>
   </div>
 

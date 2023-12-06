@@ -1,12 +1,14 @@
-<img
-  *ngIf="!isEmpty && !isFaceUp"
-  src="assets/img/cards-icon.svg"
-  class="l-m-a"
-  alt="Закрытая карта"
-/>
-<div class="table-slot__text" *ngIf="slot?.card && case">
-  {{ slot?.card?.toCase(case) }}
-</div>
-<div class="table-slot__author l-mt-xs" *ngIf="slot?.author">
-  {{ slot?.author }}
-</div>
+<button class="table-slot__card" [@state]="state" (click)="interact()">
+  <img
+    *ngIf="!isEmpty && !isFaceUp"
+    src="assets/img/cards-icon.svg"
+    class="l-m-a"
+    alt="Закрытая карта"
+  />
+  <div class="table-slot__text" *ngIf="slot?.card && case">
+    {{ slot?.card?.toCase(case) }}
+  </div>
+  <div class="table-slot__author l-mt-xs" *ngIf="slot?.author">
+    {{ slot?.author }}
+  </div>
+</button>

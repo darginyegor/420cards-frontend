@@ -1,52 +1,54 @@
 @import 'variables';
 
-:host {
+.table-slot__card {
   display: flex;
   flex-direction: column;
-  min-height: 4.5rem;
+  width: 100%;
+  min-height: 5rem;
   border: 2px dashed $text-01;
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
   pointer-events: none;
   justify-content: space-between;
-  &.--empty {
-    opacity: .2;
-  }
-  &.--face-down {
-    border-style: solid;
-    opacity: .4;
-  }
-  &.--face-up {
-    border-style: solid;
-    opacity: 1;
-  }
-  &.--active {
-    opacity: 1;
-    cursor: pointer;
-    pointer-events: auto;
-  }
-  &.--picked {
-    background-color: $text-01;
-    color: $bg-01;
-    pointer-events: none;
-  }
+  transition: .3s;
+  color: $text-01;
 }
 
-@keyframes author {
+:host.--empty .table-slot__card {
+  opacity: .2;
+}
+
+:host.--face-down .table-slot__card {
+  border-style: solid;
+  opacity: .4;
+}
+
+:host.--face-up .table-slot__card {
+  border-style: solid;
+  opacity: 1;
+}
+
+:host.--active .table-slot__card {
+  opacity: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+:host.--picked .table-slot__card {
+  background-color: $text-01;
+  color: $bg-01;
+  pointer-events: none;
+}
+
+@keyframes text {
   from {
-    transform: scale(0);
-  }
-  80% {
-    transform: scale(1.5) rotate(10deg);
-  }
-  to {
-    transform: none;
+    opacity: 0;
   }
 }
 
 .table-slot__author {
   font-size: 0.75rem;
   text-align: right;
+  width: 100%;
   opacity: .6;
-  animation: author .2s;
 }

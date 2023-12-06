@@ -27,9 +27,9 @@ export class SandboxPageComponent {
   public isLeading = true;
 
   public isActive = true;
-  public isHandVisible = true;
-  public isTableVisible = false;
-  public isTableActive = false;
+  public isHandVisible = false;
+  public isTableVisible = true;
+  public isTableActive = true;
 
   public scoreToWin = 10;
   public scoreOptions: RadioGroupOption[] = [
@@ -105,6 +105,7 @@ export class SandboxPageComponent {
 
   public testPick(i: number) {
     this.table[i].isPicked = true;
+    this.table[i].author = PLAYERS_MOCK[i].name;
   }
 
   public testRadio(value: any) {
