@@ -26,12 +26,12 @@ export class SandboxPageComponent {
   public currentIndex = 0;
   public isLeading = true;
 
-  public isSetupVisible = false;
+  public isSetupVisible = true;
   public isActive = true;
-  public isHandVisible = false;
+  public isHandVisible = true;
   public isTableVisible = false;
   public isTableActive = true;
-  public isFinishScreenVisible = true;
+  public isFinishScreenVisible = false;
 
   public winner = PLAYERS_MOCK[5];
 
@@ -110,6 +110,7 @@ export class SandboxPageComponent {
   public testPick(i: number) {
     this.table[i].isPicked = true;
     this.table[i].author = PLAYERS_MOCK[i].name;
+    PLAYERS_MOCK[i].score++;
   }
 
   public testRadio(value: any) {

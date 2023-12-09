@@ -5,6 +5,7 @@ import {
   style,
   transition,
   trigger,
+  useAnimation,
 } from '@angular/animations';
 import {
   Component,
@@ -13,6 +14,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Animations } from 'src/app/app.animations';
 import { CardTextCase } from 'src/app/interfaces/punch-line-card';
 import { TableSlot } from 'src/app/interfaces/table-slot';
 
@@ -23,29 +25,7 @@ import { TableSlot } from 'src/app/interfaces/table-slot';
   animations: [
     trigger('state', [
       transition(':enter', animate('0s')),
-      transition('* => *', [
-        animate(
-          '.6s cubic-bezier(0,.5,.5,1)',
-          keyframes([
-            style({
-              transform: 'scale(1)',
-              offset: 0,
-            }),
-            style({
-              transform: 'scale(1.05)',
-              offset: 0.5,
-            }),
-            style({
-              transform: 'scale(0.99',
-              offset: 0.8,
-            }),
-            style({
-              transform: 'scale(1)',
-              offset: 1,
-            }),
-          ])
-        ),
-      ]),
+      transition('* => *', [useAnimation(Animations.POP)]),
     ]),
   ],
 })
