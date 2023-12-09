@@ -22,14 +22,18 @@ import { ApiService } from 'src/app/services/api.service';
 export class SandboxPageComponent {
   public players: Player[] = PLAYERS_MOCK; // this.game.players;
   public hand = PUNCH_LINE_CARDS;
-  public table: TableSlot[] = [{}, {}, {}, {}];
+  public table: TableSlot[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
   public currentIndex = 0;
   public isLeading = true;
 
+  public isSetupVisible = false;
   public isActive = true;
   public isHandVisible = false;
-  public isTableVisible = true;
+  public isTableVisible = false;
   public isTableActive = true;
+  public isFinishScreenVisible = true;
+
+  public winner = PLAYERS_MOCK[5];
 
   public scoreToWin = 10;
   public scoreOptions: RadioGroupOption[] = [

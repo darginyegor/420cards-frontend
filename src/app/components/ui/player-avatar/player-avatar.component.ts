@@ -7,6 +7,8 @@ import {
 import { AVATAR_BACKDROPS } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player';
 
+export type AvatarSize = 'normal' | 'large';
+
 @Component({
   selector: 'app-player-avatar',
   templateUrl: './player-avatar.component.html',
@@ -15,10 +17,16 @@ import { Player } from 'src/app/interfaces/player';
 export class PlayerAvatarComponent {
   @Input() public player?: Player;
   @Input() public withStatus = false;
+  @Input() public isWinner = false;
+  @Input() public size: AvatarSize = 'normal';
   public readonly withBackdrop = AVATAR_BACKDROPS;
 
   @HostBinding('class.app-player-avatar--pending') public get isPending() {
     return !this.player?.isConnected;
+  }
+
+  @HostBinding('class') public get sizeClassName() {
+    return `--${this.size}`;
   }
 
   public get isReady() {

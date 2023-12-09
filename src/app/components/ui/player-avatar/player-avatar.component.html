@@ -8,7 +8,7 @@
   <div *ngIf="withBackdrop" class="app-player-avatar__backdrop">
     {{ player?.emoji }}
   </div>
-  <div class="app-player-avatar__name l-mt-s s-t-center s-t-no-wrap">
+  <div class="app-player-avatar__name s-t-center s-t-no-wrap">
     {{ player?.isLobbyOwner ? "• " : "" }}
     {{ player?.name }}
   </div>
@@ -23,6 +23,12 @@
       *ngIf="isReady"
       class="l-mr-xs app-player-avatar__status-icon"
       src="assets/img/ready.svg"
+      alt="Ведущий"
+    />
+    <img
+      *ngIf="isWinner"
+      class="l-mr-xs app-player-avatar__status-icon"
+      src="assets/img/winner.svg"
       alt="Ведущий"
     />
     <div class="l-flex app-player-avatar__points">{{ player?.score }}</div>

@@ -58,15 +58,22 @@
     <button class="btn--primary" (click)="start()">Начать игру</button>
   </div>
 
-  <div class="l-flex-auto l-mh-xxl finish-screen" *ngIf="isFinishScreenVisible">
-    <div class="l-stack-m">
-      <div class="t-h2">А всё, конец!</div>
-      <div>Наш победитель:</div>
+  <ng-container *ngIf="isFinishScreenVisible">
+    <div
+      class="l-mh-xl l-flex-auto l-flex l-flex-col l-flex-center l-flex-middle l-stack-xxl"
+    >
+      <app-player-avatar
+        [player]="winner"
+        [isWinner]="true"
+        [withStatus]="true"
+        size="large"
+      ></app-player-avatar>
+      <div class="t-h2">Игра окончена!</div>
+      <div class="s-t-secondary"></div>
     </div>
-    <app-player-avatar
-      [player]="winner"
-      [withStatus]="true"
-    ></app-player-avatar>
-    <button class="btn--primary">Похуй, пока не заебет!</button>
-  </div>
+    <div class="l-mh-xxl l-stack-m">
+      <button class="btn btn--secondary">Сыграть ещё раз</button>
+      <button class="btn--secondary">Продолжить</button>
+    </div>
+  </ng-container>
 </div>

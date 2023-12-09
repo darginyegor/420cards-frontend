@@ -22,16 +22,6 @@
   color: $text-02;
 }
 
-// TODO remove
-@keyframes winner {
-  from {
-    transform: scale(2);
-  }
-  to {
-    transform: scale(2.05);
-  }
-}
-
 .finish-screen {
   display: flex;
   text-align: center;
