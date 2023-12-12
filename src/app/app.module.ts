@@ -19,6 +19,8 @@ import { CountdownComponent } from './components/ui/countdown/countdown.componen
 import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.component';
 import { RadioGroupComponent } from './components/ui/radio-group/radio-group.component';
 import { DebugPageComponent } from './components/pages/debug-page/debug-page.component';
+import { PlayersBarComponent } from './components/ui/players-bar/players-bar.component';
+import { SetupCardComponent } from './components/ui/setup-card/setup-card.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { DebugPageComponent } from './components/pages/debug-page/debug-page.com
     BottomSheetComponent,
     RadioGroupComponent,
     DebugPageComponent,
+    PlayersBarComponent,
+    SetupCardComponent,
   ],
   imports: [
     BrowserModule,

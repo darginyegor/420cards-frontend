@@ -1,26 +1,15 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
-  <div class="l-ph-xxl l-row-l l-scroll-h">
-    <app-player-avatar
-      *ngFor="let player of players"
-      [player]="player"
-      [withStatus]="!isLobbyControlsVisible"
-    ></app-player-avatar>
-  </div>
-
-  <div *ngIf="isSetupVisible" class="l-ph-xxl l-pv-4xl setup-card">
-    <div class="l-mb-s l-flex l-flex-middle setup-card__subtext">
-      <img
-        *ngIf="isLeading"
-        src="assets/img/lead-turn-mark.svg"
-        class="l-mr-xs"
-        alt="(Ведущий)"
-      />
-      Раунд #{{ turnCount$ | async }}:
-    </div>
-    <div class="t-h2">
-      {{ setup?.text }}
-    </div>
-  </div>
+  <app-players-bar
+    [players]="players"
+    [withStatus]="!isLobbyControlsVisible"
+  ></app-players-bar>
+  <app-setup-card
+    *ngIf="isSetupVisible"
+    [setup]="setup"
+    [isLeading]="isLeading"
+    [turnCount]="(turnCount$ | async) || 1"
+  >
+  </app-setup-card>
 
   <div class="l-flex-auto" *ngIf="isLobbyControlsVisible"></div>
 
@@ -56,7 +45,8 @@
       <img src="assets/img/share.svg" alt="" />
     </button>
     <button class="btn--secondary" (click)="settingsSheet.open()">
-      Показать настройки
+      Настроить
+      <img src="assets/img/settings.svg" alt="" />
     </button>
     <button class="btn--primary" (click)="start()">Начать игру</button>
   </div>
@@ -65,13 +55,13 @@
     <div
       class="l-mh-xl l-flex-auto l-flex l-flex-col l-flex-center l-flex-middle l-stack-xxl"
     >
+      <div class="t-h2">Игра окончена!</div>
       <app-player-avatar
         [player]="winner"
         [isWinner]="true"
         [withStatus]="true"
         size="large"
       ></app-player-avatar>
-      <div class="t-h2">Игра окончена!</div>
       <div class="s-t-secondary">
         {{ winner?.name }} набрал {{ winner?.score }} очков за
         {{ turnCount$ | async }} ходов
@@ -80,6 +70,7 @@
     <div class="l-mh-xxl l-stack-m">
       <button class="btn btn--secondary" (click)="start()">
         Сыграть ещё раз
+        <img src="assets/img/refresh.svg" alt="" />
       </button>
       <button class="btn--secondary" (click)="goEndless()">Продолжить</button>
     </div>

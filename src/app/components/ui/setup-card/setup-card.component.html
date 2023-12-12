@@ -1,0 +1,12 @@
+<div class="l-mb-s l-flex l-flex-middle setup-card__subtext">
+  <img
+    *ngIf="isLeading"
+    src="assets/img/lead-turn-mark.svg"
+    class="l-mr-xs"
+    alt="(Ведущий)"
+  />
+  Раунд #{{ turnCount }}:
+</div>
+<div class="t-h2">
+  {{ setup?.text }}
+</div>
