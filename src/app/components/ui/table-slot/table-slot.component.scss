@@ -26,11 +26,13 @@
 :host.--face-up .table-slot__card {
   border-style: solid;
   opacity: 1;
+  border-color: $border-secondary;
 }
 
 :host.--active .table-slot__card {
   opacity: 1;
   cursor: pointer;
+  border-color: $border-secondary;
   pointer-events: auto;
 }
 

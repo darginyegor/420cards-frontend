@@ -24,7 +24,7 @@ import { TableSlot } from 'src/app/interfaces/table-slot';
   styleUrls: ['./table-slot.component.scss'],
   animations: [
     trigger('state', [
-      transition(':enter', animate('0s')),
+      transition(':enter', []),
       transition('* => *', [useAnimation(Animations.POP)]),
     ]),
   ],

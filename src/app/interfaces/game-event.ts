@@ -72,6 +72,10 @@ export interface PlayerReadyEventData {
   uuid: string;
 }
 
+export interface AllPlayersReadyEventData {
+  chosenCardId: string;
+}
+
 export interface TableCardOpenedEventData {
   index: number;
   card: PunchLineCardSchema;

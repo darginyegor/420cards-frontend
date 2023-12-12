@@ -8,6 +8,7 @@ import { SetupCard } from '../interfaces/setup-card';
 import { CountdownService } from './countdown.service';
 import { TableSlot } from '../interfaces/table-slot';
 import {
+  AllPlayersReadyEventData,
   GameEventType,
   GameFinishedEventData,
   GameStartedEventData,
@@ -77,7 +78,7 @@ export class GameService {
     gameStarted: (data) => this.onGameStarted(data),
     turnStarted: (data) => this.onTurnStarted(data),
     playerReady: (data) => this.onPlayerReady(data),
-    allPlayersReady: () => this.onAllPlayersReady(),
+    allPlayersReady: (data) => this.onAllPlayersReady(data),
     tableCardOpened: (data) => this.onTableCardOpened(data),
     turnEnded: (data) => this.onTurnEnded(data),
     gameFinished: (data) => this.onGameFinished(data),
@@ -193,7 +194,8 @@ export class GameService {
     });
   }
 
-  private onAllPlayersReady() {
+  private onAllPlayersReady(data: AllPlayersReadyEventData) {
+    this._chosenUuid = data.chosenCardId;
     this._state = GameState.Judgement;
   }
 

@@ -1,6 +1,8 @@
+import { transition, trigger, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { Animations } from 'src/app/app.animations';
 import { ApiService } from 'src/app/services/api.service';
 import { BackgroundColorService } from 'src/app/services/background-color.service';
 import { EventsService } from 'src/app/services/events.service';
@@ -11,6 +13,12 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
+  animations: [
+    trigger('changeAvatar', [
+      transition(':enter', []),
+      transition('* => *', [useAnimation(Animations.POP)]),
+    ]),
+  ],
 })
 export class MainPageComponent {
   public readonly colorPostfix = '';

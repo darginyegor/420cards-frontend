@@ -1,14 +1,20 @@
 <div class="l-p-xxl l-flex-col l-flex-end l-flex-auto a-t-short">
-  <div class="l-flex l-flex-center l-mb-xxl">
+  <div class="l-row-s l-flex-center l-flex-middle l-mb-xxl s-t-inverse">
     <img src="assets/img/logo.svg" alt="" />
+    <div class="t-h2">420cards</div>
   </div>
   <div class="app-main-page__profile">
     <button class="btn--icon-only" (click)="prevAvatar()">
       <img src="assets/img/prev.svg" alt="" />
     </button>
-    <div class="app-main-page__avatar-selector">
-      {{ (avatar$ | async)?.emoji }}
-    </div>
+    <ng-container *ngIf="avatar$ | async as avatar">
+      <div
+        [@changeAvatar]="avatar?.emoji"
+        class="app-main-page__avatar-selector"
+      >
+        {{ avatar?.emoji }}
+      </div>
+    </ng-container>
     <button class="btn--icon-only" (click)="nextAvatar()">
       <img src="assets/img/next.svg" alt="" />
     </button>

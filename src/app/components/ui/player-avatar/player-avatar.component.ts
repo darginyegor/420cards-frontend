@@ -22,7 +22,7 @@ export type AvatarSize = 'normal' | 'large';
   styleUrls: ['./player-avatar.component.scss'],
   animations: [
     trigger('state', [
-      transition(':enter', animate('0s')),
+      transition(':enter', []),
       transition(
         '* => *',
         useAnimation(Animations.POP, {
