@@ -73,7 +73,7 @@ export interface PlayerReadyEventData {
 }
 
 export interface AllPlayersReadyEventData {
-  chosenCardId: string;
+  chosenCardId: number;
 }
 
 export interface TableCardOpenedEventData {
@@ -83,7 +83,7 @@ export interface TableCardOpenedEventData {
 
 export interface TurnEndedEventData {
   winnerUuid: string;
-  cardUuid: string;
+  cardId: number;
   score: number;
 }
 

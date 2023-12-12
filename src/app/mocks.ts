@@ -228,25 +228,25 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
 
 export const SETUP_CARDS_MOCK: SetupCard[] = [
   {
-    uuid: '2',
+    id: 2,
     text: 'Это я почему злой был? \nА потому что у меня ________\n не было!',
     startsFromPunchLine: false,
     case: 'gen',
   },
   {
-    uuid: '3',
+    id: 3,
     text: '50% всех браков заканчиваются _______.',
     startsFromPunchLine: false,
     case: 'inst',
   },
   {
-    uuid: '1',
+    id: 1,
     text: '_______ — лучшее лекарство от запора!',
     startsFromPunchLine: true,
     case: 'nom',
   },
   {
-    uuid: '3',
+    id: 3,
     text: 'Кажется, я разобрался в политике! Мое решениве всех проблем — _______.',
     startsFromPunchLine: false,
     case: 'nom',
@@ -255,7 +255,7 @@ export const SETUP_CARDS_MOCK: SetupCard[] = [
 
 export const PUNCH_LINE_CARDS: PunchLineCard[] = [
   new PunchLineCard({
-    uuid: '1',
+    id: 1,
     text: [
       ['говно', ['nom', 'acc']],
       ['говна', ['gen']],
@@ -265,7 +265,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     ],
   }),
   new PunchLineCard({
-    uuid: '2',
+    id: 2,
     text: [
       ['Гитлер', ['nom']],
       ['Гитлера', ['gen', 'acc']],
@@ -275,7 +275,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     ],
   }),
   new PunchLineCard({
-    uuid: '3',
+    id: 3,
     text: [
       ['президент Татарстана', ['nom']],
       ['президента Татарстана', ['gen', 'acc']],
@@ -285,7 +285,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     ],
   }),
   new PunchLineCard({
-    uuid: '4',
+    id: 4,
     text: [
       ['мои яйца на твоем лице', ['nom', 'acc']],
       ['моих яиц на твоем лице', ['gen']],
@@ -295,7 +295,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     ],
   }),
   new PunchLineCard({
-    uuid: '5',
+    id: 5,
     text: [
       ['евреи', ['nom']],
       ['евреев', ['gen']],
@@ -306,7 +306,7 @@ export const PUNCH_LINE_CARDS: PunchLineCard[] = [
     ],
   }),
   new PunchLineCard({
-    uuid: '6',
+    id: 6,
     text: [
       ['секс с животными', ['nom']],
       ['секса с животными', ['gen']],

@@ -56,12 +56,12 @@ export class GameService {
     return this.events.lobbyToken;
   }
 
-  private _chosenUuid = '';
+  private _chosenCardId?: number;
   public get hasChosenCard() {
-    return Boolean(this._chosenUuid);
+    return Boolean(this._chosenCardId);
   }
-  public get chosenUuid() {
-    return this._chosenUuid;
+  public get chosenCardId() {
+    return this._chosenCardId;
   }
 
   private _turnCount$ = new BehaviorSubject(0);
@@ -137,7 +137,7 @@ export class GameService {
     }
 
     if (data.selectedCard) {
-      this._chosenUuid = data.selectedCard.uuid;
+      this._chosenCardId = data.selectedCard.id;
       this.hand.unshift(new PunchLineCard(data.selectedCard));
     }
 
@@ -206,7 +206,9 @@ export class GameService {
   }
 
   private onAllPlayersReady(data: AllPlayersReadyEventData) {
-    this._chosenUuid = data.chosenCardId;
+    if (data.chosenCardId) {
+      this._chosenCardId = data.chosenCardId;
+    }
     this._state = GameState.Judgement;
   }
 
@@ -225,13 +227,13 @@ export class GameService {
       },
     });
 
-    if (this._chosenUuid) {
+    if (this._chosenCardId) {
       const index = this.hand.findIndex(
-        (card) => card.uuid === this._chosenUuid
+        (card) => card.id === this._chosenCardId
       );
       this.hand.splice(index, 1);
     }
-    this._chosenUuid = '';
+    this._chosenCardId = undefined;
 
     if (data.card) {
       this.hand.unshift(new PunchLineCard(data.card));
@@ -253,7 +255,7 @@ export class GameService {
     }
     player.score = data.score;
     this.table.find((answer) => {
-      if (answer.card?.uuid === data.cardUuid) {
+      if (answer.card?.id === data.cardId) {
         answer.isPicked = true;
         answer.author = player.name;
         return true;
@@ -291,14 +293,14 @@ export class GameService {
     });
   }
 
-  public makeTurn(uuid: string) {
+  public makeTurn(id: number) {
     this.events.emit({
       type: GameActionType.MakeTurn,
       data: {
-        uuid,
+        id,
       },
     });
-    this._chosenUuid = uuid;
+    this._chosenCardId = id;
   }
 
   public openTableCard(index: number) {
@@ -310,11 +312,11 @@ export class GameService {
     });
   }
 
-  public pickWinner(uuid: string) {
+  public pickWinner(id: number) {
     this.events.emit({
       type: GameActionType.PickWinner,
       data: {
-        uuid,
+        id,
       },
     });
   }

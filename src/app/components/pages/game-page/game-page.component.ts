@@ -73,7 +73,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public get chosenUuid() {
-    return this.game.chosenUuid;
+    return this.game.chosenCardId;
   }
 
   public get winner() {
@@ -117,8 +117,8 @@ export class GamePageComponent implements OnInit {
     });
   }
 
-  public makeTurn(uuid: string) {
-    this.game.makeTurn(uuid);
+  public makeTurn(id: number) {
+    this.game.makeTurn(id);
   }
 
   public openSlot(index: number) {
@@ -127,7 +127,7 @@ export class GamePageComponent implements OnInit {
 
   public pickWinner(card: PunchLineCard | undefined) {
     if (card) {
-      this.game.pickWinner(card.uuid);
+      this.game.pickWinner(card.id);
     }
   }
 

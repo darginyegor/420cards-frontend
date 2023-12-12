@@ -27,9 +27,9 @@
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
     <app-punch-line-button
       *ngFor="let card of hand; let i = index"
-      (select)="makeTurn(card.uuid)"
+      (select)="makeTurn(card.id)"
       [disabled]="!isHandActive"
-      [selected]="card.uuid === chosenUuid"
+      [selected]="card.id === chosenUuid"
     >
       {{ card.toCase(setup?.case || "nom") }}
     </app-punch-line-button>

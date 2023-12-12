@@ -1,7 +1,7 @@
 import { CardTextCase } from './punch-line-card';
 
 export interface SetupCard {
-  uuid: string;
+  id: number;
   text: string;
   startsFromPunchLine: boolean;
   case: CardTextCase;

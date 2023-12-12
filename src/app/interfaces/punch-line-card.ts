@@ -5,16 +5,16 @@ interface CardText {
 export type CardTextCase = keyof CardText;
 
 export interface PunchLineCardSchema {
-  uuid: string;
+  id: number;
   text: [string, string[]][];
 }
 
 export class PunchLineCard {
-  public readonly uuid;
+  public readonly id;
   private readonly _text: CardText;
 
   constructor(schema: PunchLineCardSchema) {
-    this.uuid = schema.uuid;
+    this.id = schema.id;
     this._text = schema.text.reduce<CardText>((accumulator, variant) => {
       variant[1].forEach((key) => (accumulator[key] = variant[0]));
       return accumulator;
