@@ -146,6 +146,10 @@ $spacing: (
 
 // Style
 
+.s-bg-01 {
+  background-color: $bg-01;
+}
+
 .s-t-left {
   text-align: left;
 }
@@ -169,13 +173,6 @@ $spacing: (
 .s-t-inverse {
   color: $bg-01;
 }
-
-h2, .t-h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-
 
 // Animation
 

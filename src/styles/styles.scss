@@ -25,6 +25,25 @@ body {
   font-family: 'Helvetica Neue', 'Roboto', sans-serif;
 }
 
+
+h2, .t-h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+p, .t-p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: normal;
+}
+
+a, .link {
+  color: $text-01;
+  &:visited {
+    color: $text-01;
+  }
+}
+
 input,
 textarea,
 button,
