@@ -3,7 +3,7 @@ export enum GameActionType {
   MakeTurn = 'makeTurn',
   OpenTableCard = 'openTableCard',
   PickWinner = 'pickTurnWinner',
-  Continue = 'continue',
+  Continue = 'continueGame',
 }
 
 export interface GameAction {

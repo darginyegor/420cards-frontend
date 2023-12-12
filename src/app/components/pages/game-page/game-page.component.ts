@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CLIENT_HOST } from 'src/app/app.consts';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
@@ -46,7 +47,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isTableVisible() {
-    if (this.game.state === GameState.Gathering) {
+    if ([GameState.Gathering, GameState.Finished].includes(this.game.state)) {
       return false;
     }
 
@@ -93,8 +94,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public share() {
-    const url = '';
-    const fullUrl = `${url}/?t=${this.game.lobbyToken}`;
+    const fullUrl = `${CLIENT_HOST}/?t=${this.game.lobbyToken}`;
     if (navigator?.share) {
       navigator.share({
         title: 'Будешь играть в 420cards?',

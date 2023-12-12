@@ -43,7 +43,7 @@ export class GameService {
   public readonly players: Player[] = [];
   public readonly hand: PunchLineCard[] = [];
   public readonly table: TableSlot[] = [];
-  public winner?: Player = PLAYERS_MOCK[0];
+  public winner?: Player;
   public setup?: SetupCard;
   public isLeading = false;
 
@@ -206,8 +206,8 @@ export class GameService {
   }
 
   private onAllPlayersReady(data: AllPlayersReadyEventData) {
-    if (data.chosenCardId) {
-      this._chosenCardId = data.chosenCardId;
+    if (data?.chosenCardId) {
+      this._chosenCardId = data?.chosenCardId;
     }
     this._state = GameState.Judgement;
   }
@@ -263,15 +263,13 @@ export class GameService {
         return false;
       }
     });
-    this.notifications.notification({
-      icon: '🎉',
-      name: `Победил ${player.name}`,
-      message: 'Красиво рисовать я это пока не умею, но скоро научусь.',
-    });
   }
 
   public onGameFinished(data: GameFinishedEventData) {
     const player = this._getPlayer(data.winnerUuid);
+    if (player) {
+      player.state = 'default';
+    }
     this._state = GameState.Finished;
     this.winner = player;
   }
@@ -283,7 +281,7 @@ export class GameService {
   }
 
   public start(settings: GameSettings) {
-    if (this.state !== GameState.Gathering) {
+    if (![GameState.Gathering, GameState.Finished].includes(this.state)) {
       throw new Error('Game already started or not yet initialized.');
     }
 
