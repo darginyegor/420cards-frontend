@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
+import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -14,8 +15,15 @@ export class GamePageComponent implements OnInit {
   public table = this.game.table;
   public turnCount$ = this.game.turnCount$;
 
+  public scoreToWin = this.settings.defaultScore;
+  public scoreOptions = this.settings.scoreOptions;
+
+  public turnDuration = this.settings.defaultTurnDuration;
+  public turnDurationOptions = this.settings.turnDurationOptions;
+
   constructor(
     private readonly game: GameService,
+    private readonly settings: GameSettingsService,
     private readonly notifications: UiNotificationsService
   ) {}
 
@@ -81,7 +89,6 @@ export class GamePageComponent implements OnInit {
         name: 'Это всё понарошку',
         message: 'Никаких подключений',
       });
-      // this.router.navigate(['/']);
     }
   }
 
@@ -104,7 +111,10 @@ export class GamePageComponent implements OnInit {
   }
 
   public start() {
-    this.game.start();
+    this.game.start({
+      turnDuration: this.turnDuration,
+      winningScore: this.scoreToWin,
+    });
   }
 
   public makeTurn(uuid: string) {
@@ -127,5 +137,9 @@ export class GamePageComponent implements OnInit {
       name: 'Пук-среньк',
       message: 'Это не работает',
     });
+  }
+
+  public goEndless() {
+    this.game.continue();
   }
 }

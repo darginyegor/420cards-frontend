@@ -13,6 +13,7 @@ import { GameService } from 'src/app/services/game.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
 import { ApiService } from 'src/app/services/api.service';
+import { GameSettingsService } from 'src/app/services/game-settings.service';
 
 @Component({
   selector: 'app-sandbox-page',
@@ -35,49 +36,16 @@ export class SandboxPageComponent {
 
   public winner = PLAYERS_MOCK[5];
 
-  public scoreToWin = 10;
-  public scoreOptions: RadioGroupOption[] = [
-    {
-      content: '5',
-      value: 5,
-    },
-    {
-      content: '10',
-      value: 10,
-    },
-    {
-      content: '15',
-      value: 15,
-    },
-    {
-      content: '20',
-      value: 20,
-    },
-  ];
+  public scoreToWin = this.settings.defaultScore;
+  public scoreOptions = this.settings.scoreOptions;
 
-  public turnTimer: number | null = null;
-  public turnTimerOptions: RadioGroupOption[] = [
-    {
-      content: 'Нет',
-      value: null,
-    },
-    {
-      content: '30c',
-      value: 33,
-    },
-    {
-      content: '1м',
-      value: 63,
-    },
-    {
-      content: '2м',
-      value: 123,
-    },
-  ];
+  public turnTimer = this.settings.defaultTurnDuration;
+  public turnTimerOptions = this.settings.turnDurationOptions;
 
   constructor(
     private readonly countdown: CountdownService,
     private readonly game: GameService,
+    private readonly settings: GameSettingsService,
     private readonly notifications: UiNotificationsService,
     private readonly api: ApiService
   ) {

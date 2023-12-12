@@ -51,9 +51,12 @@
   </div>
 
   <div class="l-mh-xxl l-stack-m" *ngIf="isLobbyControlsVisible">
-    <button class="btn btn--secondary" (click)="share()">
+    <button class="btn--secondary" (click)="share()">
       Пригласить
       <img src="assets/img/share.svg" alt="" />
+    </button>
+    <button class="btn--secondary" (click)="settingsSheet.open()">
+      Показать настройки
     </button>
     <button class="btn--primary" (click)="start()">Начать игру</button>
   </div>
@@ -69,11 +72,42 @@
         size="large"
       ></app-player-avatar>
       <div class="t-h2">Игра окончена!</div>
-      <div class="s-t-secondary"></div>
+      <div class="s-t-secondary">
+        {{ winner?.name }} набрал {{ winner?.score }} очков за
+        {{ turnCount$ | async }} ходов
+      </div>
     </div>
     <div class="l-mh-xxl l-stack-m">
-      <button class="btn btn--secondary">Сыграть ещё раз</button>
-      <button class="btn--secondary">Продолжить</button>
+      <button class="btn btn--secondary" (click)="start()">
+        Сыграть ещё раз
+      </button>
+      <button class="btn--secondary" (click)="goEndless()">Продолжить</button>
     </div>
   </ng-container>
 </div>
+
+<app-bottom-sheet #settingsSheet>
+  <div class="t-h2 l-mb-3xl">Настройки</div>
+  <div class="l-stack-xl">
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Колода</span>
+      <select class="btn--secondary">
+        <option value="default" selected>Стандартная (18+)</option>
+      </select>
+    </div>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Очков для победы</span>
+      <app-radio-group
+        [(ngModel)]="scoreToWin"
+        [options]="scoreOptions"
+      ></app-radio-group>
+    </div>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Таймер хода</span>
+      <app-radio-group
+        [(ngModel)]="turnDuration"
+        [options]="turnDurationOptions"
+      ></app-radio-group>
+    </div>
+  </div>
+</app-bottom-sheet>

@@ -25,6 +25,7 @@ import {
 } from '../interfaces/game-event';
 import { PLAYERS_MOCK } from '../mocks';
 import { BehaviorSubject } from 'rxjs';
+import { GameSettings } from './game-settings.service';
 
 export enum GameState {
   Void = 'void',
@@ -99,6 +100,16 @@ export class GameService {
   private _resetTable() {
     this.table.splice(0, this.table.length);
     this.table.length = this.players.length - 1;
+  }
+
+  private _resetPlayersScore() {
+    this.players.forEach((player) => {
+      player.score = 0;
+    });
+  }
+
+  private _clearHand() {
+    this.hand.length = 0;
   }
 
   private _setLead(uuid: string) {
@@ -200,6 +211,8 @@ export class GameService {
   }
 
   public onGameStarted(data: GameStartedEventData) {
+    this._resetPlayersScore();
+    this._clearHand();
     this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
   }
 
@@ -267,16 +280,14 @@ export class GameService {
     }
   }
 
-  public start() {
+  public start(settings: GameSettings) {
     if (this.state !== GameState.Gathering) {
       throw new Error('Game already started or not yet initialized.');
     }
 
     this.events.emit({
       type: GameActionType.StartGame,
-      data: {
-        timeout: null,
-      },
+      data: settings,
     });
   }
 
@@ -305,6 +316,13 @@ export class GameService {
       data: {
         uuid,
       },
+    });
+  }
+
+  public continue() {
+    this.events.emit({
+      type: GameActionType.Continue,
+      data: null,
     });
   }
 }
