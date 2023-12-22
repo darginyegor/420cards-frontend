@@ -26,7 +26,7 @@ export type AvatarSize = 'normal' | 'large';
       transition(
         '* => *',
         useAnimation(Animations.POP, {
-          params: { scale: '1.3', scaleDrop: '0.95' },
+          params: { scaleMax: '1.3', scaleDrop: '0.95' },
         })
       ),
     ]),
@@ -34,7 +34,7 @@ export type AvatarSize = 'normal' | 'large';
       transition(
         ':increment',
         useAnimation(Animations.POP, {
-          params: { scale: '1.3', scaleDrop: '0.95' },
+          params: { scaleMax: '1.3', scaleDrop: '0.95' },
         })
       ),
     ]),

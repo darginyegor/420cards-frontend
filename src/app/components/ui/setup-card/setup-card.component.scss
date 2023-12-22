@@ -8,7 +8,7 @@
   background-color: $bg-01;
   line-height: 2rem;
   white-space: pre-line;
-  box-shadow: 0px 4px 8px $bg-01;
+  box-shadow: 0px 4px 8px rgba($color: $bg-01, $alpha: .2);
 }
 
 .setup-card__subtext {

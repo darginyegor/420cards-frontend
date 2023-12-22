@@ -6,11 +6,11 @@ export const Animations = {
       '{{ time }} cubic-bezier(0,.5,.5,1)',
       keyframes([
         style({
-          transform: 'scale(1)',
+          transform: 'scale({{ scaleFrom }})',
           offset: 0,
         }),
         style({
-          transform: 'scale({{ scale }})',
+          transform: 'scale({{ scaleMax }})',
           offset: 0.5,
         }),
         style({
@@ -18,7 +18,7 @@ export const Animations = {
           offset: 0.8,
         }),
         style({
-          transform: 'scale(1)',
+          transform: 'scale({{ scaleTo }})',
           offset: 1,
         }),
       ])
@@ -26,7 +26,9 @@ export const Animations = {
     {
       params: {
         time: '0.6s',
-        scale: '1.05',
+        scaleFrom: '1',
+        scaleTo: '1',
+        scaleMax: '1.05',
         scaleDrop: '0.99',
       },
     }
