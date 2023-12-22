@@ -32,8 +32,9 @@ export interface WelcomeEventData {
   setup: SetupCard;
   table: TableSlotSchema[];
   state: GameState;
-  isLeading: boolean;
   leadUuid?: string;
+  selfUuid: string;
+  ownerUuid: string;
   turnCount: number;
   selectedCard?: PunchLineCardSchema;
 }
@@ -62,7 +63,6 @@ export interface GameStartedEventData {
 
 export interface TurnStartedEventData {
   leadUuid: string;
-  isLeading: boolean;
   card?: PunchLineCardSchema;
   setup: SetupCard;
   turnCount: number;

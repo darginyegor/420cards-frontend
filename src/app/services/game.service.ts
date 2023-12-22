@@ -45,7 +45,6 @@ export class GameService {
   public readonly table: TableSlot[] = [];
   public winner?: Player;
   public setup?: SetupCard;
-  public isLeading = false;
 
   private _state: GameState = GameState.Void;
   public get state() {
@@ -66,6 +65,18 @@ export class GameService {
 
   private _turnCount$ = new BehaviorSubject(0);
   public turnCount$ = this._turnCount$.asObservable();
+
+  private _selfUuid?: string;
+  private _leadUuid?: string;
+  private _ownerUuid?: string;
+
+  public get isOwner() {
+    return this._selfUuid === this._ownerUuid;
+  }
+
+  public get isLeading() {
+    return this._selfUuid === this._leadUuid;
+  }
 
   private readonly eventHandlersMap: {
     [key in GameEventType]: (data: any) => void;
@@ -130,7 +141,8 @@ export class GameService {
     this.players.push(...data.players);
     this.setup = data.setup;
     this._turnCount$.next(data.turnCount);
-    this.isLeading = data.isLeading;
+    this._selfUuid = data.selfUuid;
+    this._ownerUuid = data.ownerUuid;
 
     if (data.leadUuid) {
       this._setLead(data.leadUuid);
@@ -183,6 +195,7 @@ export class GameService {
   }
 
   private onOwnerChanged(data: OwnerChangedEventData) {
+    this._ownerUuid = data.uuid;
     this.players.forEach((player) => {
       player.isLobbyOwner = player.uuid === data.uuid;
     });
@@ -239,7 +252,7 @@ export class GameService {
       this.hand.unshift(new PunchLineCard(data.card));
     }
 
-    this.isLeading = data.isLeading;
+    this._leadUuid = data.leadUuid;
     this._turnCount$.next(data.turnCount);
     this.setup = data.setup;
   }
