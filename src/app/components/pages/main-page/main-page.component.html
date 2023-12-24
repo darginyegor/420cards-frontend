@@ -1,36 +1,55 @@
-<div class="l-p-xxl l-flex-col l-flex-end l-flex-auto a-t-short">
-  <div class="l-row-s l-flex-center l-flex-middle l-mb-xxl s-t-inverse">
-    <img src="assets/img/logo.svg" alt="" />
-    <div class="t-h2">420cards</div>
+<div class="l-p-xxl l-stack-3xl l-flex-end l-flex-auto a-t-short">
+  <img class="logo" src="assets/img/logo.svg" alt="" />
+  <div class="t-p s-t-secondary">
+    Это наша онлайн-версия настолькой игры
+    <a href="https://cardsagainsthumanity.com" target="_blank">
+      «Cards Against Humanity»</a
+    >. Здесь есть баги, сырой дизайн и&nbsp;несмешные шутки. <br /><br />
+    Наверное нужно будет что-нибудь написать про лицензии, ссылки на&nbsp;GitHub
+    добавить <br />(на
+    <a href="https://github.com/darginyegor/420cards-frontend" target="_blank"
+      >фронтенд</a
+    >
+    и&nbsp;<a
+      href="https://github.com/antonmolodykh/420cards-backend"
+      target="_blank"
+      >бэкенд</a
+    >
+    отдельно), может быть какой-то придумать прикол, не знаю...
   </div>
-  <div class="app-main-page__profile">
-    <button class="btn--icon-only" (click)="prevAvatar()">
-      <img src="assets/img/prev.svg" alt="" />
-    </button>
-    <ng-container *ngIf="avatar$ | async as avatar">
-      <div
-        [@changeAvatar]="avatar?.emoji"
-        class="app-main-page__avatar-selector"
-      >
-        {{ avatar?.emoji }}
-      </div>
-    </ng-container>
-    <button class="btn--icon-only" (click)="nextAvatar()">
-      <img src="assets/img/next.svg" alt="" />
-    </button>
-  </div>
-
-  <div class="l-stack-m">
-    <input
-      class="btn--secondary-inverse"
-      placeholder="Как тебя зовут?"
-      [(ngModel)]="name"
-      (ngModelChange)="saveName($event)"
-    />
-    <button class="btn--primary-inverse" (click)="start()">
-      {{ lobbyToken ? "Присоединиться" : "Играть" }}
-    </button>
-  </div>
+  <button class="btn--primary" (click)="profileSheet.open()">Играть</button>
 </div>
+
+<app-bottom-sheet #profileSheet [bgColor]="(bottomSheetBg$ | async) || ''">
+  <div class="l-stack-xxl">
+    <div class="app-main-page__profile">
+      <button class="btn--icon-only" (click)="prevAvatar()">
+        <img src="assets/img/prev.svg" alt="" />
+      </button>
+      <ng-container *ngIf="avatar$ | async as avatar">
+        <div
+          [@changeAvatar]="avatar?.emoji"
+          class="app-main-page__avatar-selector"
+        >
+          {{ avatar?.emoji }}
+        </div>
+      </ng-container>
+      <button class="btn--icon-only" (click)="nextAvatar()">
+        <img src="assets/img/next.svg" alt="" />
+      </button>
+    </div>
+    <div class="l-stack-m">
+      <input
+        class="btn--secondary-inverse"
+        placeholder="Как тебя зовут?"
+        [(ngModel)]="name"
+        (ngModelChange)="saveName($event)"
+      />
+      <button class="btn--primary-inverse" (click)="start()">
+        {{ lobbyToken ? "Присоединиться" : "Создать комнату" }}
+      </button>
+    </div>
+  </div>
+</app-bottom-sheet>
 
 <app-loader *ngIf="isLoading"></app-loader>

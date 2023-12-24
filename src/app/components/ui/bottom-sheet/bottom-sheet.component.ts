@@ -34,7 +34,11 @@ export class BottomSheetComponent {
     return this._isOpen;
   }
   public set isOpen(value: boolean) {
-    this._isOpen = value;
+    if (value) {
+      this.open();
+    } else {
+      this.close();
+    }
   }
 
   public get state() {
@@ -44,13 +48,15 @@ export class BottomSheetComponent {
   @Input()
   public closeOnClickOutside = true;
 
+  @Input() public bgColor = '';
+
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly overlay: OverlayService
   ) {}
 
   public open() {
-    this.isOpen = true;
+    this._isOpen = true;
     this.overlay.open(() => {
       this.close();
       this.overlay.close();
@@ -59,7 +65,8 @@ export class BottomSheetComponent {
   }
 
   public close() {
-    this.isOpen = false;
+    this._isOpen = false;
+    this.overlay.close();
     this.changeDetectorRef.detectChanges();
   }
 }
