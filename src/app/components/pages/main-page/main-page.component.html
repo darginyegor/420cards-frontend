@@ -2,13 +2,19 @@
   <img class="logo" src="assets/img/logo.svg" alt="" />
   <div class="t-p s-t-secondary">
     Это наша онлайн-версия настолькой игры
-    <a href="https://cardsagainshumanity.com" target="_blank">
+    <a href="https://cardsagainsthumanity.com" target="_blank">
       «Cards Against Humanity»</a
-    >. Здесь есть баги, сырой дизайн и несмешные шутки. <br /><br />
-    Наверное нужно будет что-нибудь написать про лицензии, ссылки на GitHub
-    добавить <br />
-    (на <a href="https://cardsagainshumanity.com" target="_blank">фронтенд</a> и
-    <a href="https://cardsagainshumanity.com" target="_blank">бэкенд</a>
+    >. Здесь есть баги, сырой дизайн и&nbsp;несмешные шутки. <br /><br />
+    Наверное нужно будет что-нибудь написать про лицензии, ссылки на&nbsp;GitHub
+    добавить <br />(на
+    <a href="https://github.com/darginyegor/420cards-frontend" target="_blank"
+      >фронтенд</a
+    >
+    и&nbsp;<a
+      href="https://github.com/antonmolodykh/420cards-backend"
+      target="_blank"
+      >бэкенд</a
+    >
     отдельно), может быть какой-то придумать прикол, не знаю...
   </div>
   <button class="btn--primary" (click)="profileSheet.open()">Играть</button>
@@ -40,7 +46,7 @@
         (ngModelChange)="saveName($event)"
       />
       <button class="btn--primary-inverse" (click)="start()">
-        {{ lobbyToken ? "Присоединиться" : "Играть" }}
+        {{ lobbyToken ? "Присоединиться" : "Создать комнату" }}
       </button>
     </div>
   </div>
