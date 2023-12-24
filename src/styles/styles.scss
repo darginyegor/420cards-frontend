@@ -34,7 +34,7 @@ h2, .t-h2 {
 p, .t-p {
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: normal;
+  font-weight: 400;
 }
 
 a, .link {
@@ -198,5 +198,6 @@ input:focus, .input:focus {
   max-width: 480px;
   background-color: $bg-01;
   border-radius: 2rem 2rem 0 0;
-  padding: 2.5rem 2rem 2rem;
+  padding: 2.5rem 1.5rem 1.5rem;
+  box-shadow: 0 -0.25rem 1rem $bg-01-translucent;
 }

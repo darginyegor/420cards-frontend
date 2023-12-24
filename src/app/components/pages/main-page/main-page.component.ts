@@ -1,7 +1,7 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { map } from 'rxjs';
 import { Animations } from 'src/app/app.animations';
 import { ApiService } from 'src/app/services/api.service';
 import { BackgroundColorService } from 'src/app/services/background-color.service';
@@ -23,8 +23,12 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 export class MainPageComponent {
   public readonly colorPostfix = '';
   public name = this.playerProfile.name;
-  public avatar$ = this.playerProfile.avatar$.pipe(
-    tap((avatar) => this.backgroundColor.set(avatar.color, 'light'))
+  public avatar$ = this.playerProfile.avatar$;
+  public bottomSheetBg$ = this.avatar$.pipe(
+    map(
+      ({ color }) =>
+        `radial-gradient(circle at 50% 30% , #FFFFFF 0%, ${color} 50%)`
+    )
   );
   public isLoading = false;
   public lobbyToken = this.activatedRoute.snapshot.queryParamMap.get('t');

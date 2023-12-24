@@ -1,5 +1,5 @@
 <div [@state]="state" class="bottom-sheet__wrapper" *ngIf="isOpen">
-  <div class="bottom-sheet">
+  <div class="bottom-sheet" [style.background]="bgColor">
     <ng-content></ng-content>
   </div>
 </div>
