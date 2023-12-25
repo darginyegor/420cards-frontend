@@ -20,8 +20,8 @@ import { OverlayService } from 'src/app/services/overlay.service';
   animations: [
     trigger('state', [
       state('void, closed', style({ transform: 'translateY(100%)' })),
-      state('open', style({ transform: 'translateY(0)' })),
-      transition('* => *', [animate('.4s cubic-bezier(.25,.1,.25,1)')]),
+      state('open', style({ transform: 'translateY(0.5rem)' })),
+      transition('* => *', [animate('.6s cubic-bezier(.53,1.26,.29,.99)')]),
     ]),
   ],
 })

@@ -91,6 +91,9 @@ input, .input {
   background-image: url(../assets/img/edit.svg);
   background-repeat: no-repeat;
   background-position: right 1.25rem top 1rem;
+  background-color: rgba($color: $text-01, $alpha: 0.3);
+  border-color: transparent;
+  backdrop-filter: blur(2rem);
   &::placeholder {
     color: $border-secondary-inverse;
   }
@@ -198,6 +201,6 @@ input:focus, .input:focus {
   max-width: 480px;
   background-color: $bg-01;
   border-radius: 2rem 2rem 0 0;
-  padding: 2.5rem 1.5rem 1.5rem;
+  padding: 2.5rem 1.5rem 2rem;
   box-shadow: 0 -0.25rem 1rem $bg-01-translucent;
 }

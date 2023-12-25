@@ -14,12 +14,13 @@ export class PlayerProfileService {
 
   private _name: string;
 
-  public readonly avatarsGallery = PROFILE_AVATARS.map((value) => ({
-    value,
-    sort: Math.random(),
-  }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
+  public readonly avatarsGallery = PROFILE_AVATARS;
+  // .map((value) => ({
+  //   value,
+  //   sort: Math.random(),
+  // }))
+  //   .sort((a, b) => a.sort - b.sort)
+  //   .map(({ value }) => value);
 
   constructor(private store: StoreService) {
     const avatarFromStore = this.store.get('PLAYER_AVATAR_ID');

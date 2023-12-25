@@ -7,222 +7,277 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
   {
     emoji: '🍆',
     color: '#eee9f0',
+    colors: ['#deffa1', '#bb92ff'],
   },
   {
     emoji: '🌿',
     color: '#eef6e1',
+    colors: ['#8cc653', '#ffff74'],
   },
   {
     emoji: '👺',
-    color: '#fbebeb',
+    color: '#ffc5c5',
+    colors: ['#c65353', '#ffab74'],
   },
   {
     emoji: '✨',
     color: '#FFF8DD',
+    colors: ['#ffeb7b', '#ffb260'],
   },
   {
     emoji: '🎃',
     color: '#fff4e6',
+    colors: ['#ff9c67', '#d3ff60'],
   },
   {
     emoji: '👽',
     color: '#e9ffff',
+    colors: ['#646d6d', '#96bbbb'],
   },
   {
     emoji: '💩',
     color: '#ffe7d0',
+    colors: ['#857162', '#7d3d00'],
   },
   {
     emoji: '🪖',
     color: '#F2FFDD',
+    colors: ['#4b5f35', '#5a3e37'],
   },
   {
     emoji: '🦀',
-    color: '#FFDDDD',
+    color: '#f2a68d',
+    colors: ['', ''],
   },
   {
     emoji: '👻',
     color: '#f0f0f0',
+    colors: ['#767675', '#c24c87'],
   },
   {
     emoji: '🐠',
     color: '#ebfffd',
+    colors: ['#99F9FF', '#FFF96C'],
   },
   {
     emoji: '🎀',
     color: '#fce7ff',
+    colors: ['#ec90b0', '#b73363'],
   },
   {
     emoji: '🤡',
-    color: '#fffbe9',
+    color: '#fff3be',
+    colors: ['#E5D189', '#FF9A92'],
   },
   {
     emoji: '🐺',
     color: '#e2e6eb',
+    colors: ['', ''],
   },
   {
     emoji: '👹',
     color: '#FFDDDD',
+    colors: ['', ''],
   },
   {
     emoji: '👾',
     color: '#F6DDFF',
+    colors: ['', ''],
   },
   {
     emoji: '🤢',
     color: '#F2FFDD',
+    colors: ['', ''],
   },
   {
     emoji: '🐔',
-    color: '#f0e5d9',
+    color: '#fff3be',
+    colors: ['', ''],
   },
   {
     emoji: '🦄',
     color: '#fce7ff',
+    colors: ['', ''],
   },
   {
     emoji: '🌚',
     color: '#e4e9f4',
+    colors: ['', ''],
   },
   {
     emoji: '🍞',
     color: '#fff6e4',
+    colors: ['', ''],
   },
   {
     emoji: '🚲',
     color: '#e8f4ff',
+    colors: ['', ''],
   },
   {
     emoji: '🦠',
-    color: '#e6fce6',
+    color: '#cfffab',
+    colors: ['', ''],
   },
   {
     emoji: '🔪',
     color: '#f2f2f2',
+    colors: ['', ''],
   },
   {
     emoji: '⚰️',
     color: '#f4eadf',
+    colors: ['', ''],
   },
   {
     emoji: '💣',
-    color: '#f3f3e7',
+    color: '#f3d77a',
+    colors: ['', ''],
   },
   {
     emoji: '💤',
     color: '#ebf3ff',
+    colors: ['', ''],
   },
   {
     emoji: '🦩',
     color: '#fef1f4',
+    colors: ['', ''],
   },
   {
     emoji: '🦖',
     color: '#e7edc7',
+    colors: ['', ''],
   },
   {
     emoji: '🗿',
-    color: '#e0e1d6',
+    color: '#c4b691',
+    colors: ['', ''],
   },
   {
     emoji: '🦧',
     color: '#ffeae4',
+    colors: ['', ''],
   },
   {
     emoji: '🦍',
     color: '#f6ecef',
+    colors: ['', ''],
   },
   {
     emoji: '⛄️',
     color: '#ebf7f8',
+    colors: ['', ''],
   },
   {
     emoji: '💦',
     color: '#ddffff',
+    colors: ['', ''],
   },
   {
     emoji: '💊',
     color: '#ffefef',
+    colors: ['', ''],
   },
   {
     emoji: '🃏',
     color: '#faf7f3',
+    colors: ['', ''],
   },
   {
     emoji: '🍗',
     color: '#ffeeda',
+    colors: ['', ''],
   },
   {
     emoji: '🍄',
     color: '#ffefe1',
+    colors: ['', ''],
   },
   {
     emoji: '🦐',
     color: '#ffe2cd',
+    colors: ['', ''],
   },
   {
     emoji: '🐞',
     color: '#fce3e3',
+    colors: ['', ''],
   },
   {
     emoji: '🐌',
     color: '#fff5e1',
+    colors: ['', ''],
   },
   {
     emoji: '🍌',
     color: '#fdf6e6',
+    colors: ['', ''],
   },
   {
     emoji: '🍩',
     color: '#ffe3df',
+    colors: ['', ''],
   },
   {
     emoji: '🏳️‍🌈',
     color: '#e6e6e6',
+    colors: ['', ''],
   },
   {
     emoji: '🪐',
     color: '#e3e8d2',
+    colors: ['', ''],
   },
   {
     emoji: '🌵',
     color: '#e3ffce',
+    colors: ['', ''],
   },
   {
     emoji: '☄️',
     color: '#ffefde',
+    colors: ['', ''],
   },
   {
     emoji: '🫧',
     color: '#f0f5ff',
+    colors: ['', ''],
   },
   {
     emoji: '🐚',
     color: '#e9e1f6',
+    colors: ['', ''],
   },
   {
     emoji: '🍓',
     color: '#FFDDDD',
+    colors: ['', ''],
   },
   {
     emoji: '🧌',
     color: '#ebffe9',
+    colors: ['#7b9d7b', '#eda857'],
   },
   {
     emoji: '🪷',
     color: '#ffeff2',
+    colors: ['#bdffb1', '#dd3858'],
   },
   {
     emoji: '🦎',
     color: '#e3ffce',
+    colors: ['#4ca36d', '#cec751'],
   },
   {
     emoji: '🏴‍☠️',
     color: '#dfdfdf',
+    colors: ['#818181', '#ffacac'],
   },
   {
     emoji: '🌞',
     color: '#fff1d7',
+    colors: ['#ffe564', '#acdbff'],
   },
 ];
 

@@ -26,8 +26,15 @@ export class MainPageComponent {
   public avatar$ = this.playerProfile.avatar$;
   public bottomSheetBg$ = this.avatar$.pipe(
     map(
-      ({ color }) =>
-        `radial-gradient(circle at 50% 30% , #FFFFFF 0%, ${color} 50%)`
+      ({ color, colors }) =>
+        `radial-gradient(circle at 50% 30% , #FFFFFF 0%, #FFFFFF00 75%),\n` +
+        `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
+          colors[0] || color
+        }00 100%),\n` +
+        `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
+          colors[1] || color
+        }88 100%),\n` +
+        ` ${color}`
     )
   );
   public isLoading = false;
