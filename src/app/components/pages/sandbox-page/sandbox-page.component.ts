@@ -14,6 +14,7 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
 import { ApiService } from 'src/app/services/api.service';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
+import { map, of, switchMap, take, timer } from 'rxjs';
 
 @Component({
   selector: 'app-sandbox-page',
@@ -41,6 +42,11 @@ export class SandboxPageComponent {
 
   public turnTimer = this.settings.defaultTurnDuration;
   public turnTimerOptions = this.settings.turnDurationOptions;
+
+  public turnDuration = 10;
+  public turnTimer$ = of(this.turnDuration).pipe(
+    switchMap((duration) => timer(0, 1000).pipe(take(duration + 1)))
+  );
 
   constructor(
     private readonly countdown: CountdownService,

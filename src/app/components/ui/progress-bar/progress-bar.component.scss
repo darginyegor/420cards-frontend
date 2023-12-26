@@ -1,0 +1,18 @@
+@import 'variables';
+
+:host {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 2;
+}
+
+.progress-bar__indicator {
+  width: 100%;
+  height: 0.25rem;
+  transition: 1s linear;
+  background-color: $text-01;
+  transform-origin: left;
+}

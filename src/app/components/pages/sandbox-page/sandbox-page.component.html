@@ -1,3 +1,7 @@
+<app-progress-bar
+  [maxValue]="turnDuration"
+  [value]="turnTimer$ | async"
+></app-progress-bar>
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
   <app-players-bar [players]="players" [withStatus]="true"></app-players-bar>
   <app-setup-card
