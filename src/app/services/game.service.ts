@@ -355,10 +355,4 @@ export class GameService {
       data: null,
     });
   }
-
-  public reset() {
-    this.events.clearSesstion();
-    this._state = GameState.Void;
-    // TODO: clear all game related fields
-  }
 }

@@ -50,7 +50,7 @@ export class MainPageComponent {
     private readonly notifications: UiNotificationsService
   ) {
     if (!this.game.isInitialized) {
-      this.events.clearSesstion();
+      this.events.clearConnectionInfo();
     } else {
       this.router.navigate(['play']);
     }

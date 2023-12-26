@@ -113,7 +113,11 @@ export class EventsService {
     this._feed$.next(event);
   }
 
-  public clearSesstion() {
-    this.store.clearMany(['LOBBY_HOST_CACHED', 'PLAYER_TOKEN_CACHED']);
+  public clearConnectionInfo() {
+    this.store.clearMany([
+      'LOBBY_HOST_CACHED',
+      'LOBBY_TOKEN_CACHED',
+      'PLAYER_TOKEN_CACHED',
+    ]);
   }
 }
