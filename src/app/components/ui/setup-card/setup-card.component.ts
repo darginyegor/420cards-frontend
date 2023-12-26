@@ -8,6 +8,7 @@ import { SetupCard } from 'src/app/interfaces/setup-card';
 })
 export class SetupCardComponent {
   @Input() setup?: SetupCard;
+  @Input() turnTimer: number | null = null;
   @Input() turnCount = 1;
   @Input() isLeading = false;
 }

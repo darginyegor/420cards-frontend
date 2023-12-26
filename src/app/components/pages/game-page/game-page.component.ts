@@ -15,6 +15,7 @@ export class GamePageComponent implements OnInit {
   public hand = this.game.hand;
   public table = this.game.table;
   public turnCount$ = this.game.turnCount$;
+  public turnTimer$ = this.game.turnTimer$;
 
   public scoreToWin = this.settings.defaultScore;
   public scoreOptions = this.settings.scoreOptions;
@@ -81,15 +82,21 @@ export class GamePageComponent implements OnInit {
     return this.game.winner;
   }
 
+  public get isOwner() {
+    return this.game.isOwner;
+  }
+
   public ngOnInit(): void {
-    try {
-      this.game.init();
-    } catch (error) {
-      this.notifications.notification({
-        icon: '👀',
-        name: 'Это всё понарошку',
-        message: 'Никаких подключений',
-      });
+    if (!this.game.isInitialized) {
+      try {
+        this.game.init();
+      } catch (error) {
+        this.notifications.notification({
+          icon: '🤔',
+          name: 'Не удалось подключиться к игре',
+          message: 'Если что-то не получается, нужно просто попробовать снова',
+        });
+      }
     }
   }
 
@@ -107,6 +114,8 @@ export class GamePageComponent implements OnInit {
         name: 'Ссылка скопиролвана',
         message: 'Можешь отправлять её друзьями. У тебя есть друзья?',
       });
+    } else {
+      alert(fullUrl);
     }
   }
 

@@ -66,6 +66,7 @@ export interface TurnStartedEventData {
   card?: PunchLineCardSchema;
   setup: SetupCard;
   turnCount: number;
+  turnDuration: number | null;
 }
 
 export interface PlayerReadyEventData {

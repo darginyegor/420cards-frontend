@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GameEvent, GameEventType } from '../interfaces/game-event';
-import { Subject, tap } from 'rxjs';
+import { GameEvent } from '../interfaces/game-event';
+import { Subject } from 'rxjs';
 import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
@@ -48,6 +48,15 @@ export class EventsService {
   }
 
   public init() {
+    if (!this._host || !this._playerToken || !this.lobbyToken) {
+      throw new Error(
+        `Missing connection configuration:
+        Host: ${this._host},
+        playerToken: ${this._playerToken},
+        lobbyTokern: ${this._lobbyToken}`
+      );
+    }
+
     this.socket = new WebSocket(
       `${this._host}?lobbyToken=${this._lobbyToken}&playerToken=${this._playerToken}`
     );
@@ -104,11 +113,7 @@ export class EventsService {
     this._feed$.next(event);
   }
 
-  public clearCache() {
-    this.store.clearMany([
-      'LOBBY_HOST_CACHED',
-      'LOBBY_TOKEN_CACHED',
-      'PLAYER_TOKEN_CACHED',
-    ]);
+  public clearSesstion() {
+    this.store.clearMany(['LOBBY_HOST_CACHED', 'PLAYER_TOKEN_CACHED']);
   }
 }

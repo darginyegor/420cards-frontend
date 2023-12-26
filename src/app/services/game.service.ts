@@ -23,8 +23,7 @@ import {
   TurnStartedEventData,
   WelcomeEventData,
 } from '../interfaces/game-event';
-import { PLAYERS_MOCK } from '../mocks';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, map, switchMap, take, timer } from 'rxjs';
 import { GameSettings } from './game-settings.service';
 
 export enum GameState {
@@ -51,6 +50,10 @@ export class GameService {
     return this._state;
   }
 
+  public get isInitialized() {
+    return this._state !== GameState.Void;
+  }
+
   public get lobbyToken() {
     return this.events.lobbyToken;
   }
@@ -65,6 +68,16 @@ export class GameService {
 
   private _turnCount$ = new BehaviorSubject(0);
   public turnCount$ = this._turnCount$.asObservable();
+
+  private _turnTimerTrigger$ = new Subject<number>();
+  public turnTimer$ = this._turnTimerTrigger$.pipe(
+    switchMap((duration) =>
+      timer(0, 1000).pipe(
+        map((i) => duration - i),
+        take(duration + 1)
+      )
+    )
+  );
 
   private _selfUuid?: string;
   private _leadUuid?: string;
@@ -240,6 +253,10 @@ export class GameService {
       },
     });
 
+    if (data.turnDuration) {
+      this._turnTimerTrigger$.next(data.turnDuration);
+    }
+
     if (this._chosenCardId) {
       const index = this.hand.findIndex(
         (card) => card.id === this._chosenCardId
@@ -337,5 +354,11 @@ export class GameService {
       type: GameActionType.Continue,
       data: null,
     });
+  }
+
+  public reset() {
+    this.events.clearSesstion();
+    this._state = GameState.Void;
+    // TODO: clear all game related fields
   }
 }

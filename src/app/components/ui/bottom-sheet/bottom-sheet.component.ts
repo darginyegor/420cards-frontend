@@ -10,6 +10,7 @@ import {
   Component,
   HostBinding,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { OverlayService } from 'src/app/services/overlay.service';
 
@@ -25,7 +26,7 @@ import { OverlayService } from 'src/app/services/overlay.service';
     ]),
   ],
 })
-export class BottomSheetComponent {
+export class BottomSheetComponent implements OnDestroy {
   @HostBinding('class.bottom-sheet--open')
   private _isOpen = false;
 
@@ -68,5 +69,9 @@ export class BottomSheetComponent {
     this._isOpen = false;
     this.overlay.close();
     this.changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.overlay.close();
   }
 }

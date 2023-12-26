@@ -8,6 +8,7 @@
     [setup]="setup"
     [isLeading]="isLeading"
     [turnCount]="(turnCount$ | async) || 1"
+    [turnTimer]="turnTimer$ | async"
   >
   </app-setup-card>
 
@@ -44,11 +45,17 @@
       Пригласить
       <img src="assets/img/share.svg" alt="" />
     </button>
-    <button class="btn--secondary" (click)="settingsSheet.open()">
+    <button
+      *ngIf="isOwner"
+      class="btn--secondary"
+      (click)="settingsSheet.open()"
+    >
       Настроить
       <img src="assets/img/settings.svg" alt="" />
     </button>
-    <button class="btn--primary" (click)="start()">Начать игру</button>
+    <button class="btn--primary" (click)="start()" [disabled]="!isOwner">
+      Начать игру
+    </button>
   </div>
 
   <ng-container *ngIf="isFinishScreenVisible">
@@ -67,7 +74,7 @@
         {{ turnCount$ | async }} ходов
       </div>
     </div>
-    <div class="l-mh-xxl l-stack-m">
+    <div class="l-mh-xxl l-stack-m" *ngIf="isOwner">
       <button class="btn btn--secondary" (click)="start()">
         Сыграть ещё раз
         <img src="assets/img/refresh.svg" alt="" />

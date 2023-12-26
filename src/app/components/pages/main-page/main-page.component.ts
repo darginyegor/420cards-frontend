@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Animations } from 'src/app/app.animations';
 import { ApiService } from 'src/app/services/api.service';
-import { BackgroundColorService } from 'src/app/services/background-color.service';
 import { EventsService } from 'src/app/services/events.service';
+import { GameService } from 'src/app/services/game.service';
 import { PlayerProfileService } from 'src/app/services/player-profile.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
@@ -43,13 +43,17 @@ export class MainPageComponent {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly api: ApiService,
-    private readonly backgroundColor: BackgroundColorService,
+    private readonly game: GameService,
     private readonly events: EventsService,
     private readonly playerProfile: PlayerProfileService,
     private readonly router: Router,
     private readonly notifications: UiNotificationsService
   ) {
-    this.events.clearCache();
+    if (!this.game.isInitialized) {
+      this.events.clearSesstion();
+    } else {
+      this.router.navigate(['play']);
+    }
   }
 
   public start(): void {
@@ -79,11 +83,7 @@ export class MainPageComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          this.notifications.notification({
-            icon: '🚧 ',
-            name: 'Ошибка подключения к API',
-            message: `Код: ${error.status}. Остальное тебе знать не обязательно.`,
-          });
+          this.notifications.fromError(error);
         },
       });
   }
