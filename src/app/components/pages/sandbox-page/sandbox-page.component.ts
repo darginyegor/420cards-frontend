@@ -14,7 +14,7 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
 import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
 import { ApiService } from 'src/app/services/api.service';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
-import { map, of, switchMap, take, timer } from 'rxjs';
+import { map, of, switchMap, take, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-sandbox-page',
@@ -45,15 +45,15 @@ export class SandboxPageComponent {
 
   public turnDuration = 10;
   public turnTimer$ = of(this.turnDuration).pipe(
-    switchMap((duration) => timer(0, 1000).pipe(take(duration + 1)))
+    switchMap((duration) => timer(0, 1000).pipe(take(duration + 1))),
+    map((i) => i + 1),
+    tap((i) => console.log(i))
   );
 
   constructor(
     private readonly countdown: CountdownService,
     private readonly game: GameService,
-    private readonly settings: GameSettingsService,
-    private readonly notifications: UiNotificationsService,
-    private readonly api: ApiService
+    private readonly settings: GameSettingsService
   ) {
     try {
       this.game.init();

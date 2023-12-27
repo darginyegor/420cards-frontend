@@ -1,5 +1,6 @@
 <div
   [style.transform]="transformProperty"
-  [style.opacity]="fraction"
+  [style.opacity]="opacity"
   class="progress-bar__indicator"
+  [class.--warning]="isOverLimit"
 ></div>

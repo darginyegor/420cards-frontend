@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { CLIENT_HOST } from 'src/app/app.consts';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
@@ -15,7 +17,8 @@ export class GamePageComponent implements OnInit {
   public hand = this.game.hand;
   public table = this.game.table;
   public turnCount$ = this.game.turnCount$;
-  public turnTimer$ = this.game.turnTimer$;
+  public turnTimer$ = this.game.turnTimer$.pipe(map((i) => i + 1));
+  public turnDuration$ = this.game.turnDuration$;
 
   public scoreToWin = this.settings.defaultScore;
   public scoreOptions = this.settings.scoreOptions;
@@ -26,8 +29,13 @@ export class GamePageComponent implements OnInit {
   constructor(
     private readonly game: GameService,
     private readonly settings: GameSettingsService,
-    private readonly notifications: UiNotificationsService
+    private readonly notifications: UiNotificationsService,
+    private router: Router
   ) {}
+
+  public get isTimerVisible() {
+    return this.game.state === GameState.Turns;
+  }
 
   public get isSetupVisible() {
     return ![GameState.Void, GameState.Gathering, GameState.Finished].includes(
@@ -96,6 +104,7 @@ export class GamePageComponent implements OnInit {
           name: 'Не удалось подключиться к игре',
           message: 'Если что-то не получается, нужно просто попробовать снова',
         });
+        this.router.navigate(['/']);
       }
     }
   }

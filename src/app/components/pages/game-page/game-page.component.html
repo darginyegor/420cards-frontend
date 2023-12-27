@@ -1,4 +1,9 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
+  <app-progress-bar
+    *ngIf="isTimerVisible && (turnDuration$ | async) as duration"
+    [maxValue]="duration"
+    [value]="turnTimer$ | async"
+  ></app-progress-bar>
   <app-players-bar
     [players]="players"
     [withStatus]="!isLobbyControlsVisible"

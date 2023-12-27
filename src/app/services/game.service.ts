@@ -71,13 +71,9 @@ export class GameService {
 
   private _turnTimerTrigger$ = new Subject<number>();
   public turnTimer$ = this._turnTimerTrigger$.pipe(
-    switchMap((duration) =>
-      timer(0, 1000).pipe(
-        map((i) => duration - i),
-        take(duration + 1)
-      )
-    )
+    switchMap((duration) => timer(0, 1000).pipe(take(duration + 1)))
   );
+  public turnDuration$ = this._turnTimerTrigger$.asObservable();
 
   private _selfUuid?: string;
   private _leadUuid?: string;
