@@ -20,6 +20,10 @@
       {{ card.toCase(setupCard.case) }}
     </app-punch-line-button>
     <div class="l-pt-l l-mt-a l-stack-m">
+      <button class="btn--secondary" (click)="share()">
+        Пригласить
+        <img src="assets/img/share.svg" alt="" />
+      </button>
       <button class="btn--secondary" (click)="settingsSheet.open()">
         Настроить
         <img src="assets/img/settings.svg" alt="" />

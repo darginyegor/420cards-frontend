@@ -109,18 +109,15 @@ export class SandboxPageComponent {
       this.isTableVisible = true;
       this.isHandVisible = false;
     }, 6000);
+  }
 
-    //   setTimeout(() => {
-    //     this.isActive = true;
-    //     this.players[0].state = 'default';
-    //     this.currentIndex++;
-    //     if (this.currentIndex >= SETUP_CARDS_MOCK.length - 1) {
-    //       this.currentIndex = 0;
-    //     }
-    //     this.punchLineCards.splice(index, 1);
-    //     console.log('new setup card:', this.currentIndex, this.setupCard);
-    //     const winnerIndex = Math.round(Math.random() * (PLAYERS_MOCK.length - 1));
-    //     PLAYERS_MOCK[winnerIndex].points += 1;
-    //   }, 3000);
+  public share() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Название',
+        text: '',
+        url: 'test',
+      });
+    }
   }
 }

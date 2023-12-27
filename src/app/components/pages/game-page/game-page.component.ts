@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
-import { CLIENT_HOST } from 'src/app/app.consts';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
@@ -110,10 +109,9 @@ export class GamePageComponent implements OnInit {
   }
 
   public share() {
-    const fullUrl = `${CLIENT_HOST}/?t=${this.game.lobbyToken}`;
+    const fullUrl = `${window.location.origin}/?t=${this.game.lobbyToken}`;
     if (navigator?.share) {
       navigator.share({
-        title: 'Будешь играть в 420cards?',
         url: fullUrl,
       });
     } else if (navigator?.clipboard) {

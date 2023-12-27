@@ -14,18 +14,16 @@
   width: 100vw;
   .app-notification {
     margin: 1rem;
-    background-color: $bg-01;
-    color: $text-01;
-    animation: from-top .3s;
+    animation: from-top .5s cubic-bezier(.53,1.26,.29,.99);
     transition: .3s;
     border-radius: .75rem;
-    border: 2px solid $border-secondary;
     font-size: 0.875rem;
     box-shadow: 0px 0.25rem 1rem rgba($color: $bg-01, $alpha: 0.5);
+    background-color: $text-01;
+    color: $bg-01;
     .app-notification__icon {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
-    
     .app-notification__text {
       opacity: .6;
     }
@@ -37,7 +35,8 @@
       box-shadow: 0px 0.5rem 1.25rem rgba($color: $bg-01, $alpha: 0.5);
     }
     &.app-notification--on-light {
-      border: none;
+      background-color: $bg-01;
+      color: $text-01;
     }
   }
 }
