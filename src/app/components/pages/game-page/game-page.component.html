@@ -1,7 +1,7 @@
 <div class="l-pv-xxl l-flex-col l-flex-auto l-maw-f">
   <app-progress-bar
-    *ngIf="isTimerVisible && (turnDuration$ | async) as duration"
-    [maxValue]="duration"
+    *ngIf="isTimerVisible"
+    [maxValue]="turnDuration$ | async"
     [value]="turnTimer$ | async"
   ></app-progress-bar>
   <app-players-bar
@@ -13,7 +13,6 @@
     [setup]="setup"
     [isLeading]="isLeading"
     [turnCount]="(turnCount$ | async) || 1"
-    [turnTimer]="turnTimer$ | async"
   >
   </app-setup-card>
 

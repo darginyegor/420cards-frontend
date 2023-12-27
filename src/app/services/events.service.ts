@@ -71,9 +71,12 @@ export class EventsService {
       this.logs.log(LogRecordType.MessageReceived, eventParsed);
     };
 
-    this.socket.onerror = (_error) => {};
+    this.socket.onerror = (error) => {
+      console.log(error);
+    };
 
     this.socket.onclose = (event) => {
+      console.log(event);
       this.socket = undefined;
       this.logs.log(LogRecordType.Disconnected, event);
       this.notifications.notification({

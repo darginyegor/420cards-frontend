@@ -46,8 +46,7 @@ export class SandboxPageComponent {
   public turnDuration = 10;
   public turnTimer$ = of(this.turnDuration).pipe(
     switchMap((duration) => timer(0, 1000).pipe(take(duration + 1))),
-    map((i) => i + 1),
-    tap((i) => console.log(i))
+    map((i) => i + 1)
   );
 
   constructor(
@@ -78,7 +77,6 @@ export class SandboxPageComponent {
     this.table[i] = {
       card: PUNCH_LINE_CARDS[i],
     };
-    console.log(this.table);
   }
 
   public testPick(i: number) {

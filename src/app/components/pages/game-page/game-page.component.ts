@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, share } from 'rxjs';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
@@ -16,7 +16,10 @@ export class GamePageComponent implements OnInit {
   public hand = this.game.hand;
   public table = this.game.table;
   public turnCount$ = this.game.turnCount$;
-  public turnTimer$ = this.game.turnTimer$.pipe(map((i) => i + 1));
+  public turnTimer$ = this.game.turnTimer$.pipe(
+    map((i) => i + 1),
+    share()
+  );
   public turnDuration$ = this.game.turnDuration$;
 
   public scoreToWin = this.settings.defaultScore;

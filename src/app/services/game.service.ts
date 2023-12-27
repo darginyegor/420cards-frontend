@@ -23,7 +23,15 @@ import {
   TurnStartedEventData,
   WelcomeEventData,
 } from '../interfaces/game-event';
-import { BehaviorSubject, Subject, map, switchMap, take, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  ReplaySubject,
+  Subject,
+  map,
+  switchMap,
+  take,
+  timer,
+} from 'rxjs';
 import { GameSettings } from './game-settings.service';
 
 export enum GameState {
@@ -69,7 +77,7 @@ export class GameService {
   private _turnCount$ = new BehaviorSubject(0);
   public turnCount$ = this._turnCount$.asObservable();
 
-  private _turnTimerTrigger$ = new Subject<number>();
+  private _turnTimerTrigger$ = new ReplaySubject<number>(1);
   public turnTimer$ = this._turnTimerTrigger$.pipe(
     switchMap((duration) => timer(0, 1000).pipe(take(duration + 1)))
   );
@@ -154,6 +162,7 @@ export class GameService {
     this._ownerUuid = data.ownerUuid;
 
     if (data.leadUuid) {
+      this._leadUuid = data.leadUuid;
       this._setLead(data.leadUuid);
     }
 
@@ -243,11 +252,8 @@ export class GameService {
   public onTurnStarted(data: TurnStartedEventData) {
     this._resetTable();
     this._setLead(data.leadUuid);
-    this.countdown.start(3).subscribe({
-      next: () => {
-        this._state = GameState.Turns;
-      },
-    });
+    this._state = GameState.Turns;
+    this.countdown.start(3);
 
     if (data.turnDuration) {
       this._turnTimerTrigger$.next(data.turnDuration);

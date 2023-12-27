@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ProgressBarComponent {
   @Input() public value: number | null = 0;
-  @Input() public maxValue = 0;
-  @Input() warningLimit = -5;
+  @Input() public maxValue: number | null = 0;
+  @Input() public warningLimit = -5;
 
   public get fraction() {
     if (!this.value || !this.maxValue) {
@@ -22,7 +22,7 @@ export class ProgressBarComponent {
   }
 
   public get opacity() {
-    if (!this.isOverLimit || !this.value) {
+    if (!this.isOverLimit || !this.value || !this.maxValue) {
       return this.fraction;
     } else {
       return Math.min(this.value, this.maxValue) % 2 ? 0.5 : 1;
@@ -30,7 +30,7 @@ export class ProgressBarComponent {
   }
 
   public get isOverLimit(): boolean {
-    if (!this.warningLimit || !this.value) {
+    if (!this.warningLimit || !this.value || !this.maxValue) {
       return false;
     } else if (this.warningLimit > 0) {
       return this.value > this.warningLimit;
