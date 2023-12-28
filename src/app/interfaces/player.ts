@@ -4,7 +4,6 @@ export interface Player {
   uuid: string;
   name: string;
   emoji: string;
-  backgroundColor: string;
   score: number;
   state: PlayerState;
   isConnected: boolean;
