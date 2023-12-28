@@ -5,14 +5,12 @@ import { SetupCard } from 'src/app/interfaces/setup-card';
 import { TableSlot } from 'src/app/interfaces/table-slot';
 import {
   PLAYERS_MOCK,
+  PROFILE_AVATARS,
   PUNCH_LINE_CARDS,
   SETUP_CARDS_MOCK,
 } from 'src/app/mocks';
 import { CountdownService } from 'src/app/services/countdown.service';
 import { GameService } from 'src/app/services/game.service';
-import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
-import { RadioGroupOption } from '../../ui/radio-group/radio-group.component';
-import { ApiService } from 'src/app/services/api.service';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { map, of, switchMap, take, tap, timer } from 'rxjs';
 
@@ -24,7 +22,7 @@ import { map, of, switchMap, take, tap, timer } from 'rxjs';
 export class SandboxPageComponent {
   public players: Player[] = PLAYERS_MOCK; // this.game.players;
   public hand = PUNCH_LINE_CARDS;
-  public table: TableSlot[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+  public table: TableSlot[] = [{}, {}, {}, {}, {}];
   public currentIndex = 0;
   public isLeading = true;
 
@@ -35,7 +33,7 @@ export class SandboxPageComponent {
   public isTableActive = true;
   public isFinishScreenVisible = false;
 
-  public winner = PLAYERS_MOCK[5];
+  public winner = PLAYERS_MOCK[Math.floor(Math.random() * PLAYERS_MOCK.length)];
 
   public scoreToWin = this.settings.defaultScore;
   public scoreOptions = this.settings.scoreOptions;
@@ -57,6 +55,7 @@ export class SandboxPageComponent {
     try {
       this.game.init();
     } catch {}
+    PLAYERS_MOCK[4].isWinner = true;
   }
 
   public get setupCard(): SetupCard {
@@ -83,6 +82,11 @@ export class SandboxPageComponent {
     this.table[i].isPicked = true;
     this.table[i].author = PLAYERS_MOCK[i].name;
     PLAYERS_MOCK[i].score++;
+    PLAYERS_MOCK[i].isWinner = true;
+    this.winner = PLAYERS_MOCK[i];
+    setTimeout(() => {
+      this.isFinishScreenVisible = true;
+    }, 5000);
   }
 
   public testRadio(value: any) {
@@ -117,5 +121,25 @@ export class SandboxPageComponent {
         url: 'test',
       });
     }
+  }
+
+  public getBgGradient() {
+    const avatar = PROFILE_AVATARS.find(
+      (avatar) => avatar.emoji === this.winner.emoji
+    );
+    if (!avatar) {
+      return '';
+    }
+    const { color, colors } = avatar;
+    return (
+      `radial-gradient(circle at 50% 30% , #FFFFFF 0%, #FFFFFF00 75%),\n` +
+      `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
+        colors[0] || color
+      }00 100%),\n` +
+      `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
+        colors[1] || color
+      }88 100%),\n` +
+      ` ${color}`
+    );
   }
 }

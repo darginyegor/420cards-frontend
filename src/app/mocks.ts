@@ -7,7 +7,7 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
   {
     emoji: '🍆',
     color: '#eee9f0',
-    colors: ['#deffa1', '#bb92ff'],
+    colors: ['#aad35d', '#4f00d2'],
   },
   {
     emoji: '🌿',
@@ -368,6 +368,7 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '2',
@@ -378,6 +379,18 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'leading',
     isConnected: true,
     isLobbyOwner: true,
+    isWinner: false,
+  },
+  {
+    uuid: '6',
+    name: 'Юра',
+    emoji: '🤡',
+    backgroundColor: '#fffbe933',
+    score: 13,
+    state: 'default',
+    isConnected: true,
+    isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '3',
@@ -388,6 +401,7 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '4',
@@ -398,6 +412,7 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '5',
@@ -408,16 +423,7 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
-  },
-  {
-    uuid: '6',
-    name: 'Юра',
-    emoji: '🤡',
-    backgroundColor: '#fffbe933',
-    score: 0,
-    state: 'default',
-    isConnected: true,
-    isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '7',
@@ -428,6 +434,7 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
+    isWinner: false,
   },
   {
     uuid: '8',
@@ -438,5 +445,6 @@ export const PLAYERS_MOCK: Player[] = [
     state: 'default',
     isConnected: true,
     isLobbyOwner: false,
+    isWinner: false,
   },
 ];

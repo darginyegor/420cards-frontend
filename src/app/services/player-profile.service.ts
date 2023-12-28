@@ -13,14 +13,7 @@ export class PlayerProfileService {
   private _currentIndex;
 
   private _name: string;
-
   public readonly avatarsGallery = PROFILE_AVATARS;
-  // .map((value) => ({
-  //   value,
-  //   sort: Math.random(),
-  // }))
-  //   .sort((a, b) => a.sort - b.sort)
-  //   .map(({ value }) => value);
 
   constructor(private store: StoreService) {
     const avatarFromStore = this.store.get('PLAYER_AVATAR_ID');
@@ -70,5 +63,9 @@ export class PlayerProfileService {
   private select(avatar: ProfileAvatar): void {
     this._avatar$.next(avatar);
     this.store.set('PLAYER_AVATAR_ID', avatar.emoji);
+  }
+
+  public static get(empji: string) {
+    return PROFILE_AVATARS.find((avatar) => avatar.emoji === empji);
   }
 }

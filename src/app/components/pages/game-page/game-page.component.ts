@@ -4,6 +4,7 @@ import { map, share } from 'rxjs';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
+import { PlayerProfileService } from 'src/app/services/player-profile.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 
 @Component({
@@ -40,9 +41,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isSetupVisible() {
-    return ![GameState.Void, GameState.Gathering, GameState.Finished].includes(
-      this.game.state
-    );
+    return ![GameState.Void, GameState.Gathering].includes(this.game.state);
   }
 
   public get isHandVisible() {
@@ -58,13 +57,15 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isTableVisible() {
-    if ([GameState.Gathering, GameState.Finished].includes(this.game.state)) {
+    if ([GameState.Gathering].includes(this.game.state)) {
       return false;
     }
 
     return (
       this.game.isLeading ||
-      [GameState.Judgement, GameState.Congrats].includes(this.game.state)
+      [GameState.Judgement, GameState.Congrats, GameState.Finished].includes(
+        this.game.state
+      )
     );
   }
 
@@ -94,6 +95,27 @@ export class GamePageComponent implements OnInit {
 
   public get isOwner() {
     return this.game.isOwner;
+  }
+
+  public get bottomSheetGradient() {
+    if (!this.winner) {
+      return '';
+    }
+    const avatar = PlayerProfileService.get(this.winner.emoji);
+    if (!avatar) {
+      return '';
+    }
+    const { color, colors } = avatar;
+    return (
+      `radial-gradient(circle at 50% 30% , #FFFFFF 0%, #FFFFFF00 75%),\n` +
+      `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
+        colors[0] || color
+      }00 100%),\n` +
+      `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
+        colors[1] || color
+      }88 100%),\n` +
+      ` ${color}`
+    );
   }
 
   public ngOnInit(): void {

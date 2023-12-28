@@ -9,4 +9,5 @@ export interface Player {
   state: PlayerState;
   isConnected: boolean;
   isLobbyOwner: boolean;
+  isWinner: boolean;
 }

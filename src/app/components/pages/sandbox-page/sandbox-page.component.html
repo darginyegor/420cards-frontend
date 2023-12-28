@@ -43,25 +43,35 @@
       (pick)="testPick(i)"
     ></app-table-slot>
   </div>
-  <ng-container *ngIf="isFinishScreenVisible">
-    <div
-      class="l-mh-xl l-flex-auto l-flex l-flex-col l-flex-center l-flex-middle l-stack-xxl"
-    >
-      <app-player-avatar
-        [player]="winner"
-        [isWinner]="true"
-        [withStatus]="true"
-        size="large"
-      ></app-player-avatar>
-      <div class="t-h2">Игра окончена!</div>
-      <div class="s-t-secondary"></div>
-    </div>
-    <div class="l-mh-xxl l-stack-m">
-      <button class="btn btn--secondary">Сыграть ещё раз</button>
-      <button class="btn--secondary">Продолжить</button>
-    </div>
-  </ng-container>
 </div>
+
+<app-bottom-sheet
+  [isOpen]="isFinishScreenVisible"
+  [bgColor]="getBgGradient()"
+  [closeOnClickOutside]="false"
+>
+  <div class="s-t-inverse l-flex-col l-flex-middle">
+    <app-player-avatar
+      [player]="winner"
+      [withStatus]="true"
+      size="large"
+      class="l-mb-l"
+    ></app-player-avatar>
+    <div class="s-t-secondary-inverse l-mb-3xl">
+      Победа за {{ currentIndex }} ходов!
+    </div>
+    <div class="l-stack-m l-w-f">
+      <button class="btn btn--primary">
+        Играть бесконечно
+        <img src="assets/img/infinite.svg" alt="" />
+      </button>
+      <button class="btn--primary-inverse">
+        Сыграть ещё раз
+        <img src="assets/img/refresh.svg" alt="" />
+      </button>
+    </div>
+  </div>
+</app-bottom-sheet>
 
 <app-bottom-sheet #settingsSheet>
   <div class="t-h2 l-mb-3xl">Настройки</div>

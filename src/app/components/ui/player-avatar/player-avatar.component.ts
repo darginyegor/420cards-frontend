@@ -13,6 +13,7 @@ import {
 import { Animations } from 'src/app/app.animations';
 import { AVATAR_BACKDROPS } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player';
+import { PlayerProfileService } from 'src/app/services/player-profile.service';
 
 export type AvatarSize = 'normal' | 'large';
 
@@ -43,7 +44,6 @@ export type AvatarSize = 'normal' | 'large';
 export class PlayerAvatarComponent {
   @Input() public player?: Player;
   @Input() public withStatus = false;
-  @Input() public isWinner = false;
   @Input() public size: AvatarSize = 'normal';
   public readonly withBackdrop = AVATAR_BACKDROPS;
 
@@ -61,5 +61,27 @@ export class PlayerAvatarComponent {
 
   public get isLeading() {
     return !!(this.player?.state === 'leading');
+  }
+
+  public get bgGradient() {
+    if (!this.player) {
+      return;
+    }
+
+    const avatar = PlayerProfileService.get(this.player.emoji);
+    if (!avatar) {
+      return;
+    }
+    const { color, colors } = avatar;
+    return (
+      `radial-gradient(circle at 50% 50% , #FFFFFF 0%, #FFFFFF00 100%),\n` +
+      `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
+        colors[0] || color
+      }00 100%),\n` +
+      `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
+        colors[1] || color
+      }00 100%),\n` +
+      `#F6F6F6`
+    );
   }
 }

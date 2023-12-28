@@ -59,8 +59,10 @@ export class BottomSheetComponent implements OnDestroy {
   public open() {
     this._isOpen = true;
     this.overlay.open(() => {
-      this.close();
-      this.overlay.close();
+      if (this.closeOnClickOutside) {
+        this.close();
+        this.overlay.close();
+      }
     });
     this.changeDetectorRef.detectChanges();
   }

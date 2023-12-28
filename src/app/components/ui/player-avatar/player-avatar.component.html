@@ -1,41 +1,41 @@
-<div class="l-flex l-flex-col">
-  <div
-    class="app-player-avatar__avatar"
-    [style.backgroundColor]="player?.backgroundColor"
-  >
-    {{ player?.emoji }}
-    <div
-      *ngIf="withStatus"
-      [@state]="isReady"
-      [@score]="player?.score"
-      class="app-player-avatar__status"
-    >
-      <img
-        *ngIf="isLeading"
-        class="l-mr-xs app-player-avatar__status-icon"
-        src="assets/img/leading.svg"
-        alt="Ведущий"
-      />
-      <img
-        *ngIf="isReady"
-        class="l-mr-xs app-player-avatar__status-icon"
-        src="assets/img/ready.svg"
-        alt="Ведущий"
-      />
-      <img
-        *ngIf="isWinner"
-        class="l-mr-xs app-player-avatar__status-icon"
-        src="assets/img/winner.svg"
-        alt="Ведущий"
-      />
-      <div class="l-flex app-player-avatar__points">{{ player?.score }}</div>
-    </div>
-  </div>
-  <div *ngIf="withBackdrop" class="app-player-avatar__backdrop">
-    {{ player?.emoji }}
-  </div>
-  <div class="app-player-avatar__name s-t-center s-t-no-wrap">
+<div
+  class="app-player-avatar__avatar"
+  [style.background]="size === 'normal' ? bgGradient : ''"
+>
+  {{ player?.emoji }}
+</div>
+<div *ngIf="withBackdrop" class="app-player-avatar__backdrop">
+  {{ player?.emoji }}
+</div>
+<div class="app-player-avatar__name s-t-no-wrap">
+  <div class="app-player-avatar__name-wrapper">
     {{ player?.isLobbyOwner ? "• " : "" }}
     {{ player?.name }}
+  </div>
+  <div
+    *ngIf="withStatus"
+    [@state]="isReady"
+    [@score]="player?.score"
+    class="app-player-avatar__status"
+  >
+    <img
+      *ngIf="isLeading"
+      class="l-mr-xs app-player-avatar__status-icon"
+      src="assets/img/leading.svg"
+      alt="Ведущий"
+    />
+    <img
+      *ngIf="isReady"
+      class="l-mr-xs app-player-avatar__status-icon"
+      src="assets/img/ready.svg"
+      alt="Готов"
+    />
+    <img
+      *ngIf="player?.isWinner && !isReady && !isLeading"
+      class="l-mr-xs app-player-avatar__status-icon"
+      src="assets/img/winner.svg"
+      alt="Победитель"
+    />
+    <div class="l-flex app-player-avatar__points">{{ player?.score }}</div>
   </div>
 </div>

@@ -301,6 +301,7 @@ export class GameService {
     const player = this._getPlayer(data.winnerUuid);
     if (player) {
       player.state = 'default';
+      player.isWinner = true;
     }
     this._state = GameState.Finished;
     this.winner = player;
