@@ -28,8 +28,12 @@ export class ApiService {
       params = params.set('lobbyToken', token);
     }
 
-    return this.httpClient.post<ConnectionResponse>(this.API_HOST, body, {
-      params,
-    });
+    return this.httpClient.post<ConnectionResponse>(
+      `${this.API_HOST}/connect`,
+      body,
+      {
+        params,
+      }
+    );
   }
 }
