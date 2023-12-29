@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, share } from 'rxjs';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
@@ -6,6 +6,7 @@ import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
 import { PlayerProfileService } from 'src/app/services/player-profile.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
+import { BottomSheetComponent } from '../../ui/bottom-sheet/bottom-sheet.component';
 
 @Component({
   selector: 'app-game-page',
@@ -28,6 +29,8 @@ export class GamePageComponent implements OnInit {
 
   public turnDuration = this.settings.defaultTurnDuration;
   public turnDurationOptions = this.settings.turnDurationOptions;
+
+  @ViewChild('shareSheet') public shareSheet?: BottomSheetComponent;
 
   constructor(
     private readonly game: GameService,
@@ -118,6 +121,10 @@ export class GamePageComponent implements OnInit {
     );
   }
 
+  public get lobbyLink() {
+    return `${window.location.origin}/?t=${this.game.lobbyToken}`;
+  }
+
   public ngOnInit(): void {
     if (!this.game.isInitialized) {
       try {
@@ -134,20 +141,19 @@ export class GamePageComponent implements OnInit {
   }
 
   public share() {
-    const fullUrl = `${window.location.origin}/?t=${this.game.lobbyToken}`;
     if (navigator?.share) {
       navigator.share({
-        url: fullUrl,
+        url: this.lobbyLink,
       });
     } else if (navigator?.clipboard) {
-      navigator.clipboard.writeText(fullUrl);
+      navigator.clipboard.writeText(this.lobbyLink);
       this.notifications.notification({
         icon: '💚',
         name: 'Ссылка скопиролвана',
         message: 'Можешь отправлять её друзьями. У тебя есть друзья?',
       });
     } else {
-      alert(fullUrl);
+      this.shareSheet?.open();
     }
   }
 

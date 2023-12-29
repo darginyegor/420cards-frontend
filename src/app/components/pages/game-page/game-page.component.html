@@ -61,58 +61,67 @@
       Начать игру
     </button>
   </div>
-
-  <app-bottom-sheet
-    [isOpen]="isFinishScreenVisible"
-    [bgColor]="bottomSheetGradient"
-    [closeOnClickOutside]="false"
-  >
-    <div class="s-t-inverse l-flex-col l-flex-middle">
-      <app-player-avatar
-        [player]="winner"
-        [withStatus]="true"
-        size="large"
-        class="l-mb-l"
-      ></app-player-avatar>
-      <div class="s-t-secondary-inverse l-mb-3xl">
-        Победа за {{ turnCount$ | async }} ходов!
-      </div>
-      <div class="l-stack-m l-w-f">
-        <button class="btn btn--primary" (click)="goEndless()">
-          Играть бесконечно
-          <img src="assets/img/infinite.svg" alt="" />
-        </button>
-        <button class="btn--primary-inverse" (click)="start()">
-          Сыграть ещё раз
-          <img src="assets/img/refresh.svg" alt="" />
-        </button>
-      </div>
-    </div>
-  </app-bottom-sheet>
-
-  <app-bottom-sheet #settingsSheet>
-    <div class="t-h2 l-mb-3xl">Настройки</div>
-    <div class="l-stack-xl">
-      <div class="l-stack-m">
-        <span class="s-t-secondary">Колода</span>
-        <select class="btn--secondary">
-          <option value="default" selected>Стандартная (18+)</option>
-        </select>
-      </div>
-      <div class="l-stack-m">
-        <span class="s-t-secondary">Очков для победы</span>
-        <app-radio-group
-          [(ngModel)]="scoreToWin"
-          [options]="scoreOptions"
-        ></app-radio-group>
-      </div>
-      <div class="l-stack-m">
-        <span class="s-t-secondary">Таймер хода</span>
-        <app-radio-group
-          [(ngModel)]="turnDuration"
-          [options]="turnDurationOptions"
-        ></app-radio-group>
-      </div>
-    </div>
-  </app-bottom-sheet>
 </div>
+
+<app-bottom-sheet
+  [isOpen]="isFinishScreenVisible"
+  [bgColor]="bottomSheetGradient"
+  [closeOnClickOutside]="false"
+>
+  <div class="s-t-inverse l-flex-col l-flex-middle">
+    <app-player-avatar
+      [player]="winner"
+      [withStatus]="true"
+      size="large"
+      class="l-mb-l"
+    ></app-player-avatar>
+    <div class="s-t-secondary-inverse l-mb-3xl">
+      Победа за {{ turnCount$ | async }} ходов!
+    </div>
+    <div class="l-stack-m l-w-f">
+      <button class="btn btn--primary" (click)="goEndless()">
+        Играть бесконечно
+        <img src="assets/img/infinite.svg" alt="" />
+      </button>
+      <button class="btn--primary-inverse" (click)="start()">
+        Сыграть ещё раз
+        <img src="assets/img/refresh.svg" alt="" />
+      </button>
+    </div>
+  </div>
+</app-bottom-sheet>
+
+<app-bottom-sheet #settingsSheet>
+  <div class="t-h2 l-mb-3xl">Настройки</div>
+  <div class="l-stack-xl">
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Колода</span>
+      <select class="btn--secondary">
+        <option value="default" selected>Стандартная (18+)</option>
+      </select>
+    </div>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Очков для победы</span>
+      <app-radio-group
+        [(ngModel)]="scoreToWin"
+        [options]="scoreOptions"
+      ></app-radio-group>
+    </div>
+    <div class="l-stack-m">
+      <span class="s-t-secondary">Таймер хода</span>
+      <app-radio-group
+        [(ngModel)]="turnDuration"
+        [options]="turnDurationOptions"
+      ></app-radio-group>
+    </div>
+  </div>
+</app-bottom-sheet>
+
+<app-bottom-sheet #shareSheet>
+  <div class="s-t-center">
+    <div class="s-t-secondary l-mb-l">Скопируй ссылку и отправь друзьям:</div>
+    <div class="t-h2 t-center">
+      {{ lobbyLink }}
+    </div>
+  </div>
+</app-bottom-sheet>
