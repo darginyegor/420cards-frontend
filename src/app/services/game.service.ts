@@ -111,6 +111,7 @@ export class GameService {
     tableCardOpened: (data) => this.onTableCardOpened(data),
     turnEnded: (data) => this.onTurnEnded(data),
     gameFinished: (data) => this.onGameFinished(data),
+    error: (data) => this.onError(data),
   };
 
   constructor(
@@ -243,13 +244,13 @@ export class GameService {
     this._state = GameState.Judgement;
   }
 
-  public onGameStarted(data: GameStartedEventData) {
+  private onGameStarted(data: GameStartedEventData) {
     this._resetPlayersScore();
     this._clearHand();
     this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
   }
 
-  public onTurnStarted(data: TurnStartedEventData) {
+  private onTurnStarted(data: TurnStartedEventData) {
     this._resetTable();
     this._setLead(data.leadUuid);
     this._state = GameState.Turns;
@@ -276,11 +277,11 @@ export class GameService {
     this.setup = data.setup;
   }
 
-  public onTableCardOpened(data: TableCardOpenedEventData) {
+  private onTableCardOpened(data: TableCardOpenedEventData) {
     this.table[data.index].card = new PunchLineCard(data.card);
   }
 
-  public onTurnEnded(data: TurnEndedEventData) {
+  private onTurnEnded(data: TurnEndedEventData) {
     const player = this._getPlayer(data.winnerUuid);
     if (!player) {
       return;
@@ -297,7 +298,7 @@ export class GameService {
     });
   }
 
-  public onGameFinished(data: GameFinishedEventData) {
+  private onGameFinished(data: GameFinishedEventData) {
     const player = this._getPlayer(data.winnerUuid);
     if (player) {
       player.state = 'default';
@@ -305,6 +306,10 @@ export class GameService {
     }
     this._state = GameState.Finished;
     this.winner = player;
+  }
+
+  private onError(data: any) {
+    this.notifications.fromError(data);
   }
 
   public init() {

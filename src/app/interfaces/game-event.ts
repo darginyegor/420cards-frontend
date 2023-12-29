@@ -18,6 +18,7 @@ export enum GameEventType {
   TableCardOpened = 'tableCardOpened',
   TurnEnded = 'turnEnded',
   GameFinished = 'gameFinished',
+  Error = 'error',
 }
 
 export interface GameEvent<T = any> {
