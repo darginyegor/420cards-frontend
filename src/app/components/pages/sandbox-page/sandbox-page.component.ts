@@ -82,6 +82,7 @@ export class SandboxPageComponent {
     this.table[i].isPicked = true;
     this.table[i].author = PLAYERS_MOCK[i].name;
     PLAYERS_MOCK[i].score++;
+    PLAYERS_MOCK[i].state = 'default';
     PLAYERS_MOCK[i].isWinner = true;
     this.winner = PLAYERS_MOCK[i];
     setTimeout(() => {

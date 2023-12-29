@@ -27,12 +27,15 @@
         <img src="assets/img/prev.svg" alt="" />
       </button>
       <ng-container *ngIf="avatar$ | async as avatar">
-        <div
-          [@changeAvatar]="avatar?.emoji"
-          class="app-main-page__avatar-selector"
-        >
+        <div *ngIf="!avatar?.imageUrl" class="app-main-page__avatar-selector">
           {{ avatar?.emoji }}
         </div>
+        <img
+          class="avatar-image"
+          *ngIf="avatar?.imageUrl"
+          [src]="avatar.imageUrl"
+          alt=""
+        />
       </ng-container>
       <button class="btn--icon-only" (click)="nextAvatar()">
         <img src="assets/img/next.svg" alt="" />

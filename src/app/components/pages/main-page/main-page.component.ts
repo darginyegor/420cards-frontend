@@ -33,7 +33,7 @@ export class MainPageComponent {
         }00 100%),\n` +
         `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
           colors[1] || color
-        }88 100%),\n` +
+        }00 100%),\n` +
         ` ${color}`
     )
   );
