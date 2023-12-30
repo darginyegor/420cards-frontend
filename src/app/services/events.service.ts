@@ -21,6 +21,7 @@ export class EventsService {
   public feed$ = this._feed$.asObservable();
 
   private _eventId = 0;
+  private _connectionAttemps = 0;
 
   constructor(
     private readonly store: StoreService,
@@ -51,7 +52,7 @@ export class EventsService {
     if (!this._host || !this._playerToken || !this.lobbyToken) {
       throw new Error(
         `Missing connection configuration:
-        Host: ${this._host},
+        host: ${this._host},
         playerToken: ${this._playerToken},
         lobbyTokern: ${this._lobbyToken}`
       );
@@ -63,6 +64,7 @@ export class EventsService {
 
     this.socket.onopen = (event) => {
       this.logs.log(LogRecordType.Connected, event);
+      this._connectionAttemps = 0;
     };
 
     this.socket.onmessage = (event) => {
@@ -79,11 +81,25 @@ export class EventsService {
       console.log(event);
       this.socket = undefined;
       this.logs.log(LogRecordType.Disconnected, event);
-      this.notifications.notification({
-        icon: '📡',
-        name: 'Нет соединения',
-        message: 'Соединение с сервером потеряно',
-      });
+
+      if (event.wasClean) {
+        return;
+      }
+
+      if (!this._connectionAttemps) {
+        this.notifications.notification({
+          icon: '📡',
+          name: 'Нет соединения',
+          message: 'Пытаемся востановить...',
+        });
+      }
+
+      if (this._connectionAttemps < 5) {
+        setTimeout(() => {
+          this._connectionAttemps++;
+          this.init();
+        }, 1000);
+      }
     };
   }
 
