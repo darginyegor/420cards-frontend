@@ -52,7 +52,7 @@ export class EventsService {
     if (!this._host || !this._playerToken || !this.lobbyToken) {
       throw new Error(
         `Missing connection configuration:
-        Host: ${this._host},
+        host: ${this._host},
         playerToken: ${this._playerToken},
         lobbyTokern: ${this._lobbyToken}`
       );
