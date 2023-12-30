@@ -168,136 +168,173 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '💣',
     color: '#f3d77a',
     colors: ['', ''],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/bomb_1f4a3.png',
   },
   {
     emoji: '💤',
     color: '#ebf3ff',
     colors: ['#a2b9dc', '#505bd4'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/zzz_1f4a4.png',
   },
   {
     emoji: '🦩',
     color: '#fef1f4',
     colors: ['#8598e3', '#ff8ea8'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/flamingo_1f9a9.png',
   },
   {
     emoji: '🦖',
     color: '#e7edc7',
     colors: ['#d1e277', '#72c940'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/t-rex_1f996.png',
   },
   {
     emoji: '🗿',
     color: '#c4b691',
     colors: ['', ''],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/moai_1f5ff.png',
   },
   {
     emoji: '🦧',
     color: '#ffeae4',
     colors: ['#81ca6c', '#db917b'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/orangutan_1f9a7.png',
   },
   {
     emoji: '🦍',
     color: '#f6ecef',
     colors: ['#b8d4ab', '#cdafb8'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/gorilla_1f98d.png',
   },
   {
     emoji: '⛄️',
     color: '#ebf7f8',
     colors: ['#79d6de', '#8db6ff'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/snowman-without-snow_26c4.png',
   },
   {
     emoji: '💦',
     color: '#ddffff',
     colors: ['#8db6ff', '#79d6de'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/sweat-droplets_1f4a6.png',
   },
   {
     emoji: '💊',
     color: '#ffefef',
     colors: ['#fe6767', '#fdff50'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/pill_1f48a.png',
   },
   {
     emoji: '🍗',
     color: '#ffeeda',
     colors: ['#e9d47c', '#eaa554'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/poultry-leg_1f357.png',
   },
   {
     emoji: '🍄',
     color: '#ffefe1',
     colors: ['#ecb482', '#90cd63'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/mushroom_1f344.png',
   },
   {
     emoji: '🦐',
     color: '#ffe2cd',
     colors: ['#7397f9', '#7dddd9'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/shrimp_1f990.png',
   },
   {
     emoji: '🐞',
     color: '#fce3e3',
     colors: ['#9be972', '#ff5a14'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/lady-beetle_1f41e.png',
   },
   {
     emoji: '🐌',
     color: '#fff5e1',
     colors: ['#ffce6d', '#e67c40'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/snail_1f40c.png',
   },
   {
     emoji: '🍌',
     color: '#fdf6e6',
     colors: ['#ffcc56', '#f8ff35'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/banana_1f34c.png',
   },
   {
     emoji: '🍩',
     color: '#ffe3df',
     colors: ['#dd98d1', '#14cb22'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/doughnut_1f369.png',
   },
   {
     emoji: '🪐',
     color: '#e3e8d2',
     colors: ['#d0e685', '#5bd0d7'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/ringed-planet_1fa90.png',
   },
   {
     emoji: '🌵',
     color: '#e3ffce',
     colors: ['#fff563', '#83d940'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/cactus_1f335.png',
   },
   {
     emoji: '☄️',
     color: '#ffefde',
     colors: ['#6670ff', '#ffa13d'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/comet_2604-fe0f.png',
   },
   {
     emoji: '🫧',
     color: '#f0f5ff',
     colors: ['#6f9fff', '#fd9baf'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/bubbles_1fae7.png',
   },
   {
     emoji: '🍓',
     color: '#FFDDDD',
     colors: ['#ff6c6c', '#88ff45'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/strawberry_1f353.png',
   },
   {
     emoji: '🧌',
     color: '#ebffe9',
     colors: ['#7b9d7b', '#eda857'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/troll_1f9cc.png',
   },
   {
     emoji: '🪷',
     color: '#ffeff2',
     colors: ['#bdffb1', '#dd3858'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/lotus_1fab7.png',
   },
   {
     emoji: '🦎',
     color: '#e3ffce',
     colors: ['#4ca36d', '#cec751'],
+    imageUrl: 'https://em-content.zobj.net/source/apple/354/lizard_1f98e.png',
   },
   {
     emoji: '🏴‍☠️',
     color: '#dfdfdf',
     colors: ['#818181', '#ffacac'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/pirate-flag_1f3f4-200d-2620-fe0f.png',
   },
   {
     emoji: '🌞',
     color: '#fff1d7',
     colors: ['#ffe564', '#acdbff'],
+    imageUrl:
+      'https://em-content.zobj.net/source/apple/354/sun-with-face_1f31e.png',
   },
 ];
 
