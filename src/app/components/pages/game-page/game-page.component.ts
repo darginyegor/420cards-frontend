@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, share } from 'rxjs';
+import { map, share, tap } from 'rxjs';
 import { PunchLineCard } from 'src/app/interfaces/punch-line-card';
 import { GameSettingsService } from 'src/app/services/game-settings.service';
 import { GameService, GameState } from 'src/app/services/game.service';
 import { PlayerProfileService } from 'src/app/services/player-profile.service';
 import { UiNotificationsService } from 'src/app/services/ui-notifications.service';
 import { BottomSheetComponent } from '../../ui/bottom-sheet/bottom-sheet.component';
+import { ConnectionStatus } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-game-page',
@@ -23,7 +24,7 @@ export class GamePageComponent implements OnInit {
     share()
   );
   public turnDuration$ = this.game.turnDuration$;
-  public isOnline$ = this.game.isOnline$;
+  public isOnline$ = this.game.connectionStatus$;
 
   public scoreToWin = this.settings.defaultScore;
   public scoreOptions = this.settings.scoreOptions;
@@ -121,6 +122,15 @@ export class GamePageComponent implements OnInit {
       ` ${color}`
     );
   }
+
+  public readonly isPending$ = this.game.connectionStatus$.pipe(
+    tap((status) => {
+      if (status === ConnectionStatus.Disconnected) {
+        this.router.navigate(['/']);
+      }
+    }),
+    map((status) => status === ConnectionStatus.Pending)
+  );
 
   public get lobbyLink() {
     return `${window.location.origin}/?t=${this.game.lobbyToken}`;

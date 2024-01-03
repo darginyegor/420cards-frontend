@@ -8,6 +8,12 @@ import { LogsService } from './logs.service';
 import { UiNotificationsService } from './ui-notifications.service';
 import { LogRecordType } from '../interfaces/log-record';
 
+export enum ConnectionStatus {
+  Connected = 'connected',
+  Disconnected = 'disconnected',
+  Pending = 'pending',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,8 +35,8 @@ export class EventsService {
     private readonly notifications: UiNotificationsService
   ) {}
 
-  private _isConnected$ = new BehaviorSubject(false);
-  public readonly isConnected$ = this._isConnected$.asObservable();
+  private _status$ = new BehaviorSubject(ConnectionStatus.Disconnected);
+  public readonly status$ = this._status$.asObservable();
 
   public get lobbyToken() {
     return this._lobbyToken || '';
@@ -61,10 +67,13 @@ export class EventsService {
       `${this._host}?lobbyToken=${this._lobbyToken}&playerToken=${this._playerToken}`
     );
 
+    this._status$.next(ConnectionStatus.Pending);
+
     this.socket.onopen = (event) => {
       this.logs.log(LogRecordType.Connected, event);
       this._connectionAttemps = 0;
-      this._isConnected$.next(true);
+      this._status$.next(ConnectionStatus.Connected);
+      console.log(event);
     };
 
     this.socket.onmessage = (event) => {
@@ -75,6 +84,7 @@ export class EventsService {
 
     this.socket.onerror = (error) => {
       console.log(error);
+      this._status$.next(ConnectionStatus.Disconnected);
     };
 
     this.socket.onclose = (event) => {
@@ -82,21 +92,10 @@ export class EventsService {
       this.socket = undefined;
       this.logs.log(LogRecordType.Disconnected, event);
 
-      this._isConnected$.next(false);
-
-      if (event.wasClean && event.code !== 1011) {
-        return;
-      }
-
-      if (!this._connectionAttemps) {
-        this.notifications.notification({
-          icon: '📡',
-          name: 'Нет соединения',
-          message: 'Пытаемся востановить...',
-        });
-      }
-
-      if (this._connectionAttemps < 5) {
+      if (event.wasClean || this._connectionAttemps >= 5) {
+        this._status$.next(ConnectionStatus.Disconnected);
+      } else {
+        this._status$.next(ConnectionStatus.Pending);
         setTimeout(() => {
           this._connectionAttemps++;
           this.init();

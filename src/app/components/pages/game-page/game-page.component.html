@@ -62,7 +62,7 @@
     </button>
   </div>
 </div>
-<app-loader *ngIf="!(isOnline$ | async)" text="Подключение..."></app-loader>
+<app-loader *ngIf="isPending$ | async" text="Подключение..."></app-loader>
 
 <app-bottom-sheet
   [isOpen]="isFinishScreenVisible"
