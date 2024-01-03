@@ -23,15 +23,7 @@ import {
   TurnStartedEventData,
   WelcomeEventData,
 } from '../interfaces/game-event';
-import {
-  BehaviorSubject,
-  ReplaySubject,
-  Subject,
-  map,
-  switchMap,
-  take,
-  timer,
-} from 'rxjs';
+import { BehaviorSubject, ReplaySubject, switchMap, take, timer } from 'rxjs';
 import { GameSettings } from './game-settings.service';
 
 export enum GameState {
@@ -141,6 +133,10 @@ export class GameService {
     this.hand.length = 0;
   }
 
+  private _clearPlayers() {
+    this.players.length = 0;
+  }
+
   private _setLead(uuid: string) {
     this.players.forEach(
       (player) => (player.state = player.uuid === uuid ? 'leading' : 'default')
@@ -154,6 +150,10 @@ export class GameService {
   }
 
   private onWelcome(data: WelcomeEventData) {
+    this._resetTable();
+    this._clearHand();
+    this._clearPlayers();
+
     this._state = data.state;
     this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
     this.players.push(...data.players);
@@ -172,7 +172,6 @@ export class GameService {
       this.hand.unshift(new PunchLineCard(data.selectedCard));
     }
 
-    this._resetTable();
     if (data.table?.length) {
       this.table.splice(
         0,
