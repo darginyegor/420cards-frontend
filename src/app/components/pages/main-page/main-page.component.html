@@ -31,6 +31,7 @@
           {{ avatar?.emoji }}
         </div>
         <img
+          [@changeAvatar]="avatar"
           class="avatar-image"
           *ngIf="avatar?.imageUrl"
           [src]="avatar.imageUrl"
