@@ -126,6 +126,11 @@ export class GamePageComponent implements OnInit {
   public readonly isPending$ = this.game.connectionStatus$.pipe(
     tap((status) => {
       if (status === ConnectionStatus.Disconnected) {
+        this.notifications.notification({
+          icon: '🤔',
+          name: 'Не удалось подключиться к игре',
+          message: 'Если что-то не получается, нужно просто попробовать снова',
+        });
         this.router.navigate(['/']);
       }
     }),
@@ -138,16 +143,7 @@ export class GamePageComponent implements OnInit {
 
   public ngOnInit(): void {
     if (!this.game.isInitialized) {
-      try {
-        this.game.init();
-      } catch (error) {
-        this.notifications.notification({
-          icon: '🤔',
-          name: 'Не удалось подключиться к игре',
-          message: 'Если что-то не получается, нужно просто попробовать снова',
-        });
-        this.router.navigate(['/']);
-      }
+      this.game.init();
     }
   }
 

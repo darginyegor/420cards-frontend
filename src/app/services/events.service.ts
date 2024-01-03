@@ -84,7 +84,6 @@ export class EventsService {
 
     this.socket.onerror = (error) => {
       console.log(error);
-      this._status$.next(ConnectionStatus.Disconnected);
     };
 
     this.socket.onclose = (event) => {
