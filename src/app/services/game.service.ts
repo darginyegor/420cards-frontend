@@ -150,13 +150,14 @@ export class GameService {
   }
 
   private onWelcome(data: WelcomeEventData) {
-    this._resetTable();
-    this._clearHand();
-    this._clearPlayers();
-
     this._state = data.state;
+
+    this._clearHand();
     this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
+
+    this._clearPlayers();
     this.players.push(...data.players);
+
     this.setup = data.setup;
     this._turnCount$.next(data.turnCount);
     this._selfUuid = data.selfUuid;
@@ -172,6 +173,7 @@ export class GameService {
       this.hand.unshift(new PunchLineCard(data.selectedCard));
     }
 
+    this._resetTable();
     if (data.table?.length) {
       this.table.splice(
         0,
