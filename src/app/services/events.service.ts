@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { GameEvent } from '../interfaces/game-event';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
 import { LogsService } from './logs.service';
 import { UiNotificationsService } from './ui-notifications.service';
 import { LogRecordType } from '../interfaces/log-record';
+
+export enum ConnectionStatus {
+  Connected = 'connected',
+  Disconnected = 'disconnected',
+  Pending = 'pending',
+}
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +35,8 @@ export class EventsService {
     private readonly notifications: UiNotificationsService
   ) {}
 
-  public get isConnected() {
-    return !!this.socket?.OPEN;
-  }
+  private _status$ = new BehaviorSubject(ConnectionStatus.Disconnected);
+  public readonly status$ = this._status$.asObservable();
 
   public get lobbyToken() {
     return this._lobbyToken || '';
@@ -62,9 +67,13 @@ export class EventsService {
       `${this._host}?lobbyToken=${this._lobbyToken}&playerToken=${this._playerToken}`
     );
 
+    this._status$.next(ConnectionStatus.Pending);
+
     this.socket.onopen = (event) => {
       this.logs.log(LogRecordType.Connected, event);
       this._connectionAttemps = 0;
+      this._status$.next(ConnectionStatus.Connected);
+      console.log(event);
     };
 
     this.socket.onmessage = (event) => {
@@ -82,19 +91,10 @@ export class EventsService {
       this.socket = undefined;
       this.logs.log(LogRecordType.Disconnected, event);
 
-      if (event.wasClean) {
-        return;
-      }
-
-      if (!this._connectionAttemps) {
-        this.notifications.notification({
-          icon: '📡',
-          name: 'Нет соединения',
-          message: 'Пытаемся востановить...',
-        });
-      }
-
-      if (this._connectionAttemps < 5) {
+      if (event.wasClean || this._connectionAttemps >= 5) {
+        this._status$.next(ConnectionStatus.Disconnected);
+      } else {
+        this._status$.next(ConnectionStatus.Pending);
         setTimeout(() => {
           this._connectionAttemps++;
           this.init();
