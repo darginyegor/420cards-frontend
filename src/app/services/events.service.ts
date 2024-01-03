@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameEvent } from '../interfaces/game-event';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
@@ -29,9 +29,8 @@ export class EventsService {
     private readonly notifications: UiNotificationsService
   ) {}
 
-  public get isConnected() {
-    return !!this.socket?.OPEN;
-  }
+  private _isConnected$ = new BehaviorSubject(false);
+  public readonly isConnected$ = this._isConnected$.asObservable();
 
   public get lobbyToken() {
     return this._lobbyToken || '';
@@ -65,6 +64,7 @@ export class EventsService {
     this.socket.onopen = (event) => {
       this.logs.log(LogRecordType.Connected, event);
       this._connectionAttemps = 0;
+      this._isConnected$.next(true);
     };
 
     this.socket.onmessage = (event) => {
@@ -82,7 +82,9 @@ export class EventsService {
       this.socket = undefined;
       this.logs.log(LogRecordType.Disconnected, event);
 
-      if (event.wasClean) {
+      this._isConnected$.next(false);
+
+      if (event.wasClean && event.code !== 1011) {
         return;
       }
 

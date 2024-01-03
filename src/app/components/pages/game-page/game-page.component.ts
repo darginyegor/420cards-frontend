@@ -23,6 +23,7 @@ export class GamePageComponent implements OnInit {
     share()
   );
   public turnDuration$ = this.game.turnDuration$;
+  public isOnline$ = this.game.isOnline$;
 
   public scoreToWin = this.settings.defaultScore;
   public scoreOptions = this.settings.scoreOptions;

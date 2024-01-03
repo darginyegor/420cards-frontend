@@ -87,6 +87,8 @@ export class GameService {
     return this._selfUuid === this._leadUuid;
   }
 
+  public readonly isOnline$ = this.events.isConnected$;
+
   private readonly eventHandlersMap: {
     [key in GameEventType]: (data: any) => void;
   } = {
