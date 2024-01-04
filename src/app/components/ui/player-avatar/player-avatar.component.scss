@@ -14,6 +14,7 @@
 }
 
 .app-player-avatar__avatar {
+  display: flex;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -21,6 +22,10 @@
   font-size: 2.25rem;
   line-height: 3.5rem;
   user-select: none;
+  &>img {
+    width: 2rem;
+    margin: auto;
+  }
 }
 
 .app-player-avatar__name {
@@ -70,6 +75,10 @@
     font-size: 6rem;
     line-height: 6rem;
     background-color: transparent;
+    &>img {
+      width: 6rem;
+      margin: auto;
+    }
   }
 
   .app-player-avatar__name {

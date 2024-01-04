@@ -1,8 +1,9 @@
 <div
   class="app-player-avatar__avatar"
   [style.background]="size === 'normal' ? bgGradient : ''"
+  *ngIf="avatar"
 >
-  {{ player?.emoji }}
+  <img [src]="avatar.imageUrl" [alt]="player?.emoji" />
 </div>
 <div class="app-player-avatar__name s-t-no-wrap">
   <div class="app-player-avatar__name-wrapper">

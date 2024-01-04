@@ -63,16 +63,19 @@ export class PlayerAvatarComponent {
     return !!(this.player?.state === 'leading');
   }
 
-  public get bgGradient() {
+  public get avatar() {
     if (!this.player) {
       return;
     }
 
-    const avatar = PlayerProfileService.get(this.player.emoji);
-    if (!avatar) {
+    return PlayerProfileService.get(this.player.emoji);
+  }
+
+  public get bgGradient() {
+    if (!this.avatar) {
       return;
     }
-    const { color, colors } = avatar;
+    const { color, colors } = this.avatar;
     return (
       `radial-gradient(circle at 50% 50% , #FFFFFF 0%, #FFFFFF00 100%),\n` +
       `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
