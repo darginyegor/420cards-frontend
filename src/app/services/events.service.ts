@@ -92,6 +92,7 @@ export class EventsService {
       this.logs.log(LogRecordType.Disconnected, event);
 
       if (event.wasClean || this._connectionAttemps >= 5) {
+        this.clearConnectionInfo();
         this._status$.next(ConnectionStatus.Disconnected);
       } else {
         this._status$.next(ConnectionStatus.Pending);
