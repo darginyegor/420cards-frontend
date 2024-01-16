@@ -32,6 +32,7 @@ import { TableSlot } from 'src/app/interfaces/table-slot';
 export class TableSlotComponent {
   @Input() public slot?: TableSlot;
   @Input() public case?: CardTextCase;
+  @Input() public capitalize?: boolean = false;
 
   @HostBinding('class.--active')
   @Input()

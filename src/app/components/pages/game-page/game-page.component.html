@@ -25,7 +25,7 @@
       [disabled]="!isHandActive"
       [selected]="card.id === chosenUuid"
     >
-      {{ card.toCase(setup?.case || "nom") }}
+      {{ card.toCase(setup?.case || "nom", setup?.startsFromPunchLine) }}
     </app-punch-line-button>
     <button class="btn--secondary l-mt-s" (click)="refreshHand()">
       Обновить карты
@@ -38,6 +38,7 @@
       *ngFor="let f of [].constructor(table.length); let i = index"
       [slot]="table[i]"
       [case]="setup?.case"
+      [capitalize]="setup?.startsFromPunchLine"
       [isActive]="isTableActive"
       (open)="openSlot(i)"
       (pick)="pickWinner(table[i].card)"
