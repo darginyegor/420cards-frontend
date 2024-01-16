@@ -3,6 +3,6 @@ import { CardTextCase } from './punch-line-card';
 export interface SetupCard {
   id: number;
   text: string;
-  startsFromPunchLine: boolean;
+  startsWithPunchline: boolean;
   case: CardTextCase;
 }

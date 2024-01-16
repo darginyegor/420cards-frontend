@@ -270,25 +270,25 @@ export const SETUP_CARDS_MOCK: SetupCard[] = [
   {
     id: 2,
     text: 'Это я почему злой был? \nА потому что у меня ________\n не было!',
-    startsFromPunchLine: false,
+    startsWithPunchline: false,
     case: 'gen',
   },
   {
     id: 3,
     text: '50% всех браков заканчиваются _______.',
-    startsFromPunchLine: false,
+    startsWithPunchline: false,
     case: 'inst',
   },
   {
     id: 1,
     text: '_______ — лучшее лекарство от запора!',
-    startsFromPunchLine: true,
+    startsWithPunchline: true,
     case: 'nom',
   },
   {
     id: 3,
     text: 'Кажется, я разобрался в политике! Мое решениве всех проблем — _______.',
-    startsFromPunchLine: false,
+    startsWithPunchline: false,
     case: 'nom',
   },
 ];
