@@ -18,8 +18,39 @@
       content="Карточная настольная игра для друзей"
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .app-loader__wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        background-color: #060606;
+      }
+
+      .app-loader__content {
+        width: 4rem;
+        height: 4rem;
+        position: relative;
+        animation: rotation 0.8s linear infinite;
+        border: 6px solid #f6f6f6;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+      }
+    </style>
   </head>
   <body>
-    <app-root></app-root>
+    <app-root>
+      <div class="preloader">
+        <div class="preloader__spinner"></div>
+      </div>
+    </app-root>
   </body>
 </html>
