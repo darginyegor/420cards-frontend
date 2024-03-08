@@ -14,6 +14,14 @@ export interface ConnectionResponse {
   lobbyToken: string;
 }
 
+export interface ChangelogResponse {
+  changelog: {
+    version: string;
+    text: string;
+  }[];
+  currentVersion: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -34,6 +42,18 @@ export class ApiService {
       {
         params,
       }
+    );
+  }
+
+  public getChangelog(version?: string) {
+    let params = new HttpParams();
+    if (version) {
+      params = params.set('version', version);
+    }
+
+    return this.httpClient.get<ChangelogResponse>(
+      `${this.API_HOST}/changelog`,
+      { params }
     );
   }
 }

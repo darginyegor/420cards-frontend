@@ -7,6 +7,7 @@ export const STORE_KEYS = [
   'LOBBY_TOKEN_CACHED',
   'PLAYER_TOKEN_CACHED',
   'LOGS',
+  'LAST_VERSION',
 ] as const;
 
 export type StoreKey = (typeof STORE_KEYS)[number];
