@@ -6,19 +6,16 @@ import { AppComponent } from './app.component';
 import { PlayerAvatarComponent } from './components/ui/player-avatar/player-avatar.component';
 import { MainPageComponent } from './components/pages/main-page/main-page.component';
 import { GamePageComponent } from './components/pages/game-page/game-page.component';
-import { SandboxPageComponent } from './components/pages/sandbox-page/sandbox-page.component';
 import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.component';
 import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
 import { TableSlotComponent } from './components/ui/table-slot/table-slot.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/ui/notification/notification.component';
 import { LoaderComponent } from './components/ui/loader/loader.component';
-import { HttpErrorsLogInterceptor } from './interceptors/http-errors-log.interceptor';
 import { CountdownComponent } from './components/ui/countdown/countdown.component';
 import { BottomSheetComponent } from './components/ui/bottom-sheet/bottom-sheet.component';
 import { RadioGroupComponent } from './components/ui/radio-group/radio-group.component';
-import { DebugPageComponent } from './components/pages/debug-page/debug-page.component';
 import { PlayersBarComponent } from './components/ui/players-bar/players-bar.component';
 import { SetupCardComponent } from './components/ui/setup-card/setup-card.component';
 import { ChangelogComponent } from './components/ui/changelog/changelog.component';
@@ -29,7 +26,6 @@ import { ChangelogComponent } from './components/ui/changelog/changelog.componen
     MainPageComponent,
     GamePageComponent,
     PlayerAvatarComponent,
-    SandboxPageComponent,
     ProgressBarComponent,
     PunchLineButtonComponent,
     TableSlotComponent,
@@ -38,7 +34,6 @@ import { ChangelogComponent } from './components/ui/changelog/changelog.componen
     CountdownComponent,
     BottomSheetComponent,
     RadioGroupComponent,
-    DebugPageComponent,
     PlayersBarComponent,
     SetupCardComponent,
     ChangelogComponent,
@@ -50,13 +45,7 @@ import { ChangelogComponent } from './components/ui/changelog/changelog.componen
     HttpClientModule,
     FormsModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorsLogInterceptor,
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
