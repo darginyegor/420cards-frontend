@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BACKGROUND_BLUR } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player';
 import { SetupCard } from 'src/app/interfaces/setup-card';
 import { TableSlot } from 'src/app/interfaces/table-slot';
@@ -20,7 +19,7 @@ import { map, of, switchMap, take, tap, timer } from 'rxjs';
   styleUrls: ['./sandbox-page.component.scss'],
 })
 export class SandboxPageComponent {
-  public players: Player[] = PLAYERS_MOCK; // this.game.players;
+  public players: Player[] = PLAYERS_MOCK;
   public hand = PUNCH_LINE_CARDS;
   public table: TableSlot[] = [{}, {}, {}, {}, {}];
   public currentIndex = 0;
@@ -60,10 +59,6 @@ export class SandboxPageComponent {
 
   public get setupCard(): SetupCard {
     return SETUP_CARDS_MOCK[this.currentIndex];
-  }
-
-  public get isBlurApplied() {
-    return BACKGROUND_BLUR;
   }
 
   public select(index: number) {

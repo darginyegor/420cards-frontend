@@ -1,17 +1,6 @@
-import {
-  trigger,
-  transition,
-  animate,
-  useAnimation,
-} from '@angular/animations';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-} from '@angular/core';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { Component, HostBinding, Input } from '@angular/core';
 import { Animations } from 'src/app/app.animations';
-import { AVATAR_BACKDROPS } from 'src/app/app.consts';
 import { Player } from 'src/app/interfaces/player';
 import { PlayerProfileService } from 'src/app/services/player-profile.service';
 
@@ -45,7 +34,6 @@ export class PlayerAvatarComponent {
   @Input() public player?: Player;
   @Input() public withStatus = false;
   @Input() public size: AvatarSize = 'normal';
-  public readonly withBackdrop = AVATAR_BACKDROPS;
 
   @HostBinding('class.app-player-avatar--pending') public get isPending() {
     return !this.player?.isConnected;

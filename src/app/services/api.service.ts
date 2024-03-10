@@ -1,6 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_HOST } from '../app.consts';
+
+export const URLS = {
+  connect: '/connect',
+  changelog: '/changelog',
+} as const;
 
 export interface ConnectionRequestBody {
   name: string;
@@ -26,7 +30,7 @@ export interface ChangelogResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly API_HOST = API_HOST;
+  private readonly API_HOST = '';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -36,13 +40,9 @@ export class ApiService {
       params = params.set('lobbyToken', token);
     }
 
-    return this.httpClient.post<ConnectionResponse>(
-      `${this.API_HOST}/connect`,
-      body,
-      {
-        params,
-      }
-    );
+    return this.httpClient.post<ConnectionResponse>(URLS.connect, body, {
+      params,
+    });
   }
 
   public getChangelog(version?: string) {
@@ -51,9 +51,6 @@ export class ApiService {
       params = params.set('version', version);
     }
 
-    return this.httpClient.get<ChangelogResponse>(
-      `${this.API_HOST}/changelog`,
-      { params }
-    );
+    return this.httpClient.get<ChangelogResponse>(URLS.changelog, { params });
   }
 }
