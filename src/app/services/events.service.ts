@@ -4,7 +4,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { GameAction, GameActionWithoutId } from '../interfaces/game-action';
 import { ConnectionResponse } from './api.service';
 import { StoreService } from './store.service';
-import { LogsService } from './logs.service';
 import { UiNotificationsService } from './ui-notifications.service';
 import { LogRecordType } from '../interfaces/log-record';
 
@@ -31,7 +30,6 @@ export class EventsService {
 
   constructor(
     private readonly store: StoreService,
-    private readonly logs: LogsService,
     private readonly notifications: UiNotificationsService
   ) {}
 
@@ -70,7 +68,6 @@ export class EventsService {
     this._status$.next(ConnectionStatus.Pending);
 
     this.socket.onopen = (event) => {
-      this.logs.log(LogRecordType.Connected, event);
       this._connectionAttemps = 0;
       this._status$.next(ConnectionStatus.Connected);
       console.log(event);
@@ -79,7 +76,6 @@ export class EventsService {
     this.socket.onmessage = (event) => {
       const eventParsed = JSON.parse(event.data);
       this._feed$.next(eventParsed);
-      this.logs.log(LogRecordType.MessageReceived, eventParsed);
     };
 
     this.socket.onerror = (error) => {
@@ -89,7 +85,6 @@ export class EventsService {
     this.socket.onclose = (event) => {
       console.log(event);
       this.socket = undefined;
-      this.logs.log(LogRecordType.Disconnected, event);
 
       if (event.wasClean || this._connectionAttemps >= 5) {
         this.clearConnectionInfo();
@@ -125,7 +120,6 @@ export class EventsService {
     };
 
     this.socket.send(JSON.stringify(actionWithId));
-    this.logs.log(LogRecordType.MessageSent, actionWithId);
     this._eventId++;
   }
 
