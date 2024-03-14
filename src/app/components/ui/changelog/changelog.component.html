@@ -12,7 +12,9 @@
       </div>
       <div class="l-stack-l">
         <div class="l-stack-xs" *ngFor="let version of changes">
-          <div class="s-t-secondary">{{ version.version }}</div>
+          <div class="s-t-secondary">
+            {{ version.date | date : "d MMMM YYYY" }} • {{ version.version }}
+          </div>
           <div class="s-t-pre-wrap">{{ version.text }}</div>
         </div>
       </div>
@@ -20,7 +22,7 @@
         class="btn--secondary l-flex-center"
         (click)="changelogSheet.close()"
       >
-        Понятно, спасибо!
+        Понятно
       </button>
     </div>
   </app-bottom-sheet>

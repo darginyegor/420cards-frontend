@@ -22,6 +22,7 @@ export interface ConnectionResponse {
 
 export interface ChangelogResponse {
   changelog: {
+    date: string;
     version: string;
     text: string;
   }[];

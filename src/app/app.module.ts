@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,10 @@ import { PlayersBarComponent } from './components/ui/players-bar/players-bar.com
 import { SetupCardComponent } from './components/ui/setup-card/setup-card.component';
 import { ChangelogComponent } from './components/ui/changelog/changelog.component';
 import { IconComponent } from './components/ui/icon/icon.component';
+
+import ru from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(ru);
 
 @NgModule({
   declarations: [
@@ -47,7 +51,7 @@ import { IconComponent } from './components/ui/icon/icon.component';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'ru' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
