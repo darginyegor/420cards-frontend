@@ -94,36 +94,46 @@
 </app-bottom-sheet>
 
 <app-bottom-sheet #settingsSheet>
-  <div class="t-h2 l-mb-3xl">Настройки</div>
-  <div class="l-stack-xl">
-    <div class="l-stack-m">
-      <span class="s-t-secondary">Колода</span>
-      <select class="btn--secondary">
-        <option value="default" selected>Стандартная (18+)</option>
-      </select>
+  <div class="l-stack-3xl">
+    <div class="t-h2">Настройки</div>
+    <div class="l-stack-xl">
+      <div class="l-stack-m">
+        <span class="s-t-secondary">Колода</span>
+        <select class="btn--secondary">
+          <option value="default" selected>Стандартная (18+)</option>
+        </select>
+      </div>
+      <div class="l-stack-m">
+        <span class="s-t-secondary">Очков для победы</span>
+        <app-radio-group
+          [(ngModel)]="scoreToWin"
+          [options]="scoreOptions"
+        ></app-radio-group>
+      </div>
+      <div class="l-stack-m">
+        <span class="s-t-secondary">Таймер хода</span>
+        <app-radio-group
+          [(ngModel)]="turnDuration"
+          [options]="turnDurationOptions"
+        ></app-radio-group>
+      </div>
     </div>
-    <div class="l-stack-m">
-      <span class="s-t-secondary">Очков для победы</span>
-      <app-radio-group
-        [(ngModel)]="scoreToWin"
-        [options]="scoreOptions"
-      ></app-radio-group>
-    </div>
-    <div class="l-stack-m">
-      <span class="s-t-secondary">Таймер хода</span>
-      <app-radio-group
-        [(ngModel)]="turnDuration"
-        [options]="turnDurationOptions"
-      ></app-radio-group>
-    </div>
+    <button class="btn--primary l-flex-center" (click)="settingsSheet.close()">
+      Готово
+    </button>
   </div>
 </app-bottom-sheet>
 
 <app-bottom-sheet #shareSheet>
-  <div class="s-t-center">
-    <div class="s-t-secondary l-mb-l">Скопируй ссылку и отправь друзьям:</div>
-    <div class="t-h2 t-center">
-      {{ lobbyLink }}
+  <div class="l-stack-3xl">
+    <div class="s-t-center">
+      <div class="s-t-secondary l-mb-l">Скопируй ссылку и отправь друзьям:</div>
+      <div class="t-h2 t-center">
+        {{ lobbyLink }}
+      </div>
     </div>
+    <button class="btn--secondary l-flex-center" (click)="shareSheet.close()">
+      Готово
+    </button>
   </div>
 </app-bottom-sheet>

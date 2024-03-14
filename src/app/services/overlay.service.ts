@@ -16,12 +16,15 @@ export class OverlayService {
     if (this._isOpen || !this._overlayElement) {
       return;
     }
+    console.log('opening overlay');
 
     this._isOpen = true;
     this._overlayElement?.classList.add(this._openOverlayClassName);
     this._bodyElement?.classList.add('--no-scroll');
 
     if (clickCallback) {
+      console.log('opening overlay');
+
       this._overlayElement.onclick = clickCallback;
     }
   }
@@ -30,6 +33,8 @@ export class OverlayService {
     if (!this._isOpen || !this._overlayElement) {
       return;
     }
+    console.log('closing');
+    console.trace();
     this._isOpen = false;
     this._overlayElement?.classList.remove(this._openOverlayClassName);
     this._bodyElement?.classList.remove('--no-scroll');

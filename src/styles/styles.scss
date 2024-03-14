@@ -151,6 +151,27 @@ input:focus, .input:focus {
 }
 
 .btn--secondary {
+  padding: 0.875rem 1.125rem;
+  color: $text-01;
+  background-color: $bg-btn-secondary;
+  border-color: transparent;
+  &:hover {
+    background-color: $bg-btn-secondary-hover;
+  }
+  &:disabled {
+    opacity: .4;
+    pointer-events: none;
+    color: $text-02;
+    &>img {
+      opacity: .4;
+    }
+  }
+  &.--selected {
+    border-color: $border-secondary;;
+  }
+}
+
+.btn--tertiary {
   color: $text-01;
   border-color: $border-secondary;
   background-color: none;
@@ -165,13 +186,6 @@ input:focus, .input:focus {
     }
   }
 }
-
-.btn--secondary-inverse {
-  color: $bg-01;
-  border-color: $border-secondary-inverse;
-  background-color: none;
-}
-
 
 .overlay {
   display: block;
@@ -207,7 +221,7 @@ input:focus, .input:focus {
 .bottom-sheet {
   width: 100%;
   max-width: 480px;
-  background-color: $bg-01;
+  background-color: $bg-01-elevated;
   border-radius: 2.5rem 2.5rem 0 0;
   padding: 2.5rem 1.5rem 2rem;
 }

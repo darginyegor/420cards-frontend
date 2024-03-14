@@ -1,15 +1,27 @@
 <ng-container *ngIf="changes$ | async as changes">
   <app-bottom-sheet
+    #changelogSheet
     *ngIf="changes?.length"
     [isOpen]="true"
     [closeOnClickOutside]="true"
   >
-    <div class="t-h2 l-mb-xl">Что у нас нового?</div>
-    <div class="l-stack-l">
-      <div class="l-stack-xs" *ngFor="let version of changes">
-        <div class="s-t-secondary">{{ version.version }}</div>
-        <div class="s-t-pre-wrap">{{ version.text }}</div>
+    <div class="l-stack-3xl">
+      <div class="l-stack-m l-flex-middle">
+        <app-icon icon="starWithTale"></app-icon>
+        <div class="t-h2">Что у нас нового?</div>
       </div>
+      <div class="l-stack-l">
+        <div class="l-stack-xs" *ngFor="let version of changes">
+          <div class="s-t-secondary">{{ version.version }}</div>
+          <div class="s-t-pre-wrap">{{ version.text }}</div>
+        </div>
+      </div>
+      <button
+        class="btn--secondary l-flex-center"
+        (click)="changelogSheet.close()"
+      >
+        Понятно, спасибо!
+      </button>
     </div>
   </app-bottom-sheet>
 </ng-container>

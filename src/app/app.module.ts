@@ -19,6 +19,7 @@ import { RadioGroupComponent } from './components/ui/radio-group/radio-group.com
 import { PlayersBarComponent } from './components/ui/players-bar/players-bar.component';
 import { SetupCardComponent } from './components/ui/setup-card/setup-card.component';
 import { ChangelogComponent } from './components/ui/changelog/changelog.component';
+import { IconComponent } from './components/ui/icon/icon.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ChangelogComponent } from './components/ui/changelog/changelog.componen
     PlayersBarComponent,
     SetupCardComponent,
     ChangelogComponent,
+    IconComponent,
   ],
   imports: [
     BrowserModule,

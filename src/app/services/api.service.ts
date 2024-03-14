@@ -1,9 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+const API_BASE = '/api';
+
 export const URLS = {
-  connect: '/connect',
-  changelog: '/changelog',
+  connect: `${API_BASE}/connect`,
+  changelog: `${API_BASE}/changelog`,
 } as const;
 
 export interface ConnectionRequestBody {

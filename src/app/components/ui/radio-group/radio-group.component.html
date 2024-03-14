@@ -1,8 +1,7 @@
 <button
   *ngFor="let option of options"
-  class="l-flex-auto l-flex-center"
-  [class.btn--secondary]="option.value !== value"
-  [class.btn--primary]="option.value === value"
+  class="l-flex-auto l-flex-center btn--secondary"
+  [class.--selected]="option.value === value"
   (click)="select(option.value)"
 >
   {{ option.content }}
