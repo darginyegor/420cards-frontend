@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Animations } from 'src/app/app.animations';
@@ -20,7 +20,7 @@ import { UiNotificationsService } from 'src/app/services/ui-notifications.servic
     ]),
   ],
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnInit {
   public readonly colorPostfix = '';
   public name = this.playerProfile.name;
   public avatar$ = this.playerProfile.avatar$;
@@ -48,11 +48,13 @@ export class MainPageComponent {
     private readonly playerProfile: PlayerProfileService,
     private readonly router: Router,
     private readonly notifications: UiNotificationsService
-  ) {
-    if (!this.game.isInitialized) {
-      this.events.clearConnectionInfo();
-    } else {
+  ) {}
+
+  public ngOnInit(): void {
+    if (this.lobbyToken && this.lobbyToken === this.events.lobbyToken) {
       this.router.navigate(['play']);
+    } else {
+      this.events.clearConnectionInfo();
     }
   }
 

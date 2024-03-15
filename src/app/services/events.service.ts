@@ -94,7 +94,7 @@ export class EventsService {
         setTimeout(() => {
           this._connectionAttemps++;
           this.init();
-        }, 1000);
+        }, 2000);
       }
     };
   }
@@ -133,5 +133,8 @@ export class EventsService {
       'LOBBY_TOKEN_CACHED',
       'PLAYER_TOKEN_CACHED',
     ]);
+    this._host = undefined;
+    this._lobbyToken = undefined;
+    this._playerToken = undefined;
   }
 }

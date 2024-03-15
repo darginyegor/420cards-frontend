@@ -13,7 +13,7 @@
       <div class="l-stack-l">
         <div class="l-stack-xs" *ngFor="let version of changes">
           <div class="s-t-secondary">
-            {{ version.date | date : "d MMMM YYYY" }} • {{ version.version }}
+            {{ version.date | date : "d MMMM YYYY" }} • v{{ version.version }}
           </div>
           <div class="s-t-pre-wrap">{{ version.text }}</div>
         </div>
