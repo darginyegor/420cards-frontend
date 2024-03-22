@@ -27,7 +27,11 @@
     >
       {{ card.toCase(setup?.case || "nom", setup?.startsWithPunchline) }}
     </button>
-    <button class="btn--secondary l-mt-s" (click)="refreshHand()">
+    <button
+      class="btn--secondary l-mt-s"
+      (click)="refreshHandSheet.open()"
+      [disabled]="!canRefreshHand"
+    >
       Обновить карты
       <img src="assets/img/refresh.svg" alt="" />
     </button>
@@ -135,5 +139,29 @@
     <button class="btn--secondary l-flex-center" (click)="shareSheet.close()">
       Готово
     </button>
+  </div>
+</app-bottom-sheet>
+
+<app-bottom-sheet #refreshHandSheet>
+  <div class="l-stack-3xl">
+    <div class="l-stack-m l-flex-middle">
+      <app-icon icon="pileOfPoo"></app-icon>
+      <div class="t-h2">Не нравятся карты?</div>
+      <div class="t-p1 t-center">Заберём и выдадим новые всего за 1 очко!</div>
+    </div>
+    <div class="l-stack-m">
+      <button
+        class="btn--secondary l-flex-center"
+        (click)="refreshHandSheet.close()"
+      >
+        Не надо
+      </button>
+      <button
+        class="btn--primary l-flex-center"
+        (click)="refreshHand(); refreshHandSheet.close()"
+      >
+        Согласен
+      </button>
+    </div>
   </div>
 </app-bottom-sheet>

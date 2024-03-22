@@ -6,6 +6,10 @@ export const Icons = {
     emoji: '💫',
     color: '#FFE767',
   },
+  pileOfPoo: {
+    emoji: '💩',
+    color: '#A24A19',
+  },
 } as const;
 
 export type IconType = keyof typeof Icons;

@@ -98,6 +98,10 @@ export class GamePageComponent implements OnInit {
     return this.game.isOwner;
   }
 
+  public get canRefreshHand() {
+    return this.game.state === GameState.Turns && !this.game.hasChosenCard;
+  }
+
   public get bottomSheetGradient() {
     if (!this.winner) {
       return '';
@@ -182,11 +186,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public refreshHand() {
-    this.notifications.notification({
-      icon: '💨',
-      name: 'Пук-среньк',
-      message: 'Это не работает',
-    });
+    this.game.refreshHand();
   }
 
   public goEndless() {
