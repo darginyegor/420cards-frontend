@@ -80,6 +80,8 @@ button, input, .btn, .input, select, .select {
   transition: .2s;
   text-decoration: none;
   text-align: left;
+  background-repeat: no-repeat;
+  background-position: right 1.25rem top 1rem;
 }
 
 button, .btn {
@@ -89,8 +91,6 @@ button, .btn {
 
 input, .input {
   background-image: url(/assets/img/edit.svg);
-  background-repeat: no-repeat;
-  background-position: right 1.25rem top 1rem;
   background-color: rgba($color: $text-01, $alpha: 0.4);
   border-color: transparent;
   backdrop-filter: blur(3rem);
@@ -102,8 +102,6 @@ input, .input {
 select, .select {
   appearance: none;
   background-image: url(/assets/img/select-shevron.svg);
-  background-repeat: no-repeat;
-  background-position: right 1.25rem top 1rem;
 }
 
 input:focus, .input:focus {
@@ -184,6 +182,11 @@ input:focus, .input:focus {
     &>img {
       opacity: .4;
     }
+  }
+  &.--selected {
+    background-color: $bg-btn-primary;
+    color: $bg-01;
+    background-image: url(/assets/img/check-selected.svg);
   }
 }
 

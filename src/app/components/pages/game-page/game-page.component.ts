@@ -50,11 +50,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isHandVisible() {
-    return !(this.game.isLeading || this.game.state !== GameState.Turns);
-  }
-
-  public get isHandActive() {
-    return !this.game.hasChosenCard && this.game.state === GameState.Turns;
+    return this.game.state === GameState.Turns && !this.game.isLeading;
   }
 
   public get isLobbyControlsVisible() {

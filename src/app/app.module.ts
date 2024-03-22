@@ -7,7 +7,6 @@ import { PlayerAvatarComponent } from './components/ui/player-avatar/player-avat
 import { MainPageComponent } from './components/pages/main-page/main-page.component';
 import { GamePageComponent } from './components/pages/game-page/game-page.component';
 import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.component';
-import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
 import { TableSlotComponent } from './components/ui/table-slot/table-slot.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,7 +32,6 @@ registerLocaleData(ru);
     GamePageComponent,
     PlayerAvatarComponent,
     ProgressBarComponent,
-    PunchLineButtonComponent,
     TableSlotComponent,
     NotificationComponent,
     LoaderComponent,
@@ -55,7 +53,7 @@ registerLocaleData(ru);
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'ru' }],

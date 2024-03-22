@@ -19,14 +19,14 @@
   <div class="l-flex-auto" *ngIf="isLobbyControlsVisible"></div>
 
   <div class="l-mh-xxl l-stack-m l-mt-s" *ngIf="isHandVisible">
-    <app-punch-line-button
+    <button
+      class="btn--tertiary"
       *ngFor="let card of hand; let i = index"
-      (select)="makeTurn(card.id)"
-      [disabled]="!isHandActive"
-      [selected]="card.id === chosenUuid"
+      (click)="makeTurn(card.id)"
+      [class.--selected]="card.id === chosenUuid"
     >
       {{ card.toCase(setup?.case || "nom", setup?.startsWithPunchline) }}
-    </app-punch-line-button>
+    </button>
     <button class="btn--secondary l-mt-s" (click)="refreshHand()">
       Обновить карты
       <img src="assets/img/refresh.svg" alt="" />
