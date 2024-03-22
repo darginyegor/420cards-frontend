@@ -1,5 +1,4 @@
 export interface ProfileAvatar {
   emoji: string;
-  color: string;
-  colors: [string, string];
+  colors: [string, string, string];
 }

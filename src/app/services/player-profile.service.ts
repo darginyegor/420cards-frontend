@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfileAvatar } from '../interfaces/profile-avatar';
-import { PROFILE_AVATARS } from '../mocks';
+import { PROFILE_AVATARS } from '../app.consts';
 import { StoreService } from './store.service';
 
 @Injectable({

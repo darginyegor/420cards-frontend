@@ -26,15 +26,11 @@ export class MainPageComponent implements OnInit {
   public avatar$ = this.playerProfile.avatar$;
   public bottomSheetBg$ = this.avatar$.pipe(
     map(
-      ({ color, colors }) =>
+      ({ colors }) =>
         `radial-gradient(circle at 50% 30% , #FFFFFF 0%, #FFFFFF00 75%),\n` +
-        `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
-          colors[0] || color
-        }00 100%),\n` +
-        `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
-          colors[1] || color
-        }88 100%),\n` +
-        ` ${color}`
+        `radial-gradient(circle at 0% 100% , ${colors[0]} 0%, ${colors[0]}00 100%),\n` +
+        `radial-gradient(circle at 100% 0% , ${colors[1]} 0%, ${colors[1]}88 100%),\n` +
+        ` ${colors[2]}`
     )
   );
   public isLoading = false;
@@ -74,7 +70,7 @@ export class MainPageComponent implements OnInit {
         {
           name: this.name,
           emoji: this.playerProfile.avatar.emoji,
-          backgroundColor: this.playerProfile.avatar.color,
+          backgroundColor: this.playerProfile.avatar.colors[0],
         },
         this.lobbyToken
       )

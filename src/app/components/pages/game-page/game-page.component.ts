@@ -110,16 +110,12 @@ export class GamePageComponent implements OnInit {
     if (!avatar) {
       return '';
     }
-    const { color, colors } = avatar;
+    const { colors } = avatar;
     return (
       `radial-gradient(circle at 50% 30% , #FFFFFF 0%, #FFFFFF00 75%),\n` +
-      `radial-gradient(circle at 0% 100% , ${colors[0] || color} 0%, ${
-        colors[0] || color
-      }00 100%),\n` +
-      `radial-gradient(circle at 100% 0% , ${colors[1] || color} 0%, ${
-        colors[1] || color
-      }88 100%),\n` +
-      ` ${color}`
+      `radial-gradient(circle at 0% 100% , ${colors[0]} 0%, ${colors[0]}00 100%),\n` +
+      `radial-gradient(circle at 100% 0% , ${colors[1]} 0%, ${colors[1]}88 100%),\n` +
+      ` ${colors[2]}`
     );
   }
 
