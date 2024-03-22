@@ -18,6 +18,10 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     colors: ['#ffeb7b', '#ffb260', '#FFF8DD'],
   },
   {
+    emoji: '🥒',
+    colors: ['#8cc653', '#eef6e1', '#ffff74'],
+  },
+  {
     emoji: '🎃',
     colors: ['#ff9c67', '#d3ff60', '#fff4e6'],
   },
