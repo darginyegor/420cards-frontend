@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build --source-map=false",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve-dev": "ng serve --host 0.0.0.0 --port 4300 --proxy-config proxy-dev.conf.js",
+    "serve-prod": "ng serve --host 0.0.0.0 --port 4300 --proxy-config proxy-prod.conf.js"
   },
   "private": true,
   "dependencies": {
