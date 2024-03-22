@@ -50,11 +50,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public get isHandVisible() {
-    return !(this.game.isLeading || this.game.state !== GameState.Turns);
-  }
-
-  public get isHandActive() {
-    return !this.game.hasChosenCard && this.game.state === GameState.Turns;
+    return this.game.state === GameState.Turns && !this.game.isLeading;
   }
 
   public get isLobbyControlsVisible() {
@@ -100,6 +96,10 @@ export class GamePageComponent implements OnInit {
 
   public get isOwner() {
     return this.game.isOwner;
+  }
+
+  public get canRefreshHand() {
+    return this.game.state === GameState.Turns && !this.game.hasChosenCard;
   }
 
   public get bottomSheetGradient() {
@@ -186,11 +186,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public refreshHand() {
-    this.notifications.notification({
-      icon: '💨',
-      name: 'Пук-среньк',
-      message: 'Это не работает',
-    });
+    this.game.refreshHand();
   }
 
   public goEndless() {

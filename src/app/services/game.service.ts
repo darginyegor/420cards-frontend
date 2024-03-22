@@ -12,6 +12,7 @@ import {
   GameEventType,
   GameFinishedEventData,
   GameStartedEventData,
+  PlayerScoreChangedEventData,
   OwnerChangedEventData,
   PlayerConnectedEventData,
   PlayerDisonnectedEventData,
@@ -22,6 +23,7 @@ import {
   TurnEndedEventData,
   TurnStartedEventData,
   WelcomeEventData,
+  HandRefreshedEventData,
 } from '../interfaces/game-event';
 import { BehaviorSubject, ReplaySubject, switchMap, take, timer } from 'rxjs';
 import { GameSettings } from './game-settings.service';
@@ -106,6 +108,8 @@ export class GameService {
     turnEnded: (data) => this.onTurnEnded(data),
     gameFinished: (data) => this.onGameFinished(data),
     error: (data) => this.onError(data),
+    playerScoreChanged: (data) => this.onPlayerScoreChanged(data),
+    handRefreshed: (data) => this.onHandRefreshed(data),
   };
 
   constructor(
@@ -315,6 +319,18 @@ export class GameService {
     this.notifications.fromError(data);
   }
 
+  private onPlayerScoreChanged(data: PlayerScoreChangedEventData) {
+    const player = this._getPlayer(data.uuid);
+    if (player) {
+      player.score = data.score;
+    }
+  }
+
+  private onHandRefreshed(data: HandRefreshedEventData) {
+    this._clearHand();
+    this.hand.push(...data.hand.map((card) => new PunchLineCard(card)));
+  }
+
   public init() {
     if (this.state === GameState.Void) {
       this.events.init();
@@ -363,6 +379,13 @@ export class GameService {
   public continue() {
     this.events.emit({
       type: GameActionType.Continue,
+      data: null,
+    });
+  }
+
+  public refreshHand() {
+    this.events.emit({
+      type: GameActionType.RefreshHand,
       data: null,
     });
   }

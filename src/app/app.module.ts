@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -7,7 +7,6 @@ import { PlayerAvatarComponent } from './components/ui/player-avatar/player-avat
 import { MainPageComponent } from './components/pages/main-page/main-page.component';
 import { GamePageComponent } from './components/pages/game-page/game-page.component';
 import { ProgressBarComponent } from './components/ui/progress-bar/progress-bar.component';
-import { PunchLineButtonComponent } from './components/ui/punch-line-button/punch-line-button.component';
 import { FormsModule } from '@angular/forms';
 import { TableSlotComponent } from './components/ui/table-slot/table-slot.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +22,7 @@ import { IconComponent } from './components/ui/icon/icon.component';
 
 import ru from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { ServiceWorkerModule } from '@angular/service-worker';
 registerLocaleData(ru);
 
 @NgModule({
@@ -32,7 +32,6 @@ registerLocaleData(ru);
     GamePageComponent,
     PlayerAvatarComponent,
     ProgressBarComponent,
-    PunchLineButtonComponent,
     TableSlotComponent,
     NotificationComponent,
     LoaderComponent,
@@ -50,6 +49,12 @@ registerLocaleData(ru);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'ru' }],
   bootstrap: [AppComponent],

@@ -4,6 +4,7 @@ export enum GameActionType {
   OpenTableCard = 'openTableCard',
   PickWinner = 'pickTurnWinner',
   Continue = 'continueGame',
+  RefreshHand = 'refreshHand',
 }
 
 export interface GameAction {

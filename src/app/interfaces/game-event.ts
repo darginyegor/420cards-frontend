@@ -19,6 +19,8 @@ export enum GameEventType {
   TurnEnded = 'turnEnded',
   GameFinished = 'gameFinished',
   Error = 'error',
+  PlayerScoreChanged = 'playerScoreChanged',
+  HandRefreshed = 'handRefreshed',
 }
 
 export interface GameEvent<T = any> {
@@ -91,4 +93,13 @@ export interface TurnEndedEventData {
 
 export interface GameFinishedEventData {
   winnerUuid: string;
+}
+
+export interface PlayerScoreChangedEventData {
+  uuid: string;
+  score: number;
+}
+
+export interface HandRefreshedEventData {
+  hand: PunchLineCardSchema[];
 }
