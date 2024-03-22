@@ -6,8 +6,28 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     colors: ['#E5D189', '#FF9A92', '#fff3be'],
   },
   {
-    emoji: '🌿',
-    colors: ['#8cc653', '#ffff74', '#eef6e1'],
+    emoji: '🦄',
+    colors: ['#99B6FF', '#FF94EA', '#fce7ff'],
+  },
+  {
+    emoji: '🐔',
+    colors: ['#ffabaa', '#ffe46b', '#fff3be'],
+  },
+  {
+    emoji: '🐠',
+    colors: ['#99F9FF', '#FFF96C', '#ebfffd'],
+  },
+  {
+    emoji: '🥒',
+    colors: ['#ffff74', '#8cc653', '#eef6e1'],
+  },
+  {
+    emoji: '👾',
+    colors: ['#c288d7', '#6b66d8', '#F6DDFF'],
+  },
+  {
+    emoji: '🤢',
+    colors: ['#cde549', '#a18d02', '#F2FFDD'],
   },
   {
     emoji: '👺',
@@ -18,8 +38,8 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     colors: ['#ffeb7b', '#ffb260', '#FFF8DD'],
   },
   {
-    emoji: '🥒',
-    colors: ['#8cc653', '#eef6e1', '#ffff74'],
+    emoji: '🌿',
+    colors: ['#8cc653', '#ffff74', '#eef6e1'],
   },
   {
     emoji: '🎃',
@@ -49,10 +69,7 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
     emoji: '👻',
     colors: ['#767675', '#c24c87', '#f0f0f0'],
   },
-  {
-    emoji: '🐠',
-    colors: ['#99F9FF', '#FFF96C', '#ebfffd'],
-  },
+
   {
     emoji: '🎀',
     colors: ['#ec90b0', '#b73363', '#fce7ff'],
@@ -64,22 +81,6 @@ export const PROFILE_AVATARS: ProfileAvatar[] = [
   {
     emoji: '👹',
     colors: ['#f87e7e', '#f87e7e', '#FFDDDD'],
-  },
-  {
-    emoji: '👾',
-    colors: ['#c288d7', '#6b66d8', '#F6DDFF'],
-  },
-  {
-    emoji: '🤢',
-    colors: ['#cde549', '#a18d02', '#F2FFDD'],
-  },
-  {
-    emoji: '🐔',
-    colors: ['#ffabaa', '#ffe46b', '#fff3be'],
-  },
-  {
-    emoji: '🦄',
-    colors: ['#99B6FF', '#FF94EA', '#fce7ff'],
   },
   {
     emoji: '🌚',
