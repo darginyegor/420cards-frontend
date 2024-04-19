@@ -70,7 +70,6 @@ export class MainPageComponent implements OnInit {
         {
           name: this.name,
           emoji: this.playerProfile.avatar.emoji,
-          backgroundColor: this.playerProfile.avatar.colors[0],
         },
         this.lobbyToken
       )

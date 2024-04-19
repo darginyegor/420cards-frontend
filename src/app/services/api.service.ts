@@ -11,7 +11,6 @@ export const URLS = {
 export interface ConnectionRequestBody {
   name: string;
   emoji: string;
-  backgroundColor: string;
 }
 
 export interface ConnectionResponse {
