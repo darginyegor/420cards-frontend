@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { map, of, switchMap, tap } from 'rxjs';
+import {
+  ReplaySubject,
+  Subject,
+  combineLatest,
+  map,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -15,17 +23,20 @@ export class ChangelogComponent {
       !version && this.store.get('PLAYER_AVATAR_ID') ? '0.0.0' : version
     ),
     switchMap((version) => this.api.getChangelog(version || undefined)),
-    tap((response) => this.store.set('LAST_VERSION', response.currentVersion)),
+    tap((response) => this._currentVersion$.next(response.currentVersion)),
     map((response) => response.changelog)
   );
 
-  public readonly changesMock$ = of([
-    {
-      date: '2024-03-16',
-      version: 'v0.0.0420',
-      text: '  —  добавили «Что у нас нового?»',
-    },
-  ]);
+  private readonly _currentVersion$ = new ReplaySubject<string>(2);
 
   constructor(private readonly api: ApiService, private store: StoreService) {}
+
+  public update(): void {
+    this._currentVersion$.subscribe({
+      next: (version: string) => {
+        this.store.set('LAST_VERSION', version);
+        window.location.reload();
+      },
+    });
+  }
 }

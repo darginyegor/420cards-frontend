@@ -3,7 +3,7 @@
     #changelogSheet
     *ngIf="changes?.length"
     [isOpen]="true"
-    [closeOnClickOutside]="true"
+    [closeOnClickOutside]="false"
   >
     <div class="l-stack-3xl">
       <div class="l-stack-m l-flex-middle">
@@ -18,11 +18,8 @@
           <div class="s-t-pre-wrap">{{ version.text }}</div>
         </div>
       </div>
-      <button
-        class="btn--secondary l-flex-center"
-        (click)="changelogSheet.close()"
-      >
-        Понятно
+      <button class="btn--primary l-flex-center" (click)="update()">
+        Понятно, обновляемся!
       </button>
     </div>
   </app-bottom-sheet>
